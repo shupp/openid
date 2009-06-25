@@ -24,6 +24,8 @@ if (isset($contents)) {
     <a href="./discovery.php">Discovery Example</a> 
         &nbsp | &nbsp 
     <a href="./relyingparty.php">Relying Party Example</a>
+        &nbsp | &nbsp 
+    <a href="./selector/demo.html">Relying Party Selector Example</a>
     </h3>
     </body>
 </html>
