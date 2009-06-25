@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>
+OpenID Provider 2.0 -- User's page
+</title>
+<link rel="openid2.provider" href="https://open.login.yahooapis.com/openid/op/auth">
+<link rel="openid.server" href="https://open.login.yahooapis.com/openid/op/1.1/auth">
+</head>
+<script>window.location.href='http://openid.yahoo.com';</script>
+<body>
+<p>
+The user's OpenID provider is 
+<a href="https://open.login.yahooapis.com/openid/op/auth">
+https://open.login.yahooapis.com/openid/op/auth</a>
+</p>
+</body>
+</html>
+<!-- oid03.member.sp1.yahoo.com compressed/chunked Wed Jan 28 23:15:11 PST 2009 -->
