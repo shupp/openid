@@ -25,16 +25,14 @@
 
 <body>
 
-<h2>JQuery Simple OpenID Selector Demo</h2>
-<p>This is a simple example to show how you can include the Javascript into your page.</p>
-<br/>
-
 <!-- Simple OpenID Selector -->
 <form action="../relyingparty.php" method="POST" id="openid_form">
 
 	<input id="start" name="start" type="hidden" value="submit" />
+	<input id="sreg" name="sreg" type="hidden" value="on" />
+	<input id="ax" name="ax" type="hidden" value="on" />
 	<fieldset>
-    		<legend>Sign-in or Create New Account</legend>
+    		<legend>Sign-in</legend>
     		
     		<div id="openid_choice">
 	    		<p>Please click your account provider:</p>
