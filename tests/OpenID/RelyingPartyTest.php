@@ -70,6 +70,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
 
         $opEndpoint = new OpenID_ServiceEndpoint;
         $opEndpoint->setURIs(array($this->opEndpointURL));
+        $opEndpoint->setVersion(OpenID::SERVICE_2_0_SERVER);
         $opEndpoints = new OpenID_ServiceEndpoints($this->id, $opEndpoint);
 
         $this->discover->expects($this->any())

@@ -145,7 +145,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
      */
     protected function xorSecret($pubKey, $secret, $algo)
     {
-        $this->opDH->computeSecretKey($publicKey, Crypt_DiffieHellman::BINARY);
+        $this->opDH->computeSecretKey($pubKey, Crypt_DiffieHellman::BINARY);
         $sharedSecret   = $this->opDH
                                 ->getSharedSecretKey(Crypt_DiffieHellman::BTWOC);
         $bytes          = mb_strlen(bin2hex($secret), '8bit') / 2;
@@ -175,6 +175,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
      */
     public function testGetResponse()
     {
+        $this->message->set('enc_mac_key', 'foo');
         $this->httpRequest->expects($this->any())
                           ->method('getResponseBody')
                           ->will($this->returnValue($this->message->getKVFormat()));
