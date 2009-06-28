@@ -239,7 +239,7 @@ class OpenID_Auth_Request
     }
 
     /**
-     * Adds a nonce to the openid.return_to URL parameter.  Only used in OpeniD 1.1
+     * Adds a nonce to the openid.return_to URL parameter.  Only used in OpenID 1.1
      * 
      * @return void
      */
@@ -251,6 +251,13 @@ class OpenID_Auth_Request
                                        urlencode($nonce));
 
         $this->message->set('openid.return_to', $returnToURL->getURL());
+
+        // Observing
+        $logMessage  = "Nonce: $nonce\n";
+        $logMessage  = 'New ReturnTo: ' . $returnToURL->getURL() . "\n";
+        $logMessage .= 'OP URIs: ' . print_r($this->serviceEndpoint->getURIs(),
+                                             true);
+        OpenID::setLastEvent(__METHOD__, $logMessage);
     }
 }
 ?>
