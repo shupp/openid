@@ -240,12 +240,18 @@ class OpenID_Assertion extends OpenID
             );
         }
 
-        $nonce = $qs[OpenID_Nonce::RETURN_TO_NONCE];
+        $nonce     = $qs[OpenID_Nonce::RETURN_TO_NONCE];
+        $identity  = $this->message->get('openid.identity');
+        $discover  = OpenID_Discover::getDiscover($identity, self::getStore());
+        $endPoint  = $discover->services[0];
+        $opURL     = array_shift($endPoint->getURIs());
+        $fromStore = self::getStore()->getNonce($nonce, $opURL);
 
-        $identity = $this->message->get('openid.identity');
-        $discover = OpenID_Discover::getDiscover($identity, self::getStore());
-        $endPoint = $discover->services[0];
-        $opURL    = array_shift($endPoint->getURIs());
+        // Observing
+        $logMessage  = "returnTo: $returnTo\n";
+        $logMessage .= 'OP URIs: ' . print_r($endPoint->getURIs(), true) . "\n";
+        $logMessage .= 'Nonce in storage?: ' . var_export($fromStore, true) . "\n";
+        OpenID::setLastEvent(__METHOD__, $logMessage);
 
         if (!self::getStore()->getNonce($nonce, $opURL)) {
             throw new OpenID_Assertion_Exception(
