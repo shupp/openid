@@ -23,10 +23,75 @@ require_once 'OpenID/Association/Request.php';
 require_once 'OpenID/Assertion.php';
 require_once 'OpenID/Assertion/Result.php';
 require_once 'OpenID/Auth/Request.php';
+require_once 'Net/URL2.php';
 
 /**
- * OpenID_RelyingParty 
+ * OpenID_RelyingParty implements all the steps required to verify a claim in two
+ * step interface: {@link prepare()} and {@link verify()}.
  * 
+ * prepare() sets up the request, which includes performing discovery on the 
+ * identifier, establishing an association with the OpenID Provider (optional), and 
+ * then building an {@link OpenID_Auth_Request} object.  With this object, you can 
+ * optionally add {@link OpenID_Extension}s, and then perform the request.
+ * 
+ * verify() takes a Net_URL2 object as an argument, which represents the URL that 
+ * the end user was redirected to after communicating with the the OpenID Provider.
+ * It processes the URL, and if it was a positive response from the OP, tries to 
+ * verify that assertion.
+ * 
+ * Example:
+ * <code>
+ * // First set up some things about your relying party:
+ * $realm    = 'http://examplerp.com';
+ * $returnTo = $realm . '/relyingparty.php';
+ *
+ * // Here is an example user supplied identifier
+ * $identifier = $_POST['identifier'];
+ *
+ * // You might want to store it in session for use in verify()
+ * $_SESSION['identifier'] = $identifier;
+ * 
+ * // Fire up the OpenID_RelyingParty object
+ * $rp = new OpenID_RelyingParty($identifier, $returnTo, $realm);
+ *
+ * // Here's an example of prepare() usage ...
+ * // First, grab your Auth_Request_Object
+ * $authRequest = $rp->prepare();
+ *
+ * // Then, optionally add an extension
+ *  $sreg = new OpenID_Extension_SREG11(OpenID_Extension::REQUEST);
+ *  $sreg->set('required', 'email');
+ *  $sreg->set('optional', 'nickname,gender,dob');
+ *
+ *  // You'll need to add it to OpenID_Auth_Request
+ *  $authRequest->addExtension($sreg);
+ * // Optionally get association (from cache in this example)
+ * 
+ * // Optionally make this a checkid_immediate request
+ * $auth->setMode(OpenID::MODE_CHECKID_IMMEDIATE);
+ * 
+ * // Send user to the OP
+ * header('Location: ' . $auth->getAuthorizeURL());
+ * exit;
+ *
+ *
+ *
+ *
+ * // Now, when they come back, you'll want to verify the claim ...
+ *
+ * // Assuming your $realm is the host which they came in to, build a Net_URL2 
+ * // object from this request:
+ * $request = new Net_URL2($realm . $_SERVER['REQUEST_URI']);
+ * 
+ * // Now verify:
+ * $result = $rp->verify($request);
+ * if ($result->success()) {
+ *     echo "success! :)";
+ * } else {
+ *     echo "failure :(";
+ * }
+ * </code>
+ *
  * @uses      OpenID
  * @category  Auth
  * @package   OpenID
@@ -169,13 +234,16 @@ class OpenID_RelyingParty extends OpenID
      * Verifies an assertion response from the OP.  If the openid.mode is error, an
      * exception is thrown.
      * 
-     * @param OpenID_Message $message The Assertion response from the OP
+     * @param OpenID_Message $message      The Assertion response from the OP
+     * @param Net_URL2       $requestedURL The requested URL as a Net_URL2 object
      * 
      * @throws OpenID_Exception on error or invalid openid.mode
      * @return OpenID_Assertion_Response
      */
-    public function verify(OpenID_Message $message)
+    public function verify(Net_URL2 $requestedURL)
     {
+        $message = new OpenID_Message($requestedURL->getQuery(),
+                                      OpenID_Message::FORMAT_HTTP);
         $mode   = $message->get('openid.mode');
         $result = new OpenID_Assertion_Result;
 
@@ -195,7 +263,8 @@ class OpenID_RelyingParty extends OpenID
         $discover        = $this->getDiscover();
         $serviceEndpoint = $discover->services[0];
         $opEndpointURL   = array_shift($serviceEndpoint->getURIs());
-        $assertion       = $this->getAssertionObject($message);
+        $assertion       = $this->getAssertionObject($message,
+                                                     $requestedURL->getURL());
 
         // Check via associations
         if ($this->useAssociations) {
@@ -290,15 +359,15 @@ class OpenID_RelyingParty extends OpenID
     /**
      * Gets an instance of OpenID_Assertion.  Abstracted for testing purposes.
      * 
-     * @param OpenID_Message $message The message passed to {link verify()}
+     * @param OpenID_Message $message The message passed to {@link verify()}
      * 
      * @see    verify()
      * @return OpenID_Assertion
      */
-    protected function getAssertionObject($message)
+    protected function getAssertionObject($message, $requestedURL)
     {
         return new OpenID_Assertion($message,
-                                    $this->returnTo,
+                                    $requestedURL,
                                     $this->clockSkew);
     }
 }

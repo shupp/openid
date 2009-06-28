@@ -41,10 +41,11 @@ if (!empty($_POST['disable_associations'])
     $_SESSION['disable_associations'] = true;
 }
 
+// $log = new OpenID_Observer_Log;
+// OpenID::attach($log);
+
 if (isset($_POST['start'])) {
 
-    // $log = new OpenID_Observer_Log;
-    // OpenID::attach($log);
 
     $_SESSION['identifier'] = $identifier;
     $authRequest            = $o->prepare();
@@ -128,7 +129,7 @@ if (isset($_POST['start'])) {
     $message = new OpenID_Message($queryString, OpenID_Message::FORMAT_HTTP);
     $id      = $message->get('openid.claimed_id');
     $mode    = $message->get('openid.mode');
-    $result  = $o->verify($message);
+    $result  = $o->verify(new Net_URL2($returnTo . '?' . $queryString));
 
     if ($result->success()) {
         $status  = "<tr><td>Status:</td><td><font color='green'>SUCCESS!";

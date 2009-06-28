@@ -28,6 +28,7 @@ require_once 'OpenID/Extension/AX.php';
 require_once 'OpenID/Extension/UI.php';
 require_once 'OpenID/Message.php';
 require_once 'OpenID/Observer/Log.php';
+require_once 'Net/URL2.php';
 
 session_start();
 

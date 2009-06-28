@@ -22,6 +22,7 @@ require_once 'OpenID/Association.php';
 require_once 'OpenID/Association/Request.php';
 require_once 'OpenID.php';
 require_once 'OpenID/Nonce.php';
+require_once 'Net/URL2.php';
 
 /**
  * OpenID_RelyingPartyTest 
@@ -248,6 +249,20 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Converts an OpenID_Message instance to a Net_URL2 instance based on 
+     * $this->returnTo.  This was added to ease the transition from the old
+     * verify() signature to the new one.
+     * 
+     * @param OpenID_Message $message Instance of OpenID_Message
+     * 
+     * @return Net_URL2
+     */
+    protected function messageToNetURL2(OpenID_Message $message)
+    {
+        return new Net_URL2($this->returnTo . '?' . $message->getHTTPFormat());
+    }
+
+    /**
      * testVerifyCancel 
      * 
      * @return void
@@ -257,7 +272,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message = new OpenID_Message();
         $message->set('openid.mode', OpenID::MODE_CANCEL);
 
-        $result = $this->rp->verify($message);
+        $result = $this->rp->verify($this->messageToNetURL2($message));
         $this->assertType('OpenID_Assertion_Result', $result);
         $this->assertFalse($result->success());
         $this->assertSame(OpenID::MODE_CANCEL, $result->getAssertionMethod());
@@ -274,7 +289,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message = new OpenID_Message();
         $message->set('openid.mode', OpenID::MODE_ERROR);
 
-        $result = $this->rp->verify($message);
+        $result = $this->rp->verify($this->messageToNetURL2($message));
     }
 
     /**
@@ -288,7 +303,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message = new OpenID_Message();
         $message->set('openid.mode', 'foo');
 
-        $result = $this->rp->verify($message);
+        $result = $this->rp->verify($this->messageToNetURL2($message));
     }
 
     /**
@@ -323,7 +338,8 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message->set('openid.response_nonce', $nonce);
 
 
-        $this->assertType('OpenID_Assertion_Result', $this->rp->verify($message));
+        $this->assertType('OpenID_Assertion_Result',
+                          $this->rp->verify($this->messageToNetURL2($message)));
     }
 
     /**
@@ -368,7 +384,8 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
                  ->method('getAssertionObject')
                  ->will($this->returnValue($assertion));
 
-        $this->assertType('OpenID_Assertion_Result', $this->rp->verify($message));
+        $this->assertType('OpenID_Assertion_Result',
+                          $this->rp->verify($this->messageToNetURL2($message)));
     }
 
     /**
