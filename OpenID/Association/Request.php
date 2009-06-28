@@ -94,7 +94,7 @@ class OpenID_Association_Request extends OpenID_Association_Common
                 'Invalid version'
             );
         }
-        $this->version       = $version.
+        $this->version       = $version;
         $this->opEndpointURL = $opEndpointURL;
         $this->message       = new OpenID_Message;
 
