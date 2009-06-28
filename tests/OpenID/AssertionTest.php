@@ -42,6 +42,7 @@ class OpenID_AssertionTest extends PHPUnit_Framework_TestCase
     protected $store         = null;
     protected $discover      = null;
     protected $assertion     = null;
+    protected $clockSkew     = 600;
 
     /**
      * setUp 

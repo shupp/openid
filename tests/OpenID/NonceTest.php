@@ -93,7 +93,7 @@ class OpenID_NonceTest extends PHPUnit_Framework_TestCase
         $store->expects($this->any())
               ->method('getNonce')
               ->will($this->returnValue(false));
-        $nonce = gmstrftime('%Y-%m-%dT%H:%M:%SZ', time()). '12345abcde';
+        $nonce = gmstrftime('%Y-%m-%dT%H:%M:%SZ', time()) . '12345abcde';
         $this->assertTrue($this->nonce->verifyResponseNonce($nonce));
     }
 

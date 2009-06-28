@@ -120,11 +120,10 @@ class OpenID_Nonce
                           $matches[3],
                           $matches[1]);
 
-        if ($stamp === false || $stamp < 0) {
-            return false;
-        }
+        $time = time();
+        if ($stamp < ($time - $this->clockSkew)
+            || $stamp > ($time + $this->clockSkew)) {
 
-        if ($stamp < (time() - $this->clockSkew)) {
             return false;
         }
 
