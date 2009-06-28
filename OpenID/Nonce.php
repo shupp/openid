@@ -55,9 +55,9 @@ class OpenID_Nonce
      * Sets the OP endpoint URL, and optionally the clock skew and custom storage 
      * driver.
      * 
-     * @param string                 $opEndpointURL OP Endpoint URL
-     * @param int                    $clockSkew     How many seconds old can a 
-     *                                              nonce be?
+     * @param string $opEndpointURL OP Endpoint URL
+     * @param int    $clockSkew     How many seconds old can a 
+     *                              nonce be?
      * 
      * @return void
      */
