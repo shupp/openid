@@ -153,14 +153,13 @@ class OpenID_Assertion extends OpenID
         }
 
         foreach ($queryString1 as $param => $value) {
-            if (isset($queryString2[$param])
-                && $queryString2[$param] == $value) {
+            if (!isset($queryString2[$param])
+                || $queryString2[$param] != $value) {
 
-                continue;
+                throw new OpenID_Assertion_Exception(
+                    'openid.return_to parameters do not match requested url'
+                );
             }
-            throw new OpenID_Assertion_Exception(
-                'openid.return_to parameters do not match requested url'
-            );
         }
     }
 
