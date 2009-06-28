@@ -46,6 +46,8 @@ abstract class OpenID_Observer_Common
      */
     protected $events = array(
         'OpenID_Association_Request::sendAssociationRequest',
+        'OpenID_Assertion::validateReturnToNonce',
+        'OpenID_Auth_Request::addNonce',
     );
 
     /**
