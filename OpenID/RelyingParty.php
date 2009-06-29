@@ -249,6 +249,8 @@ class OpenID_RelyingParty extends OpenID
         $mode    = $message->get('openid.mode');
         $result  = new OpenID_Assertion_Result;
 
+        OpenID::setLastEvent(__METHOD__, print_r($message->getArrayFormat(), true));
+
         switch ($mode) {
         case OpenID::MODE_ID_RES:
             break;

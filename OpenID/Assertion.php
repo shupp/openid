@@ -125,6 +125,8 @@ class OpenID_Assertion extends OpenID
     protected function validateReturnTo()
     {
         $returnTo = $this->message->get('openid.return_to');
+        OpenID::setLastEvent(__METHOD__,
+                             'openid.return_to: ' . var_export($returnTo, true));
 
         // Validate openid.return_to
         if (!Validate::uri($returnTo)) {
