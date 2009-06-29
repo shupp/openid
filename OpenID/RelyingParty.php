@@ -26,18 +26,20 @@ require_once 'OpenID/Auth/Request.php';
 require_once 'Net/URL2.php';
 
 /**
+ * OpenID_RelyingParty
+ *
  * OpenID_RelyingParty implements all the steps required to verify a claim in two
- * step interface: {@link prepare()} and {@link verify()}.
+ * step interface: {@link prepare() prepare} and {@link verify() verify}.
  * 
- * prepare() sets up the request, which includes performing discovery on the 
- * identifier, establishing an association with the OpenID Provider (optional), and 
- * then building an {@link OpenID_Auth_Request} object.  With this object, you can 
- * optionally add {@link OpenID_Extension}s, and then perform the request.
+ * {@link prepare() prepare} sets up the request, which includes performing 
+ * discovery on the identifier, establishing an association with the OpenID Provider
+ * (optional), and then building an OpenID_Auth_Request object.  With this object, 
+ * you can optionally add OpenID_Extension(s), and then perform the request.
  * 
- * verify() takes a Net_URL2 object as an argument, which represents the URL that 
- * the end user was redirected to after communicating with the the OpenID Provider.
- * It processes the URL, and if it was a positive response from the OP, tries to 
- * verify that assertion.
+ * {@link verify() verify} takes a Net_URL2 object as an argument, which represents 
+ * the URL that the end user was redirected to after communicating with the the 
+ * OpenID Provider.  It processes the URL, and if it was a positive response from 
+ * the OP, tries to verify that assertion.
  * 
  * Example:
  * <code>
@@ -234,8 +236,8 @@ class OpenID_RelyingParty extends OpenID
      * Verifies an assertion response from the OP.  If the openid.mode is error, an
      * exception is thrown.
      * 
-     * @param OpenID_Message $message      The Assertion response from the OP
-     * @param Net_URL2       $requestedURL The requested URL as a Net_URL2 object
+     * @param Net_URL2 $requestedURL The requested URL (that the user was directed to
+     *                               by the OP) as a Net_URL2 object
      * 
      * @throws OpenID_Exception on error or invalid openid.mode
      * @return OpenID_Assertion_Response
@@ -244,8 +246,8 @@ class OpenID_RelyingParty extends OpenID
     {
         $message = new OpenID_Message($requestedURL->getQuery(),
                                       OpenID_Message::FORMAT_HTTP);
-        $mode   = $message->get('openid.mode');
-        $result = new OpenID_Assertion_Result;
+        $mode    = $message->get('openid.mode');
+        $result  = new OpenID_Assertion_Result;
 
         switch ($mode) {
         case OpenID::MODE_ID_RES:
@@ -359,7 +361,8 @@ class OpenID_RelyingParty extends OpenID
     /**
      * Gets an instance of OpenID_Assertion.  Abstracted for testing purposes.
      * 
-     * @param OpenID_Message $message The message passed to {@link verify()}
+     * @param OpenID_Message $message      The message passed to verify()
+     * @param string         $requestedURL The URL requested (redirect from OP)
      * 
      * @see    verify()
      * @return OpenID_Assertion
