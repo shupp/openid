@@ -105,5 +105,17 @@ class OpenID_Assertion_ResultTest extends PHPUnit_Framework_TestCase
     {
         $this->result->setAssertionMethod('foo');
     }
+
+    /**
+     * testSetGetUserSetupURL 
+     * 
+     * @return void
+     */
+    public function testSetGetUserSetupURL()
+    {
+        $url = 'http://example.com';
+        $this->result->setUserSetupURL($url);
+        $this->assertSame($url, $this->result->getUserSetupURL());
+    }
 }
 ?>

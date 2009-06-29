@@ -121,6 +121,50 @@ class OpenID_AssertionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * testValidateReturnToOneOneImmediateNegative 
+     * 
+     * @return void
+     */
+    public function testValidateReturnToOneOneImmediateNegative()
+    {
+        $opEndpoint = new OpenID_ServiceEndpoint;
+        $opEndpoint->setURIs(array($this->opEndpointURL));
+        $opEndpoints = new OpenID_ServiceEndpoints($this->claimedID, $opEndpoint);
+
+        $nonce      = new OpenID_Nonce($this->opEndpointURL);
+        $nonceValue = $nonce->createNonce();
+
+        $rt = new Net_URL2('http://examplerp.com');
+        $rt->setQueryVariable(OpenID_Nonce::RETURN_TO_NONCE, $nonceValue);
+
+        $setupMessage = new OpenID_Message();
+        $setupMessage->set('openid.identity', $this->claimedID);
+        $setupMessage->set('openid.return_to', $rt->getURL());
+        $setupMessage->set(OpenID_Nonce::RETURN_TO_NONCE, $nonceValue);
+
+        $this->message = new OpenID_Message();
+        $this->message->set('openid.mode', OpenID::MODE_ID_RES);
+        $this->message->set(OpenID_Nonce::RETURN_TO_NONCE, $nonceValue);
+        $this->message->set('openid.user_setup_url',
+                          'http://examplerp.com/?' . $setupMessage->getHTTPFormat());
+
+        $this->discover = $this->getMock('OpenID_Discover',
+                                         array('__get'),
+                                         array($this->claimedID));
+        $this->discover->expects($this->once())
+                       ->method('__get')
+                       ->will($this->returnValue($opEndpoints));
+
+        $this->store->expects($this->once())
+                    ->method('getDiscover')
+                    ->will($this->returnValue($this->discover));
+        $this->store->expects($this->any())
+                    ->method('getNonce')
+                    ->will($this->returnValue($nonceValue));
+        $this->createObjects();
+    }
+
+    /**
      * testValidateReturnToWithQueryStringParameters 
      * 
      * @return void

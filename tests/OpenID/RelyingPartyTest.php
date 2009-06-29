@@ -279,6 +279,25 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * testVerifyOneOneImmediateFail 
+     * 
+     * @return void
+     */
+    public function testVerifyOneOneImmediateFail()
+    {
+        $url     = 'http://examplerp.com/';
+        $message = new OpenID_Message();
+        $message->set('openid.mode', OpenID::MODE_ID_RES);
+        $message->set('openid.user_setup_url', $url);
+
+        $result = $this->rp->verify($this->messageToNetURL2($message));
+        $this->assertType('OpenID_Assertion_Result', $result);
+        $this->assertFalse($result->success());
+        $this->assertSame(OpenID::MODE_ID_RES, $result->getAssertionMethod());
+        $this->assertSame($url, $result->getUserSetupURL());
+    }
+
+    /**
      * testVerifyError 
      * 
      * @expectedException OpenID_Exception

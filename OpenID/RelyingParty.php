@@ -253,6 +253,14 @@ class OpenID_RelyingParty extends OpenID
 
         switch ($mode) {
         case OpenID::MODE_ID_RES:
+            if ($message->get('openid.ns') === null
+                && $message->get('openid.user_setup_url') !== null) {
+
+                // Negative 1.1 checkid_immediate response
+                $result->setAssertionMethod($mode);
+                $result->setUserSetupURL($message->get('openid.user_setup_url'));
+                return $result;
+            }
             break;
         case OpenID::MODE_CANCEL:
         case OpenID::MODE_SETUP_NEEDED:

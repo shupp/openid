@@ -38,6 +38,14 @@ class OpenID_Assertion_Result
     protected $checkAuthResponse = null;
 
     /**
+     * The value of openid.user_setup_url, which is returned on a 1.1 negative 
+     * response to a checkid_immediate request
+     * 
+     * @var string
+     */
+    protected $userSetupURL = null;
+
+    /**
      * What assertion method was used (association, check_authentication)
      * 
      * @var string
@@ -119,6 +127,7 @@ class OpenID_Assertion_Result
     public function setAssertionMethod($method)
     {
         switch ($method) {
+        case OpenID::MODE_ID_RES:
         case OpenID::MODE_ASSOCIATE:
         case OpenID::MODE_CHECKID_SETUP:
         case OpenID::MODE_CHECKID_IMMEDIATE:
@@ -130,6 +139,28 @@ class OpenID_Assertion_Result
         default:
             throw new OpenID_Assertion_Exception('Invalid assertion method');
         }
+    }
+
+    /**
+     * Sets the openid.user_setup_url from the OP negative response
+     * 
+     * @param string $url The URL from openid.user_setup_url
+     * 
+     * @return void
+     */
+    public function setUserSetupURL($url)
+    {
+        $this->userSetupURL = $url;
+    }
+
+    /**
+     * Returns the openid.user_setup_url value from the response
+     * 
+     * @return string
+     */
+    public function getUserSetupURL()
+    {
+        return $this->userSetupURL;
     }
 }
 ?>

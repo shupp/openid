@@ -76,7 +76,13 @@ class OpenID_Assertion extends OpenID
         $this->requestedURL = $requestedURL;
         $this->clockSkew    = $clockSkew;
 
-        $this->validateReturnTo();
+        // Don't check return_to for a negative checkid_immadiate 1.1 response
+        if ($message->get('openid.ns') !== null
+            || $message->get('openid.user_setup_url') === null) {
+
+            $this->validateReturnTo();
+        }
+
         if ($message->get('openid.ns') !== null) {
             $this->validateDiscover();
             $this->validateNonce();
@@ -234,16 +240,25 @@ class OpenID_Assertion extends OpenID
     protected function validateReturnToNonce()
     {
         $returnTo = $this->message->get('openid.return_to');
-        $netURL   = new Net_URL2($returnTo);
-        $qs       = $netURL->getQueryVariables();
+        if ($returnTo === null) {
+            // Must be a checkid_immediate negative assertion.
+            $rtURL2   = new Net_URL2($this->message->get('openid.user_setup_url'));
+            $rtqs     = $rtURL2->getQueryVariables();
+            $returnTo = $rtqs['openid.return_to'];
+            $identity = $rtqs['openid.identity'];
+        }
+        $netURL = new Net_URL2($returnTo);
+        $qs     = $netURL->getQueryVariables();
         if (!array_key_exists(OpenID_Nonce::RETURN_TO_NONCE, $qs)) {
             throw new OpenID_Assertion_Exception(
                 'Missing OpenID 1.1 return_to nonce'
             );
         }
 
+        if (!isset($identity)) {
+            $identity = $this->message->get('openid.identity');
+        }
         $nonce     = $qs[OpenID_Nonce::RETURN_TO_NONCE];
-        $identity  = $this->message->get('openid.identity');
         $discover  = OpenID_Discover::getDiscover($identity, self::getStore());
         $endPoint  = $discover->services[0];
         $opURL     = array_shift($endPoint->getURIs());
