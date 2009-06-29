@@ -225,7 +225,7 @@ class OpenID_AssertionTest extends PHPUnit_Framework_TestCase
         $this->store->expects($this->once())
                     ->method('getDiscover')
                     ->will($this->returnValue($this->discover));
-        $this->store->expects($this->once())
+        $this->store->expects($this->any())
                     ->method('getNonce')
                     ->will($this->returnValue($rtnonce));
 
@@ -266,7 +266,7 @@ class OpenID_AssertionTest extends PHPUnit_Framework_TestCase
         $this->store->expects($this->once())
                     ->method('getDiscover')
                     ->will($this->returnValue($this->discover));
-        $this->store->expects($this->once())
+        $this->store->expects($this->any())
                     ->method('getNonce')
                     ->will($this->returnValue(false));
 
