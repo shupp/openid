@@ -417,7 +417,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
 
         $rp = new OpenID_RelyingParty_Mock($this->id, $this->returnTo, $this->realm);
         $this->assertType('OpenID_Assertion',
-                          $rp->returnGetAssertionObject($message));
+                          $rp->returnGetAssertionObject($message, $this->returnTo));
     }
 }
 ?>

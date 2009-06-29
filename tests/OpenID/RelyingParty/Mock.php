@@ -46,13 +46,14 @@ class OpenID_RelyingParty_Mock extends OpenID_RelyingParty
      * Just returns an OpenID_Assertion object, as instantiated by
      * getAssertionObject().  This is just for testing it.
      * 
-     * @param OpenID_Message $message The message passed to {link verify()}
+     * @param OpenID_Message $message      The message passed to {link verify()}
+     * @param string         $requestedURL The requested URL
      * 
      * @return OpenID_Assertion
      */
-    public function returnGetAssertionObject(OpenID_Message $message)
+    public function returnGetAssertionObject(OpenID_Message $message, $requestedURL)
     {
-        return $this->getAssertionObject($message);
+        return $this->getAssertionObject($message, $requestedURL);
     }
 }
 ?>
