@@ -1,19 +1,65 @@
 <?php
+/**
+ * OpenID_Discover_HTML
+ * 
+ * PHP Version 5.2.0+
+ * 
+ * @category  Auth
+ * @package   OpenID
+ * @uses      OpenID_Discover
+ * @uses      OpenID_Discover_Interface
+ * @author    Rich Schumacher <rich.schu@gmail.com>
+ * @copyright 2009 Rich Schumacher
+ * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
+ * @link      http://pearopenid.googlecode.com
+ */
 
 require_once 'OpenID/Discover.php';
 require_once 'OpenID/Discover/Interface.php';
 require_once 'OpenID/ServiceEndpoint.php';
 require_once 'OpenID/ServiceEndpoints.php';
 
-class OpenID_Discover_HTML extends OpenID_Discover implements OpenID_Discover_Interface
+/**
+ * Implements HTML discovery
+ * 
+ * @category  Auth
+ * @package   OpenID
+ * @uses      OpenID_Discover
+ * @uses      OpenID_Discover_Interface
+ * @author    Rich Schumacher <rich.schu@gmail.com>
+ * @copyright 2009 Rich Schumacher
+ * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
+ * @link      http://pearopenid.googlecode.com
+ */
+class OpenID_Discover_HTML
+extends OpenID_Discover
+implements OpenID_Discover_Interface
 {
+    /**
+     * The normalized identifier
+     * 
+     * @var string
+     */
     protected $identifier = null;
 
+    /**
+     * Constructor.  Sets the 
+     * 
+     * @param mixed $identifier The user supplied identifier
+     * 
+     * @return void
+     */
     public function __construct($identifier)
     {
         $this->identifier = $identifier;
     }
 
+    /**
+     * Performs HTML discovery.
+     * 
+     * @throws OpenID_Discover_Exception on error
+     * @return OpenID_ServiceEndpoints
+     */
     public function discover()
     {
         $response = $this->sendRequest();
@@ -33,7 +79,7 @@ class OpenID_Discover_HTML extends OpenID_Discover implements OpenID_Discover_In
         );
 
         foreach ($links as $link) {
-            $rels  = explode(' ', $link->getAttribute('rel'));
+            $rels = explode(' ', $link->getAttribute('rel'));
             foreach ($rels as $rel) {
                 if (array_key_exists($rel, $results)) {
                     $results[$rel][] = $link->getAttribute('href');
@@ -44,7 +90,14 @@ class OpenID_Discover_HTML extends OpenID_Discover implements OpenID_Discover_In
         return $this->buildServiceEndpoint($results);
     }
 
-    private function buildServiceEndpoint(array $results)
+    /**
+     * Builds the service endpoint
+     * 
+     * @param array $results Array of items discovered via HTML
+     * 
+     * @return OpenID_ServiceEndpoints
+     */
+    protected function buildServiceEndpoint(array $results)
     {
         if (count($results['openid2.provider'])) {
             if (count($results['openid2.local_id'])) {
@@ -79,9 +132,14 @@ class OpenID_Discover_HTML extends OpenID_Discover implements OpenID_Discover_In
         return new OpenID_ServiceEndpoints($this->identifier, $opEndpoint);
     }
 
-    private function sendRequest()
+    /**
+     * Sends the request via HTTP_Request
+     * 
+     * @return string The HTTP response
+     */
+    protected function sendRequest()
     {
-        $request  = new HTTP_Request($this->identifier, $this->requestOptions);
+        $request = new HTTP_Request($this->identifier, $this->requestOptions);
         $request->sendRequest();
         $response = $request->getResponseBody();
 

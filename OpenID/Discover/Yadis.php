@@ -1,14 +1,56 @@
 <?php
+/**
+ * OpenID_Discover_Yadis
+ * 
+ * PHP Version 5.2.0+
+ * 
+ * @category  Auth
+ * @package   OpenID
+ * @uses      OpenID_Discover_Interface
+ * @uses      OpenID_Discover
+ * @author    Rich Schumacher <rich.schu@gmail.com>
+ * @copyright 2009 Rich Schumacher
+ * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
+ * @link      http://pearopenid.googlecode.com
+ */
 
 require_once 'OpenID/Discover.php';
 require_once 'OpenID/Discover/Interface.php';
 require_once 'OpenID/ServiceEndpoint.php';
 require_once 'OpenID/ServiceEndpoints.php';
 
-class OpenID_Discover_Yadis extends OpenID_Discover implements OpenID_Discover_Interface
+/**
+ * Implements YADIS discovery
+ * 
+ * @category  Auth
+ * @package   OpenID
+ * @uses      OpenID_Discover_Interface
+ * @uses      OpenID_Discover
+ * @author    Rich Schumacher <rich.schu@gmail.com>
+ * @copyright 2009 Rich Schumacher
+ * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
+ * @link      http://pearopenid.googlecode.com
+ * @see       Services_Yadis
+ */
+class OpenID_Discover_Yadis
+extends OpenID_Discover
+implements OpenID_Discover_Interface
 {
+    /**
+     * The Services_Yadis instance
+     * 
+     * @var Services_Yadis
+     */
     protected $yadis = null;
 
+    /**
+     * Constructor.  Instantiates Services_Yadis, sets the openid namespace, and 
+     * sets the HTTP_Request options.
+     * 
+     * @param string $identifier The user supplied and normalized identifier.
+     * 
+     * @return void
+     */
     public function __construct($identifier)
     {
         $this->yadis = new Services_Yadis($identifier);
@@ -16,6 +58,12 @@ class OpenID_Discover_Yadis extends OpenID_Discover implements OpenID_Discover_I
         $this->yadis->addNamespace('openid', 'http://openid.net/xmlns/1.0');
     }
 
+    /**
+     * Performs YADIS discovery
+     * 
+     * @throws OpenID_Discover_Exception on error
+     * @return OpenID_ServiceEndpoints
+     */
     public function discover()
     {
         try {
