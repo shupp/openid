@@ -135,7 +135,7 @@ class OpenID_Discover
 
         foreach (self::$discoveryOrder as $service) {
             try {
-                $discover = self::factory($service, $this->_identifier);
+                $discover = self::_factory($service, $this->_identifier);
                 $result   = $discover->discover();
             } catch (OpenID_Discover_Exception $e) {
                 continue;
@@ -161,7 +161,7 @@ class OpenID_Discover
      * 
      * @return void
      */
-    static private function factory($discoverType, $identifier)
+    static private function _factory($discoverType, $identifier)
     {
         $file  = 'OpenID/Discover/' . $discoverType . '.php';
         $class = 'OpenID_Discover_' . $discoverType;
