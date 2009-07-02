@@ -14,6 +14,9 @@
  * @link      http://pearopenid.googlecode.com
  */
 
+/**
+ * Required files
+ */
 require_once 'OpenID/Discover.php';
 require_once 'OpenID/Discover/Interface.php';
 require_once 'OpenID/ServiceEndpoint.php';
