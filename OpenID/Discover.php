@@ -135,7 +135,7 @@ class OpenID_Discover
 
         foreach (self::$discoveryOrder as $service) {
             try {
-                $discover = self::_factory($service, $this->_identifier);
+                $discover = self::_factory($service, $this->identifier);
                 $result   = $discover->discover();
             } catch (OpenID_Discover_Exception $e) {
                 continue;
