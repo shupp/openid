@@ -23,11 +23,36 @@ require_once 'OpenID/ServiceEndpoints.php';
 require_once 'OpenID/Discover/Exception.php';
 
 /**
- * OpenID_Discover 
+ * OpenID_Discover
+ *
+ * Implements OpenID discovery ({@link 
+ * http://openid.net/specs/openid-authentication-2_0.html#discovery 7.3} of the 2.0
+ * spec).  Discovery is driver based, and currently supports YADIS discovery
+ * (via Services_Yadis), and HTML discovery ({@link OpenID_Discover_HTML}).  Once 
+ * completed, it will also support {@link 
+ * http://www.hueniverse.com/hueniverse/2009/03/the-discovery-protocol-stack.html 
+ * XRD/LRDD}.
+ * 
+ * Example usage for determining the OP Endpoint URL:
+ * <code>
+ * $id = 'http://user.example.com';
+ * 
+ * $discover = new OpenID_Discover($id);
+ * $result   = $discover->discover();
+ * 
+ * if (!$result) {
+ *     echo "Discovery failed\n";
+ * } else {
+ *     // Grab the highest priority service, and get it's first URI.
+ *     $endpoint      = $discover->services[0];
+ *     $opEndpointURL = array_shift($serviceEndpoint->getURIs());
+ * }
+ * </code>
  * 
  * @category  Auth
  * @package   OpenID
  * @author    Bill Shupp <hostmaster@shupp.org> 
+ * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Bill Shupp
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
  * @link      http://pearopenid.googlecode.com
