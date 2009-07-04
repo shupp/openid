@@ -166,13 +166,10 @@ class OpenID_Discover
                 continue;
             }
 
-            if ($result === false || !isset($result[0])) {
-                continue;
+            if ($result instanceof OpenID_ServiceEndpoints && isset($result[0])) {
+                $this->services = $result;
+                return true;
             }
-
-            $this->services = $result;
-
-            return true;
         }
 
         return false;
