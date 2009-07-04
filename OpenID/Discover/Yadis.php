@@ -56,9 +56,7 @@ implements OpenID_Discover_Interface
      */
     public function __construct($identifier)
     {
-        $this->yadis = new Services_Yadis($identifier);
-        $this->yadis->setHttpRequestOptions($this->requestOptions);
-        $this->yadis->addNamespace('openid', 'http://openid.net/xmlns/1.0');
+        $this->yadis = $this->getServicesYadis($identifier);
     }
 
     /**
@@ -118,6 +116,22 @@ implements OpenID_Discover_Interface
                 'No response from identifier'
             );
         }
+    }
+
+    /**
+     * Gets the Services_Yadis instance.  Abstracted for testing.
+     * 
+     * @param string $identifier The user supplied identifier
+     * 
+     * @return Services_Yadis
+     */
+    protected function getServicesYadis($identifier)
+    {
+        $yadis = new Services_Yadis($identifier);
+        $yadis->setHttpRequestOptions($this->requestOptions);
+        $yadis->addNamespace('openid', 'http://openid.net/xmlns/1.0');
+
+        return $yadis;
     }
 }
 
