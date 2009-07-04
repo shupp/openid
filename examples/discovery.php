@@ -30,7 +30,7 @@ function getServiceContent($identifier, $skipcache)
     $content = null;
 
     if (!$skipcache) {
-        $store = OpenID_Store::factory();
+        $store = OpenID_Store::getStore();
         $d     = $store->getDiscover($identifier);
         if ($d === false) {
             $d = new OpenID_Discover($identifier);
