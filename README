@@ -1,5 +1,0 @@
-This is a prototype for PEAR OpenID.  There are two required supporting
-packages, Services_Yadis and Crypt_DiffieHellman.  You can install them
-like so:
-
-pear install -a Crypt_DiffieHellman-beta Services_Yadis-beta

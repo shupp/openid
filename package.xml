@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>OpenID</name>
+ <channel>pear.php.net</channel>
+ <summary>PHP implementation of OpenID 1.1 and 2.0</summary>
+ <description>OpenID is a free and easy way to use a single digital identity across the Internet. See http://openid.net for details.</description>
+ <lead>
+  <name>Bill Shupp</name>
+  <user>shupp</user>
+  <email>shupp@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Rich Schumacher</name>
+  <user>richid</user>
+  <email>rich.schu@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-07-04</date>
+ <time>23:50:22</time>
+ <version>
+  <release>0.0.1</release>
+  <api>0.0.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+ <notes>
+Initial release
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="examples">
+    <dir name="common">
+     <file name="config.php" role="doc" />
+     <file name="discover_form.php" role="doc" />
+     <file name="rp_form.php" role="doc" />
+     <file name="wrapper.php" role="doc" />
+    </dir> <!-- /examples/common -->
+    <dir name="selector">
+     <dir name="css">
+      <file name="openid.css" role="doc" />
+     </dir> <!-- /examples/selector/css -->
+     <dir name="images">
+      <file name="aol.gif" role="doc" />
+      <file name="blogger.ico" role="doc" />
+      <file name="claimid.ico" role="doc" />
+      <file name="facebook.gif" role="doc" />
+      <file name="flickr.ico" role="doc" />
+      <file name="google.gif" role="doc" />
+      <file name="livejournal.ico" role="doc" />
+      <file name="myopenid.ico" role="doc" />
+      <file name="openid-inputicon.gif" role="doc" />
+      <file name="openid.gif" role="doc" />
+      <file name="technorati.ico" role="doc" />
+      <file name="verisign.ico" role="doc" />
+      <file name="wordpress.ico" role="doc" />
+      <file name="yahoo.gif" role="doc" />
+     </dir> <!-- /examples/selector/images -->
+     <dir name="js">
+      <file name="jquery-1.2.6.min.js" role="doc" />
+      <file name="openid-jquery.js" role="doc" />
+     </dir> <!-- /examples/selector/js -->
+     <file name="demo.html" role="doc" />
+    </dir> <!-- /examples/selector -->
+    <file name="discovery.php" role="doc" />
+    <file name="index.php" role="doc" />
+    <file name="relyingparty.php" role="doc" />
+   </dir> <!-- /examples -->
+   <dir name="OpenID">
+    <dir name="Assertion">
+     <dir name="Exception">
+      <file name="NoClaimedID.php" role="php" />
+     </dir> <!-- /OpenID/Assertion/Exception -->
+     <file name="Exception.php" role="php" />
+     <file name="Result.php" role="php" />
+    </dir> <!-- /OpenID/Assertion -->
+    <dir name="Association">
+     <file name="Common.php" role="php" />
+     <file name="Exception.php" role="php" />
+     <file name="Request.php" role="php" />
+    </dir> <!-- /OpenID/Association -->
+    <dir name="Auth">
+     <file name="Exception.php" role="php" />
+     <file name="Request.php" role="php" />
+    </dir> <!-- /OpenID/Auth -->
+    <dir name="Discover">
+     <file name="Exception.php" role="php" />
+     <file name="HTML.php" role="php" />
+     <file name="Interface.php" role="php" />
+     <file name="Yadis.php" role="php" />
+    </dir> <!-- /OpenID/Discover -->
+    <dir name="Extension">
+     <file name="AX.php" role="php" />
+     <file name="Exception.php" role="php" />
+     <file name="SREG10.php" role="php" />
+     <file name="SREG11.php" role="php" />
+     <file name="UI.php" role="php" />
+    </dir> <!-- /OpenID/Extension -->
+    <dir name="Message">
+     <file name="Exception.php" role="php" />
+    </dir> <!-- /OpenID/Message -->
+    <dir name="Observer">
+     <file name="Common.php" role="php" />
+     <file name="Log.php" role="php" />
+    </dir> <!-- /OpenID/Observer -->
+    <dir name="Store">
+     <file name="CacheLite.php" role="php" />
+     <file name="Exception.php" role="php" />
+     <file name="Interface.php" role="php" />
+     <file name="MDB2.php" role="php" />
+    </dir> <!-- /OpenID/Store -->
+    <file name="Assertion.php" role="php" />
+    <file name="Association.php" role="php" />
+    <file name="Discover.php" role="php" />
+    <file name="Exception.php" role="php" />
+    <file name="Extension.php" role="php" />
+    <file name="Message.php" role="php" />
+    <file name="Nonce.php" role="php" />
+    <file name="RelyingParty.php" role="php" />
+    <file name="ServiceEndpoint.php" role="php" />
+    <file name="ServiceEndpoints.php" role="php" />
+    <file name="Store.php" role="php" />
+   </dir> <!-- /OpenID -->
+   <dir name="tests">
+    <dir name="OpenID">
+     <dir name="Assertion">
+      <file name="ResultTest.php" role="test" />
+     </dir> <!-- /tests/OpenID/Assertion -->
+     <dir name="Association">
+      <file name="RequestTest.php" role="test" />
+     </dir> <!-- /tests/OpenID/Association -->
+     <dir name="Auth">
+      <file name="RequestTest.php" role="test" />
+     </dir> <!-- /tests/OpenID/Auth -->
+     <dir name="Discover">
+      <file name="Mock.php" role="test" />
+      <file name="MockFail.php" role="test" />
+      <file name="MockNoClass.php" role="test" />
+      <file name="MockNoInterface.php" role="test" />
+      <file name="MockYadis.php" role="test" />
+      <file name="MockYadisTest.php" role="test" />
+     </dir> <!-- /tests/OpenID/Discover -->
+     <dir name="Extension">
+      <file name="AXTest.php" role="test" />
+      <file name="Mock.php" role="test" />
+      <file name="MockInvalidAlias.php" role="test" />
+      <file name="MockNoResponseKeys.php" role="test" />
+      <file name="SREGTest.php" role="test" />
+      <file name="UITest.php" role="test" />
+     </dir> <!-- /tests/OpenID/Extension -->
+     <dir name="Observer">
+      <file name="LogTest.php" role="test" />
+      <file name="Mock.php" role="test" />
+     </dir> <!-- /tests/OpenID/Observer -->
+     <dir name="RelyingParty">
+      <file name="Mock.php" role="test" />
+     </dir> <!-- /tests/OpenID/RelyingParty -->
+     <dir name="Store">
+      <file name="Mock.php" role="test" />
+      <file name="NoClass.php" role="test" />
+      <file name="NotInterface.php" role="test" />
+     </dir> <!-- /tests/OpenID/Store -->
+     <file name="AllTests.php" role="test" />
+     <file name="AssertionTest.php" role="test" />
+     <file name="AssociationTest.php" role="test" />
+     <file name="DiscoverTest.php" role="test" />
+     <file name="ExtensionTest.php" role="test" />
+     <file name="MessageTest.php" role="test" />
+     <file name="NonceTest.php" role="test" />
+     <file name="RelyingPartyTest.php" role="test" />
+     <file name="ServiceEndpointsTest.php" role="test" />
+     <file name="ServiceEndpointTest.php" role="test" />
+     <file name="StoreTest.php" role="test" />
+    </dir> <!-- /tests/OpenID -->
+    <file name="OpenIDTest.php" role="test" />
+   </dir> <!-- /tests -->
+   <file name="OpenID.php" role="php" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.1.2</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+   </package>
+   <package>
+    <name>HTTP_Request</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Validate</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Cache_Lite</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Crypt_DiffieHellman</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Services_Yadis</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Net_URL2</name>
+    <channel>pear.php.net</channel>
+    <min>0.2.0</min>
+   </package>
+   <extension>
+    <name>date</name>
+   </extension>
+   <extension>
+    <name>dom</name>
+   </extension>
+   <extension>
+    <name>hash</name>
+   </extension>
+   <extension>
+    <name>libxml</name>
+   </extension>
+   <extension>
+    <name>mbstring</name>
+   </extension>
+   <extension>
+    <name>pcre</name>
+   </extension>
+   <extension>
+    <name>SPL</name>
+   </extension>
+  </required>
+  <optional>
+   <package>
+    <name>Log</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>MDB2</name>
+    <channel>pear.php.net</channel>
+   </package>
+  </optional>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.0.1</release>
+    <api>0.0.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-07-04</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+Initial release
+   </notes>
+  </release>
+ </changelog>
+</package>
