@@ -47,5 +47,8 @@ $returnTo = $base . dirname($_SERVER['PHP_SELF']) . '/relyingparty.php';
 //     'dsn' => 'mysql://user:pass@db.example.com/openid'
 // );
 // OpenID::setStore(OpenID_Store::factory('MDB2', $storeOptions));
+//
+// // The first time you run it, you'll also need to create the tables:
+// OpenID::getStore()->createTables();
 
 ?>
