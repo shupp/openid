@@ -13,6 +13,9 @@
  * @link      http://pearopenid.googlecode.com
  */
 
+/**
+ * Required files 
+ */
 require_once 'MDB2.php';
 require_once 'OpenID/Store/Interface.php';
 require_once 'OpenID/Store/Exception.php';
