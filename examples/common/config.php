@@ -42,4 +42,10 @@ $base .= '://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
 $realm    = $base . '/';
 $returnTo = $base . dirname($_SERVER['PHP_SELF']) . '/relyingparty.php';
 
+// SQL storage example
+// $storeOptions = array(
+//     'dsn' => 'mysql://user:pass@db.example.com/openid'
+// );
+// OpenID::setStore(OpenID_Store::factory('MDB2', $storeOptions));
+
 ?>
