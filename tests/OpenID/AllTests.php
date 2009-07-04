@@ -30,6 +30,7 @@ require_once 'OpenID/NonceTest.php';
 require_once 'OpenID/AssertionTest.php';
 require_once 'OpenID/Assertion/ResultTest.php';
 require_once 'OpenID/RelyingPartyTest.php';
+require_once 'OpenID/DiscoverTest.php';
 
 /**
  * OpenID_AllTests 
@@ -68,6 +69,7 @@ class OpenID_AllTests
         $suite->addTestSuite('OpenID_AssertionTest');
         $suite->addTestSuite('OpenID_Assertion_ResultTest');
         $suite->addTestSuite('OpenID_RelyingPartyTest');
+        $suite->addTestSuite('OpenID_DiscoverTest');
         return $suite;
     }
 }
