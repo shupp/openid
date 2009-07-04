@@ -207,8 +207,7 @@ class OpenID_Store_MDB2 implements OpenID_Store_Interface
      */
     public function getAssociation($uri)
     {
-        $sql = "SELECT *
-                    FROM {$this->tableNames['association']}
+        $sql = "SELECT * FROM {$this->tableNames['association']}
                     WHERE uri = ?";
 
         $result = $this->prepareExecute($sql, array($uri));
