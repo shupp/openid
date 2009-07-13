@@ -83,6 +83,16 @@ class OpenID
     const MODE_SETUP_NEEDED         = 'setup_needed';
     const MODE_ERROR                = 'error';
 
+    /*
+     * Association constants
+     */
+    const SESSION_TYPE_NO_ENCRYPTION = 'no-encryption';
+    const SESSION_TYPE_DH_SHA1       = 'DH-SHA1';
+    const SESSION_TYPE_DH_SHA256     = 'DH-SHA256';
+
+    const ASSOC_TYPE_HMAC_SHA1   = 'HMAC-SHA1';
+    const ASSOC_TYPE_HMAC_SHA256 = 'HMAC-SHA256';
+
     /**
      * Instance of OpenID_Store_Interface
      *

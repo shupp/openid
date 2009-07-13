@@ -4,7 +4,7 @@
  * 
  * PHP Version 5.2.0+
  * 
- * @uses      OpenID_Association_Common
+ * @uses      OpenID
  * @category  Auth
  * @package   OpenID
  * @author    Bill Shupp <hostmaster@shupp.org> 
@@ -18,17 +18,16 @@
  */
 require_once 'OpenID.php';
 require_once 'OpenID/Association/Exception.php';
-require_once 'OpenID/Association/Common.php';
 require_once 'OpenID/Association.php';
 require_once 'OpenID/Message.php';
-require_once 'Crypt/DiffieHellman.php';
+require_once 'OpenID/Association/DiffieHellman.php';
 
 /**
  * OpenID_Association_Request 
  * 
  * Request object for establishing OpenID Associations.
  * 
- * @uses      OpenID_Association_Common
+ * @uses      OpenID
  * @category  Auth
  * @package   OpenID
  * @author    Bill Shupp <hostmaster@shupp.org> 
@@ -36,7 +35,7 @@ require_once 'Crypt/DiffieHellman.php';
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
  * @link      http://pearopenid.googlecode.com
  */
-class OpenID_Association_Request extends OpenID_Association_Common
+class OpenID_Association_Request extends OpenID
 {
     /**
      * OpenID provider endpoint URL
@@ -68,26 +67,32 @@ class OpenID_Association_Request extends OpenID_Association_Common
     protected $response = array();
 
     /**
-     * Whether or not the sharedSecretKey has been computed or not
+     * Optional instance of Crypt_DiffieHellman
      * 
-     * @see getSharedSecretKey()
-     * @var int
+     * @var Crypt_DiffieHellman
      */
-    protected $sharedKeyComputed = 0;
+    protected $cdh = null;
+
+    /**
+     * OpenID_Association_DiffieHellman instance
+     * 
+     * @var OpenID_Association_DiffieHellman
+     */
+    protected $dh = null;
 
     /**
      * Sets the arguments passed in, as well as creates the request message.
      * 
      * @param string              $opEndpointURL URL of OP Endpoint
      * @param string              $version       Version of OpenID in use
-     * @param Crypt_DiffieHellman $dh            Custom Crypt_DiffieHellman
+     * @param Crypt_DiffieHellman $cdh           Custom Crypt_DiffieHellman
      *                                           instance
      * 
      * @return void
      */
     public function __construct($opEndpointURL,
                                 $version,
-                                Crypt_DiffieHellman $dh = null)
+                                Crypt_DiffieHellman $cdh = null)
     {
         if (!array_key_exists($version, OpenID::$versionMap)) {
             throw new OpenID_Association_Exception(
@@ -98,8 +103,8 @@ class OpenID_Association_Request extends OpenID_Association_Common
         $this->opEndpointURL = $opEndpointURL;
         $this->message       = new OpenID_Message;
 
-        if ($dh) {
-            $this->setCryptDiffieHellman($dh);
+        if ($cdh) {
+            $this->$cdh = $cdh;
         }
 
         // Set defaults
@@ -176,27 +181,7 @@ class OpenID_Association_Request extends OpenID_Association_Common
             }
             $params['sharedSecret'] = $response['mac_key'];
         } else {
-            if (!isset($response['dh_server_public'])) {
-                throw new OpenID_Association_Exception(
-                    'Missing dh_server_public parameter in association response'
-                );
-            }
-
-
-            $pubKey       = base64_decode($response['dh_server_public']);
-            $sharedSecret = $this->getSharedSecretKey($pubKey);
-
-            $opSecret       = base64_decode($response['enc_mac_key']);
-            $bytes          = mb_strlen(bin2hex($opSecret), '8bit') / 2;
-            $algo           = str_replace('HMAC-', '', $params['assocType']);
-            $hash_dh_shared = hash($algo, $sharedSecret, true);
-
-            $xsecret = '';
-            for ($i = 0; $i < $bytes; $i++) {
-                $xsecret .= chr(ord($opSecret[$i]) ^ ord($hash_dh_shared[$i]));
-            }
-
-            $params['sharedSecret'] = base64_encode($xsecret);
+            $this->getDH()->getSharedSecret($response, $params);
         }
 
         return new OpenID_Association($params);
@@ -210,7 +195,15 @@ class OpenID_Association_Request extends OpenID_Association_Common
      */
     protected function sendAssociationRequest()
     {
-        $this->initDH();
+        if ($this->message->get('openid.session_type')
+            == self::SESSION_TYPE_NO_ENCRYPTION) {
+
+            $this->message->delete('openid.dh_consumer_public');
+            $this->message->delete('openid.dh_modulus');
+            $this->message->delete('openid.dh_gen');
+        } else {
+            $this->initDH();
+        }
 
         $response = $this->directRequest($this->opEndpointURL, $this->message);
         $message  = new OpenID_Message($response->getResponseBody(),
@@ -232,72 +225,29 @@ class OpenID_Association_Request extends OpenID_Association_Common
     }
 
     /**
-     * Initialized the diffie-hellman parameters for the association request.
+     * Initialize the diffie-hellman parameters for the association request.
      * 
      * @return void
      */
     protected function initDH()
     {
-        if ($this->message->get('openid.session_type')
-            == self::SESSION_TYPE_NO_ENCRYPTION) {
-
-            $this->message->delete('openid.dh_consumer_public');
-            $this->message->delete('openid.dh_modulus');
-            $this->message->delete('openid.dh_gen');
-            return;
-        }
-
-        if ($this->dh === null) {
-            $this->dh = new Crypt_DiffieHellman(self::DH_DEFAULT_MODULUS,
-                                                self::DH_DEFAULT_GENERATOR);
-            $this->dh->generateKeys();
-        }
-
-        // Set public key
-        $this->message->set('openid.dh_consumer_public',
-                            base64_encode($this->publicKey));
-
-        // Set modulus
-        $prime = $this->dh->getPrime(Crypt_DiffieHellman::BTWOC);
-        $this->message->set('openid.dh_modulus', base64_encode($prime));
-
-        // Set prime
-        $gen = $this->dh->getGenerator(Crypt_DiffieHellman::BTWOC);
-        $this->message->set('openid.dh_gen', base64_encode($gen));
+        $this->getDH()->init();
     }
 
     /**
-     * Gets privateKey and publicKey from $this->dh.  Just a shortcut.
+     * Gets an instance of OpenID_Association_DiffieHellman.  If one is not already
+     * instanciated, a new one is returned.
      * 
-     * @param string $name Can be publicKey or privateKey
-     * 
-     * @return BTWOC representation of the number
+     * @return OpenID_Association_DiffieHellman
      */
-    public function __get($name)
+    protected function getDH()
     {
-        $keys = array('privateKey', 'publicKey');
-        if (in_array($name, $keys)) {
-            $func = 'get' . ucfirst($name);
-            return $this->dh->$func(Crypt_DiffieHellman::BTWOC);
+        if (!$this->dh) {
+            $this->dh = new OpenID_Association_DiffieHellman($this->message,
+                                                             $this->cdh);
         }
+        return $this->dh;
     }
-
-    /**
-     * Gets the shared secret key in BTWOC format.  Computes the key if it has not 
-     * been computed already.
-     * 
-     * @param string $publicKey Public key of the OP
-     * 
-     * @return BTWOC representation of the number
-     */
-    public function getSharedSecretKey($publicKey)
-    {
-        if ($this->sharedKeyComputed == 0) {
-            $this->dh->computeSecretKey($publicKey, Crypt_DiffieHellman::BINARY);
-            $this->sharedKeyComputed = 1;
-        }
-        return $this->dh->getSharedSecretKey(Crypt_DiffieHellman::BTWOC);
-    } 
 
     /**
      * Sets he association type for the request.  Can be sha1 or sha256.
