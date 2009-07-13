@@ -16,7 +16,7 @@
  * Required files
  */
 require_once 'OpenID/Association/Exception.php';
-require_once 'OpenID/Association/Common.php';
+require_once 'OpenID.php';
 require_once 'OpenID/Message.php';
 require_once 'Validate.php';
 
@@ -103,8 +103,8 @@ class OpenID_Association
      * @var array
      */
     protected $supportedTypes = array(
-        OpenID_Association_Common::ASSOC_TYPE_HMAC_SHA1,
-        OpenID_Association_Common::ASSOC_TYPE_HMAC_SHA256
+        OpenID::ASSOC_TYPE_HMAC_SHA1,
+        OpenID::ASSOC_TYPE_HMAC_SHA256
     );
 
     /**
