@@ -124,7 +124,12 @@ if (isset($_POST['start'])) {
 
     unset($_SESSION['disable_associations']);
 
-    list(, $queryString) = explode('?', $_SERVER['REQUEST_URI']);
+    if (!count($_POST)) {
+        list(, $queryString) = explode('?', $_SERVER['REQUEST_URI']);
+    } else {
+        // I hate php sometimes
+        $queryString = file_get_contents('php://input');
+    }
 
     $message = new OpenID_Message($queryString, OpenID_Message::FORMAT_HTTP);
     $id      = $message->get('openid.claimed_id');
