@@ -63,13 +63,13 @@ class OpenID_Assertion extends OpenID
      * validation (return_to, nonce, discover).
      * 
      * @param OpenID_Message $message      Message from the request
-     * @param string         $requestedURL The requested URL
+     * @param Net_URL2       $requestedURL The requested URL
      * @param int            $clockSkew    Nonce clock skew in seconds
      * 
      * @return void
      */
     public function __construct(OpenID_Message $message,
-                                $requestedURL,
+                                Net_URL2 $requestedURL,
                                 $clockSkew = null)
     {
         $this->message      = $message;
@@ -142,7 +142,7 @@ class OpenID_Assertion extends OpenID
         }
 
         $obj1 = new Net_URL2($returnTo);
-        $obj2 = new Net_URL2($this->requestedURL);
+        $obj2 = $this->requestedURL;
 
         $queryString1 = $obj1->getQueryVariables();
         $queryString2 = $obj2->getQueryVariables();

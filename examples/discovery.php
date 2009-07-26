@@ -82,16 +82,17 @@ if ($identifier) {
     }
 }
 
-$contents = '';
 ob_start();
 require_once 'common/discover_form.php';
 $contents .= ob_get_contents();
 ob_end_clean();
 
 if (isset($content)) {
+    $contents .= "<div class='discover_results'>\n";
     $contents .= "<b>Results:</b> <br><pre>\n";
     $contents .= print_r($content, true);
     $contents .= "</pre>\n";
+    $contents .= '</div>';
 }
 
 require_once 'common/wrapper.php';

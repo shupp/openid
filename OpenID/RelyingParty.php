@@ -242,12 +242,10 @@ class OpenID_RelyingParty extends OpenID
      * @throws OpenID_Exception on error or invalid openid.mode
      * @return OpenID_Assertion_Response
      */
-    public function verify(Net_URL2 $requestedURL)
+    public function verify(Net_URL2 $requestedURL, OpenID_Message $message)
     {
-        $message = new OpenID_Message($requestedURL->getQuery(),
-                                      OpenID_Message::FORMAT_HTTP);
-        $mode    = $message->get('openid.mode');
-        $result  = new OpenID_Assertion_Result;
+        $mode   = $message->get('openid.mode');
+        $result = new OpenID_Assertion_Result;
 
         OpenID::setLastEvent(__METHOD__, print_r($message->getArrayFormat(), true));
 
@@ -275,8 +273,7 @@ class OpenID_RelyingParty extends OpenID
         $discover        = $this->getDiscover();
         $serviceEndpoint = $discover->services[0];
         $opEndpointURL   = array_shift($serviceEndpoint->getURIs());
-        $assertion       = $this->getAssertionObject($message,
-                                                     $requestedURL->getURL());
+        $assertion       = $this->getAssertionObject($message, $requestedURL);
 
         // Check via associations
         if ($this->useAssociations) {
@@ -372,7 +369,7 @@ class OpenID_RelyingParty extends OpenID
      * Gets an instance of OpenID_Assertion.  Abstracted for testing purposes.
      * 
      * @param OpenID_Message $message      The message passed to verify()
-     * @param string         $requestedURL The URL requested (redirect from OP)
+     * @param Net_URL2       $requestedURL The URL requested (redirect from OP)
      * 
      * @see    verify()
      * @return OpenID_Assertion

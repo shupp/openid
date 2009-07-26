@@ -13,7 +13,10 @@
  */
 ?>
 <html>
-    <head><title>PEAR OpenID Examples</title></head>
+    <head>
+        <title>PEAR OpenID Examples</title>
+        <link rel="stylesheet" href="example.css" type="text/css" />
+    </head>
     <body>
     <h3>
     <a href="./discovery.php">Discovery Example</a>

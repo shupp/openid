@@ -41,14 +41,22 @@ if (!empty($_POST['disable_associations'])
     $_SESSION['disable_associations'] = true;
 }
 
-// $log = new OpenID_Observer_Log;
-// OpenID::attach($log);
+$log = new OpenID_Observer_Log;
+OpenID::attach($log);
 
 if (isset($_POST['start'])) {
 
 
     $_SESSION['identifier'] = $identifier;
-    $authRequest            = $o->prepare();
+    try {
+        $authRequest = $o->prepare();
+    } catch (OpenID_Exception $e) {
+        $contents  = "<div class='relyingparty_results'>\n";
+        $contents .= "<pre>" . $e->getMessage() . "</pre>\n";
+        $contents .= "</div class='relyingparty_results'>";
+        include_once 'common/wrapper.php';
+        exit;
+    }
 
     // checkid_immediate
     if (!empty($_POST['checkid_immediate'])) {
@@ -100,6 +108,7 @@ if (isset($_POST['start'])) {
     $contents .= "<b>Endpoint URL:</b> " . $parsed['scheme'] . '://';
     $contents .= $parsed['host'] . $parsed['path'];
     $contents .= "<p><b>Query String Keys / Values:</b><br><br>\n";
+    $contents .= "<div class='relyingparty_results'>\n";
     $contents .= "<table border=0>";
     foreach ($qsArray as $pair) {
         list($key, $value) = explode('=', $pair);
@@ -108,6 +117,7 @@ if (isset($_POST['start'])) {
         $contents .= urldecode($value) . "</td></tr>\n";
     }
     $contents .= "</table><br>";
+    $contents .= "</div class='relyingparty_results'>";
 
     $contents .= "Proceed? <a href=\"$url\">Yes</a>";
     $contents .= " &nbsp | &nbsp <a href=\"./relyingparty.php\">No</a>\n";
@@ -134,7 +144,7 @@ if (isset($_POST['start'])) {
     $message = new OpenID_Message($queryString, OpenID_Message::FORMAT_HTTP);
     $id      = $message->get('openid.claimed_id');
     $mode    = $message->get('openid.mode');
-    $result  = $o->verify(new Net_URL2($returnTo . '?' . $queryString));
+    $result  = $o->verify(new Net_URL2($returnTo . '?' . $queryString), $message);
 
     if ($result->success()) {
         $status  = "<tr><td>Status:</td><td><font color='green'>SUCCESS!";
@@ -144,7 +154,7 @@ if (isset($_POST['start'])) {
         $status .= " ({$result->getAssertionMethod()})</font></td></tr>";
     }
 
-    $contents = "
+    $contents = "<div class='relyingparty_results'>
     <p>
     <table>
     <tr colspan=2><td><b>Results</b></td></tr>
@@ -158,6 +168,7 @@ if (isset($_POST['start'])) {
         $contents .= "<tr><td align=left>$key</td><td>$value</td></tr>\n";
     }
     $contents .= "</table>";
+    $contents .= "</div>";
 
     include_once 'common/wrapper.php';
 }
