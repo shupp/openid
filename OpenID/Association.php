@@ -189,22 +189,50 @@ class OpenID_Association
         }
 
         if (!strlen($message->get('openid.signed'))) {
+            OpenID::setLastEvent(__METHOD__, 'openid.signed is empty');
             return false;
         }
         $list = explode(',', $message->get('openid.signed'));
 
         // Create a message with only keys in the signature
-        $signedOnly = new OpenID_Message;
+        $signedOnly = $this->getMessageForSigning($message);
+
+        $signedOnlyDigest = base64_encode($this->hashHMAC($signedOnly));
+
+        $event = array(
+            'assocHandle'       => $this->assocHandle,
+            'algo'              => $this->getAlgorithm(),
+            'secret'            => $this->sharedSecret,
+            'openid.sig'        => $message->get('openid.sig'),
+            'signature'         => $signedOnlyDigest,
+            'SignedKVFormat'    => $signedOnly,
+            'MessageHTTPFormat' => $message->getHTTPFormat(),
+            'phpInput'          => file_get_contents('php://input')
+        );
+        OpenID::setLastEvent(__METHOD__, print_r($event, true));
+
+        return $signedOnlyDigest == $message->get('openid.sig');
+    }
+
+    /**
+     * Returns a KV formatted message for signing based on the contents of the 
+     * openid.signed key.  This allows for duplicate entries, which
+     * OpenID_Message::getKVFormat() doesn't.  (Yahoo! uses duplicates)
+     * 
+     * @param OpenID_Message $message An instance of the OpenID_Message you want to 
+     *                                sign
+     * 
+     * @return string The openid.signed items in KV form
+     */
+    public function getMessageForSigning(OpenID_Message $message)
+    {
+        $list = explode(',', $message->get('openid.signed'));
+
+        $signedOnly = '';
         foreach ($list as $key) {
-            $signedOnly->set($key, $message->get('openid.' . $key));
+            $signedOnly .= "$key:" . $message->get('openid.' . $key) . "\n";
         }
-
-        $signedOnlyDigest = hash_hmac($this->getAlgorithm(),
-                                      $signedOnly->getKVFormat(),
-                                      base64_decode($this->sharedSecret),
-                                      true);
-
-        return base64_encode($signedOnlyDigest) == $message->get('openid.sig');
+        return $signedOnly;
     }
 
     /**
@@ -248,12 +276,24 @@ class OpenID_Association
             $signedMessage->set($key, $message->get('openid.' . $key));
         }
 
-        $rawSignature = hash_hmac($this->getAlgorithm(),
-                                  $signedMessage->getKVFormat(),
-                                  base64_decode($this->sharedSecret),
-                                  true);
+        $rawSignature = $this->hashHMAC($signedMessage);
 
         $message->set('openid.sig', base64_encode($rawSignature));
+    }
+
+    /**
+     * Gets a an HMAC hash of an OpenID_Message using this association.
+     * 
+     * @param OpenID_Message $message The message format of the items to hash
+     * 
+     * @return string The HMAC hash
+     */
+    protected function hashHMAC($message)
+    {
+        return hash_hmac($this->getAlgorithm(),
+                         $message,
+                         base64_decode($this->sharedSecret),
+                         true);
     }
 }
 ?>

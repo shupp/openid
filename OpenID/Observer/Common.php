@@ -46,6 +46,7 @@ abstract class OpenID_Observer_Common
      */
     protected $events = array(
         'OpenID_Association_Request::sendAssociationRequest',
+        'OpenID_Association::checkMessageSignature',
         'OpenID_Assertion::validateReturnTo',
         'OpenID_Assertion::validateReturnToNonce',
         'OpenID_RelyingParty::verify',
