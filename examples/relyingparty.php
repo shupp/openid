@@ -100,27 +100,31 @@ if (isset($_POST['start'])) {
     }
 
     // Verify query before sending it (for debugging)
-    $contents = "<h3>Here's what you're about to send:</h3>\n";
-    $parsed   = parse_url($url);
-    $qs       = array_pop($parsed);
-    $qsArray  = explode('&', $qs);
+    $parsed  = parse_url($url);
+    $qs      = array_pop($parsed);
+    $qsArray = explode('&', $qs);
 
-    $contents .= "<b>Endpoint URL:</b> " . $parsed['scheme'] . '://';
-    $contents .= $parsed['host'] . $parsed['path'];
-    $contents .= "<p><b>Query String Keys / Values:</b><br><br>\n";
-    $contents .= "<div class='relyingparty_results'>\n";
-    $contents .= "<table border=0>";
+    $contents  = "<div class='relyingparty_results'>\n";
+    $contents .= "<p><table border=0>";
+    $contents .= "<tr><td colspan=\"2\"><b><font color=\"red\">";
+    $contents .= "Here's what you're about to send:</font></b></td></tr>\n";
+
+    $contents .= "<tr><td>Endpoint URL</td><td>" . $parsed['scheme'] . '://';
+    $contents .= $parsed['host'] . $parsed['path'] . "</td></tr>";
+    $contents .= "<tr><td colspan=\"2\"><br /><b>Message</b></td></tr>\n";
     foreach ($qsArray as $pair) {
         list($key, $value) = explode('=', $pair);
 
         $contents .= "<tr><td align=left>" . urldecode($key) . '</td><td>';
         $contents .= urldecode($value) . "</td></tr>\n";
     }
+
+    $contents .= "<tr><td colspan=\"2\"><p><br /><b><font color=\"red\">Proceed?";
+    $contents .= "</font> <a href=\"$url\">Yes</a>";
+    $contents .= " &nbsp | &nbsp <a href=\"./relyingparty.php\">No</a></b>";
+    $contents .+ "</td></tr>\n";
     $contents .= "</table><br>";
     $contents .= "</div class='relyingparty_results'>";
-
-    $contents .= "Proceed? <a href=\"$url\">Yes</a>";
-    $contents .= " &nbsp | &nbsp <a href=\"./relyingparty.php\">No</a>\n";
     include_once 'common/wrapper.php';
     exit;
     
