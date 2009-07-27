@@ -276,7 +276,7 @@ class OpenID_Association
             $signedMessage->set($key, $message->get('openid.' . $key));
         }
 
-        $rawSignature = $this->hashHMAC($signedMessage);
+        $rawSignature = $this->hashHMAC($signedMessage->getKVFormat());
 
         $message->set('openid.sig', base64_encode($rawSignature));
     }
