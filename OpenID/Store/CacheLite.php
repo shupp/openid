@@ -158,6 +158,22 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
     }
 
     /**
+     * Deletes a cached OpenID_Discover object
+     * 
+     * @param string $identifier The Identifier
+     * 
+     * @return void
+     */
+    public function deleteDiscover($identifier)
+    {
+        $this->setOptions(self::TYPE_DISCOVER);
+
+        $key = $this->getDiscoverCacheKey($identifier);
+
+        return $this->cache->remove($key);
+    }
+
+    /**
      * Common method for creating a cache key based on the normalized identifier
      * 
      * @param string $identifier User supplied identifier
