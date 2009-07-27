@@ -104,7 +104,7 @@ class OpenID_Association_Request extends OpenID
         $this->message       = new OpenID_Message;
 
         if ($cdh) {
-            $this->$cdh = $cdh;
+            $this->cdh = $cdh;
         }
 
         // Set defaults
