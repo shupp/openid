@@ -358,7 +358,8 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
 
 
         $this->assertType('OpenID_Assertion_Result',
-                          $this->rp->verify($this->messageToNetURL2($message), $message));
+                          $this->rp->verify($this->messageToNetURL2($message),
+                          $message));
     }
 
     /**
@@ -404,7 +405,8 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
                  ->will($this->returnValue($assertion));
 
         $this->assertType('OpenID_Assertion_Result',
-                          $this->rp->verify($this->messageToNetURL2($message), $message));
+                          $this->rp->verify($this->messageToNetURL2($message),
+                                            $message));
     }
 
     /**
@@ -436,7 +438,8 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
 
         $rp = new OpenID_RelyingParty_Mock($this->id, $this->returnTo, $this->realm);
         $this->assertType('OpenID_Assertion',
-                          $rp->returnGetAssertionObject($message, new Net_URL2($this->returnTo)));
+                          $rp->returnGetAssertionObject($message,
+                          new Net_URL2($this->returnTo)));
     }
 }
 ?>
