@@ -159,16 +159,6 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * testGetFailNotInArray 
-     * 
-     * @return void
-     */
-    public function testGetFailNotInArray()
-    {
-        $foo = $this->assocRequest->bogus;
-    }
-
-    /**
      * testGetResponse 
      * 
      * @return void
@@ -231,7 +221,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
         $this->message->set('mode', OpenID::MODE_ERROR);
         $this->message->set('error_code', 'unsupported-type');
         $this->message->set('session_type',
-                            OpenID_Association_Common::SESSION_TYPE_NO_ENCRYPTION);
+                            OpenID::SESSION_TYPE_NO_ENCRYPTION);
         $this->message->set('dh_server_public',
                             base64_encode($this
                                 ->opDH
@@ -256,7 +246,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
     {
         $this->message->set('mac_key', $this->macKey);
         $this->assocRequest
-             ->setSessionType(OpenID_Association_Common::SESSION_TYPE_NO_ENCRYPTION);
+             ->setSessionType(OpenID::SESSION_TYPE_NO_ENCRYPTION);
 
         $this->httpRequest->expects($this->any())
                           ->method('getResponseBody')
@@ -296,7 +286,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
     public function testBuildAssociationFailNoMacKey()
     {
         $this->assocRequest
-             ->setSessionType(OpenID_Association_Common::SESSION_TYPE_NO_ENCRYPTION);
+             ->setSessionType(OpenID::SESSION_TYPE_NO_ENCRYPTION);
 
         $this->httpRequest->expects($this->any())
                           ->method('getResponseBody')
@@ -355,9 +345,9 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
         $this->message->set('mode', OpenID::MODE_ERROR);
         $this->message->set('error_code', 'unsupported-type');
         $this->message->set('session_type',
-                            OpenID_Association_Common::SESSION_TYPE_DH_SHA1);
+                            OpenID::SESSION_TYPE_DH_SHA1);
         $this->message->set('assoc_type',
-                            OpenID_Association_Common::ASSOC_TYPE_HMAC_SHA1);
+                            OpenID::ASSOC_TYPE_HMAC_SHA1);
         $this->message->set('dh_server_public',
                             base64_encode($this
                                 ->opDH
