@@ -236,8 +236,11 @@ class OpenID_RelyingParty extends OpenID
      * Verifies an assertion response from the OP.  If the openid.mode is error, an
      * exception is thrown.
      * 
-     * @param Net_URL2 $requestedURL The requested URL (that the user was directed to
-     *                               by the OP) as a Net_URL2 object
+     * @param Net_URL2       $requestedURL The requested URL (that the user was 
+     *                                     directed to by the OP) as a Net_URL2 
+     *                                     object
+     * @param OpenID_Message $message      The OpenID_Message instance, as extractd
+     *                                     from the input (GET or POST)
      * 
      * @throws OpenID_Exception on error or invalid openid.mode
      * @return OpenID_Assertion_Response
