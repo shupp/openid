@@ -89,7 +89,7 @@ class OpenID_AssertionTest extends PHPUnit_Framework_TestCase
         $this->assertion = $this->getMock('OpenID_Assertion',
                                           array('directRequest'),
                                           array($this->message,
-                                                $this->requestedURL,
+                                                new Net_URL2($this->requestedURL),
                                                 $this->clockSkew));
     }
 
