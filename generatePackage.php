@@ -26,14 +26,18 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.0.1');
-$packagexml->setReleaseVersion('0.0.1');
+$packagexml->setAPIVersion('0.0.2');
+$packagexml->setReleaseVersion('0.0.2');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('Initial release');
+$packagexml->setNotes('* Added POST support for OpenID_RelyingParty::verify()
+* Added support for duplicates in openid.signed (Yahoo! bug)
+* Styled examples - thanks Danny Trinh!
+* Fixed a bug in the discovery example
+* More tests');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 

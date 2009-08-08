@@ -19,11 +19,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-07-04</date>
- <time>23:50:22</time>
+ <date>2009-08-08</date>
+ <time>06:30:00</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>0.0.2</release>
+  <api>0.0.2</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,7 +31,11 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-Initial release
+* Added POST support for OpenID_RelyingParty::verify()
+* Added support for duplicates in openid.signed (Yahoo! bug)
+* Styled examples - thanks Danny Trinh!
+* Fixed a bug in the discovery example
+* More tests
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -69,6 +73,7 @@ Initial release
      <file name="demo.html" role="doc" />
     </dir> <!-- /examples/selector -->
     <file name="discovery.php" role="doc" />
+    <file name="example.css" role="doc" />
     <file name="index.php" role="doc" />
     <file name="relyingparty.php" role="doc" />
    </dir> <!-- /examples -->
@@ -81,7 +86,7 @@ Initial release
      <file name="Result.php" role="php" />
     </dir> <!-- /OpenID/Assertion -->
     <dir name="Association">
-     <file name="Common.php" role="php" />
+     <file name="DiffieHellman.php" role="php" />
      <file name="Exception.php" role="php" />
      <file name="Request.php" role="php" />
     </dir> <!-- /OpenID/Association -->
@@ -139,6 +144,7 @@ Initial release
       <file name="RequestTest.php" role="test" />
      </dir> <!-- /tests/OpenID/Auth -->
      <dir name="Discover">
+      <file name="HTMLTest.php" role="test" />
       <file name="Mock.php" role="test" />
       <file name="MockFail.php" role="test" />
       <file name="MockNoClass.php" role="test" />
@@ -162,6 +168,7 @@ Initial release
       <file name="Mock.php" role="test" />
      </dir> <!-- /tests/OpenID/RelyingParty -->
      <dir name="Store">
+      <file name="CacheLiteTest.php" role="test" />
       <file name="Mock.php" role="test" />
       <file name="NoClass.php" role="test" />
       <file name="NotInterface.php" role="test" />
@@ -180,6 +187,7 @@ Initial release
     </dir> <!-- /tests/OpenID -->
     <file name="OpenIDTest.php" role="test" />
    </dir> <!-- /tests -->
+   <file name="OpenID-0.0.2.tgz" role="data" />
    <file name="OpenID.php" role="php" />
   </dir> <!-- / -->
  </contents>
@@ -269,6 +277,25 @@ Initial release
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 Initial release
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.2</release>
+    <api>0.0.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-08-08</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Added POST support for OpenID_RelyingParty::verify()
+* Added support for duplicates in openid.signed (Yahoo! bug)
+* Styled examples - thanks Danny Trinh!
+* Fixed a bug in the discovery example
+* More tests
    </notes>
   </release>
  </changelog>
