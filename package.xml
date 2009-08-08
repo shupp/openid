@@ -19,8 +19,8 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-08-08</date>
- <time>06:30:00</time>
+ <date>2009-08-07</date>
+ <time>23:34:47</time>
  <version>
   <release>0.0.2</release>
   <api>0.0.2</api>
@@ -187,7 +187,6 @@
     </dir> <!-- /tests/OpenID -->
     <file name="OpenIDTest.php" role="test" />
    </dir> <!-- /tests -->
-   <file name="OpenID-0.0.2.tgz" role="data" />
    <file name="OpenID.php" role="php" />
   </dir> <!-- / -->
  </contents>
