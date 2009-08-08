@@ -267,10 +267,16 @@ class OpenID
     {
         // XRI
         if (preg_match('@^xri://@i', $identifier)) {
+            throw new OpenID_Exception(
+                'XRI identifiers are not currently supported'
+            );
             return preg_replace('@^xri://@i', '', $identifier);
         }
 
         if (in_array($identifier[0], self::getXRIGlobalSymbols())) {
+            throw new OpenID_Exception(
+                'XRI identifiers are not currently supported'
+            );
             return $identifier;
         }
 

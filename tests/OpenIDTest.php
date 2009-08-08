@@ -61,8 +61,9 @@ class OpenIDTest extends PHPUnit_Framework_TestCase
      */
     public function testNormalizeIdentifierSuccess()
     {
-        $this->assertSame('=example', OpenID::normalizeIdentifier('xri://=example'));
-        $this->assertSame('=example', OpenID::normalizeIdentifier('=example'));
+        // $this->assertSame('=example',
+        //                   OpenID::normalizeIdentifier('xri://=example'));
+        // $this->assertSame('=example', OpenID::normalizeIdentifier('=example'));
         $this->assertSame('http://example.com',
                           OpenID::normalizeIdentifier('example.com'));
     }
@@ -76,6 +77,26 @@ class OpenIDTest extends PHPUnit_Framework_TestCase
     public function testNormalizeIdentifierFail()
     {
         OpenID::normalizeIdentifier('&example');
+    }
+
+    /**
+     * testNormalizeIdentifierFailXRI 
+     * 
+     * @return void
+     */
+    public function testNormalizeIdentifierFailXRI()
+    {
+        try {
+            OpenID::normalizeIdentifier('xri://foo.com');
+        } catch (OpenID_Exception $e1) {
+            $this->assertFalse(false);
+        }
+
+        try {
+            OpenID::normalizeIdentifier('=example');
+        } catch (OpenID_Exception $e2) {
+            $this->assertFalse(false);
+        }
     }
 
     /**

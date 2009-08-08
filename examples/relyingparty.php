@@ -33,7 +33,16 @@ if (isset($_POST['identifier'])) {
     exit;
 }
 
-$o = new OpenID_RelyingParty($identifier, $returnTo, $realm);
+try {
+    $o = new OpenID_RelyingParty($identifier, $returnTo, $realm);
+} catch (OpenID_Exception $e) {
+    $contents  = "<div class='relyingparty_results'>\n";
+    $contents .= "<pre>" . $e->getMessage() . "</pre>\n";
+    $contents .= "</div class='relyingparty_results'>";
+    include_once 'common/wrapper.php';
+    exit;
+}
+
 if (!empty($_POST['disable_associations'])
     || !empty($_SESSION['disable_associations'])) {
 
