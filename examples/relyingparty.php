@@ -28,7 +28,9 @@ if (isset($_POST['identifier'])) {
 } else if (isset($_SESSION['identifier'])) {
     $identifier = $_SESSION['identifier'];
 } else {
-    $contents = 'No identifier available';
+    $contents  = "<div class='relyingparty_results'>\n";
+    $contents .= '<pre>No identifier available</pre>';
+    $contents .= "</div class='relyingparty_results'>";
     include_once 'common/wrapper.php';
     exit;
 }
