@@ -22,7 +22,6 @@ if (!count($_GET) && !count($_POST)) {
     exit;
 }
 
-$identifier = null;
 if (isset($_POST['identifier'])) {
     $identifier = $_POST['identifier'];
 } else if (isset($_SESSION['identifier'])) {
