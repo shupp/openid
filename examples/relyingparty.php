@@ -158,7 +158,17 @@ if (isset($_POST['start'])) {
     $message = new OpenID_Message($queryString, OpenID_Message::FORMAT_HTTP);
     $id      = $message->get('openid.claimed_id');
     $mode    = $message->get('openid.mode');
-    $result  = $o->verify(new Net_URL2($returnTo . '?' . $queryString), $message);
+
+    try {
+        $result  = $o->verify(new Net_URL2($returnTo . '?' . $queryString),
+                                           $message);
+    } catch (OpenID_Exception $e) {
+        $contents  = "<div class='relyingparty_results'>\n";
+        $contents .= "<pre>" . $e->getMessage() . "</pre>\n";
+        $contents .= "</div class='relyingparty_results'>";
+        include_once 'common/wrapper.php';
+        exit;
+    }
 
     if ($result->success()) {
         $status  = "<tr><td>Status:</td><td><font color='green'>SUCCESS!";
