@@ -1,4 +1,11 @@
-    <form id="rp_form" onSubmit="javascript:newWindow();return false;" action="./relyingparty.php" method="POST">
+<html>
+    <head>
+        <script type="text/javascript" src="selector/js/jquery-1.3.2.min.js"></script>
+        <script type="text/javascript" src="test.js"></script>
+    </head>
+    <body>
+
+    <form id="rp_form" onSubmit="javascript:billShupp();return false;" action="./bar.php" method="POST">
     <table border="0">
         <tr><td>OpenID URL: </td><td><input type="text" name="identifier"></td></tr>
         <tr><td>checkid_immediate: </td><td><input type="checkbox" name="checkid_immediate"></td></tr>
@@ -10,3 +17,6 @@
         <tr><td></td><td><input type="submit" name="start" value="submit"></td></tr>
     </table>
     </form>
+
+</body>
+</html>

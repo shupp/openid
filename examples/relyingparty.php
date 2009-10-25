@@ -98,13 +98,18 @@ if (isset($_POST['start'])) {
     if (!empty($_POST['ui'])) {
         $ui = new OpenID_Extension_UI(OpenID_Extension::REQUEST);
         $ui->set('mode', 'popup');
-        $ui->set('language', 'en-US');
+        // Google stopped supporting language here, so commented out
+        // $ui->set('language', 'en-US');
         $authRequest->addExtension($ui);
     }
     
     $url = $authRequest->getAuthorizeURL();
     
     if (empty($_POST['debug'])) {
+        if (isset($ui)) {
+            echo $url;
+            exit;
+        }
         header("Location: $url");
         exit;
     }
