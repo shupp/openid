@@ -26,18 +26,16 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.0.2');
-$packagexml->setReleaseVersion('0.0.2');
+$packagexml->setAPIVersion('0.0.3');
+$packagexml->setReleaseVersion('0.0.3');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Added POST support for OpenID_RelyingParty::verify()
-* Added support for duplicates in openid.signed (Yahoo! bug)
-* Styled examples - thanks Danny Trinh!
-* Fixed a bug in the discovery example
-* More tests');
+$packagexml->setNotes('* Enabled XRI support
+* Fixed a bug with 1.1 nonces not being urldecoded
+* Prioritize OpenID 2.0 when both are available');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 

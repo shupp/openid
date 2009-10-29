@@ -94,6 +94,17 @@ implements OpenID_Discover_Interface
 
                     $opEndpoint = new OpenID_ServiceEndpoint();
                     $opEndpoint->setVersion($types[0]);
+                    // Choose OpenID 2.0 if it's available
+                    if (count($types) > 1) {
+                        foreach ($types as $type) {
+                            if ($type == OpenID::SERVICE_2_0_SERVER ||
+                                $type == OpenID::SERVICE_2_0_SIGNON) {
+
+                                $opEndpoint->setVersion($type);
+                                break;
+                            }
+                        }
+                    }
                     $opEndpoint->setTypes($types);
                     $opEndpoint->setURIs($discoveredService->getUris());
                     $opEndpoint->setLocalID($localID);

@@ -262,7 +262,7 @@ class OpenID_Assertion extends OpenID
         $discover  = OpenID_Discover::getDiscover($identity, self::getStore());
         $endPoint  = $discover->services[0];
         $opURL     = array_shift($endPoint->getURIs());
-        $fromStore = self::getStore()->getNonce($nonce, $opURL);
+        $fromStore = self::getStore()->getNonce(urldecode($nonce), $opURL);
 
         // Observing
         $logMessage  = "returnTo: $returnTo\n";
@@ -270,7 +270,7 @@ class OpenID_Assertion extends OpenID
         $logMessage .= 'Nonce in storage?: ' . var_export($fromStore, true) . "\n";
         OpenID::setLastEvent(__METHOD__, $logMessage);
 
-        if (!self::getStore()->getNonce($nonce, $opURL)) {
+        if (!$fromStore) {
             throw new OpenID_Assertion_Exception(
                 'Invalid OpenID 1.1 return_to nonce in response'
             );

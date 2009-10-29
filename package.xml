@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
     http://pear.php.net/dtd/tasks-1.0.xsd
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
@@ -19,11 +19,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-08-07</date>
- <time>23:34:47</time>
+ <date>2009-10-29</date>
+ <time>00:01:04</time>
  <version>
-  <release>0.0.2</release>
-  <api>0.0.2</api>
+  <release>0.0.3</release>
+  <api>0.0.3</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,11 +31,9 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Added POST support for OpenID_RelyingParty::verify()
-* Added support for duplicates in openid.signed (Yahoo! bug)
-* Styled examples - thanks Danny Trinh!
-* Fixed a bug in the discovery example
-* More tests
+* Enabled XRI support
+* Fixed a bug with 1.1 nonces not being urldecoded
+* Prioritize OpenID 2.0 when both are available
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -187,6 +185,7 @@
     </dir> <!-- /tests/OpenID -->
     <file name="OpenIDTest.php" role="test" />
    </dir> <!-- /tests -->
+   <file name="OpenID-0.0.2.tgz" role="data" />
    <file name="OpenID.php" role="php" />
   </dir> <!-- / -->
  </contents>
@@ -295,6 +294,23 @@ Initial release
 * Styled examples - thanks Danny Trinh!
 * Fixed a bug in the discovery example
 * More tests
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.3</release>
+    <api>0.0.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-10-29</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Enabled XRI support
+* Fixed a bug with 1.1 nonces not being urldecoded
+* Prioritize OpenID 2.0 when both are available
    </notes>
   </release>
  </changelog>
