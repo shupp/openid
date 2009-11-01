@@ -27,15 +27,16 @@ if (isset($_POST['identifier'])) {
 } else if (isset($_SESSION['identifier'])) {
     $identifier = $_SESSION['identifier'];
 } else {
-    $contents  = "<div class='relyingparty_results'>\n";
-    $contents .= '<pre>No identifier available</pre>';
-    $contents .= "</div class='relyingparty_results'>";
-    include_once 'common/wrapper.php';
-    exit;
+    $identifier = null;
+    // $contents  = "<div class='relyingparty_results'>\n";
+    // $contents .= '<pre>No identifier available</pre>';
+    // $contents .= "</div class='relyingparty_results'>";
+    // include_once 'common/wrapper.php';
+    // exit;
 }
 
 try {
-    $o = new OpenID_RelyingParty($identifier, $returnTo, $realm);
+    $o = new OpenID_RelyingParty($returnTo, $realm, $identifier);
 } catch (OpenID_Exception $e) {
     $contents  = "<div class='relyingparty_results'>\n";
     $contents .= "<pre>" . $e->getMessage() . "</pre>\n";

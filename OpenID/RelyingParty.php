@@ -54,7 +54,7 @@ require_once 'Net/URL2.php';
  * $_SESSION['identifier'] = $identifier;
  * 
  * // Fire up the OpenID_RelyingParty object
- * $rp = new OpenID_RelyingParty($identifier, $returnTo, $realm);
+ * $rp = new OpenID_RelyingParty($returnTo, $realm, $identifier);
  *
  * // Here's an example of prepare() usage ...
  * // First, grab your Auth_Request_Object
@@ -148,18 +148,20 @@ class OpenID_RelyingParty extends OpenID
      * Sets the identifier, returnTo, and realm to be used for messages.  The 
      * identifier is normalized before being set.
      * 
-     * @param mixed $identifier The user supplied identifier
      * @param mixed $returnTo   The openid.return_to paramater value
      * @param mixed $realm      The openid.realm paramater value
+     * @param mixed $identifier The user supplied identifier, defaults to null
      * 
      * @see OpenID::normalizeIdentifier
      * @return void
      */
-    public function __construct($identifier, $returnTo, $realm)
+    public function __construct($returnTo, $realm, $identifier = null)
     {
-        $this->normalizedID = OpenID::normalizeIdentifier($identifier);
-        $this->returnTo     = $returnTo;
-        $this->realm        = $realm;
+        $this->returnTo = $returnTo;
+        $this->realm    = $realm;
+        if ($identifier !== null) {
+            $this->normalizedID = OpenID::normalizeIdentifier($identifier);
+        }
     }
 
     /**
@@ -206,9 +208,14 @@ class OpenID_RelyingParty extends OpenID
      * the OpenID_Auth_Request object.
      * 
      * @return OpenID_Auth_Request
+     * @throws OpenID_Exception if no identifier was passed to the constructor
      */
     public function prepare()
     {
+        if ($this->normalizedID === null) {
+            throw new OpenID_Exception('No identifier provided set');
+        }
+
         // Discover
         $discover        = $this->getDiscover();
         $serviceEndpoint = $discover->services[0];
@@ -247,6 +254,12 @@ class OpenID_RelyingParty extends OpenID
      */
     public function verify(Net_URL2 $requestedURL, OpenID_Message $message)
     {
+        // Unsolicited assertion?
+        if ($this->normalizedID === null) {
+            $unsolicitedID      = $message->get('openid.claimed_id');
+            $this->normalizedID = OpenID::normalizeIdentifier($unsolicitedID);
+        }
+
         $mode   = $message->get('openid.mode');
         $result = new OpenID_Assertion_Result;
 
@@ -290,7 +303,11 @@ class OpenID_RelyingParty extends OpenID
 
                     $result->setAssertionResult(true);
                 }
-                return $result;
+
+                // If it's not an unsolicited assertion, just return
+                if (!isset($unsolicitedID)) {
+                    return $result;
+                }
             }
 
             // Invalidate handle requested. Delete it and fall back to 

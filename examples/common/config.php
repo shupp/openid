@@ -40,7 +40,11 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
 $base .= '://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'];
 
 $realm    = $base . '/';
-$returnTo = $base . dirname($_SERVER['PHP_SELF']) . '/relyingparty.php';
+$returnTo = $base . dirname($_SERVER['PHP_SELF']);
+if ($returnTo[strlen($returnTo) - 1] != '/') {
+    $returnTo .= '/';
+}
+$returnTo .= 'relyingparty.php';
 
 // SQL storage example
 // $storeOptions = array(

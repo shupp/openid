@@ -103,11 +103,9 @@ implements OpenID_Discover_Interface
     protected function buildServiceEndpoint(array $results)
     {
         if (count($results['openid2.provider'])) {
+            $version = OpenID::SERVICE_2_0_SIGNON;
             if (count($results['openid2.local_id'])) {
-                $version = OpenID::SERVICE_2_0_SIGNON;
                 $localID = $results['openid2.local_id'][0];
-            } else {
-                $version = OpenID::SERVICE_2_0_SERVER;
             }
             $endpointURIs = $results['openid2.provider'];
         } elseif (count($results['openid.server'])) {
