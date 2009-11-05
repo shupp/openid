@@ -150,7 +150,9 @@ implements OpenID_Discover_Interface
             );
         }
 
+        // @codeCoverageIgnoreStart
         return $response;
+        // @codeCoverageIgnoreEnd
     }
 }
 

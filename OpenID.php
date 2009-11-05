@@ -242,7 +242,9 @@ class OpenID
         if (PEAR::isError($result)) {
             throw new OpenID_Exception($result);
         }
+        // @codeCoverageIgnoreStart
         return $request;
+        // @codeCoverageIgnoreEnd
     }
 
     /**
