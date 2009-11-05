@@ -432,8 +432,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
 
         $this->assertType('OpenID_Assertion_Result',
                           $this->rp->verify($this->messageToNetURL2($message),
-                                            $message)
-                         );
+                                            $message));
     }
 
     /**

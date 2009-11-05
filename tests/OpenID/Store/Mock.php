@@ -54,7 +54,8 @@ class OpenID_Store_Mock implements OpenID_Store_Interface
     /**
      * getAssociation 
      * 
-     * @param mixed $uri URI
+     * @param string $uri    The OP Endpoint URI
+     * @param string $handle The Association Handle (optional)
      * 
      * @return void
      */

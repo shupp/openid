@@ -60,7 +60,8 @@ implements OpenID_Discover_Interface
                 return false;
             }
 
-            $service = new OpenID_ServiceEndpoints($this->getServicesYadis()->getYadisId());
+            $service = new OpenID_ServiceEndpoints($this->getServicesYadis()
+                                                        ->getYadisId());
 
             foreach ($discoveredServices as $discoveredService) {
                 $types = $discoveredService->getTypes();

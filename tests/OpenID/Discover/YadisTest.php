@@ -39,7 +39,8 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->sy = $this->getMock('Services_Yadis', array('discover', 'getYadisId'));
+        $this->sy = $this->getMock('Services_Yadis',
+                                   array('discover', 'getYadisId'));
 
         $this->object = $this->getMock('OpenID_Discover_Yadis',
                                       array('getServicesYadis'),
@@ -69,9 +70,10 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
      */
     public function testDiscoverSuccess()
     {
-        $xrds     = file_get_contents(dirname(__FILE__) . '/xrds.xml');
-        $services = new Services_Yadis_Xrds_Service(new SimpleXMLElement($xrds),
-                                                    new Services_Yadis_Xrds_Namespace);
+        $file     = file_get_contents(dirname(__FILE__) . '/xrds.xml');
+        $xrds     = new SimpleXMLElement($xrds);
+        $ns       = new Services_Yadis_Xrds_Namespace;
+        $services = new Services_Yadis_Xrds_Service($xrds, $ns);
 
         $this->sy->expects($this->any())
                  ->method('discover')
@@ -89,9 +91,10 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
      */
     public function testDiscoverSuccess2()
     {
-        $xrds     = file_get_contents(dirname(__FILE__) . '/xrds2.xml');
-        $services = new Services_Yadis_Xrds_Service(new SimpleXMLElement($xrds),
-                                                    new Services_Yadis_Xrds_Namespace);
+        $file     = file_get_contents(dirname(__FILE__) . '/xrds2.xml');
+        $xrds     = new SimpleXMLElement($xrds);
+        $ns       = new Services_Yadis_Xrds_Namespace;
+        $services = new Services_Yadis_Xrds_Service($xrds, $ns);
 
         $this->sy->expects($this->any())
                  ->method('discover')
