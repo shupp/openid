@@ -145,11 +145,29 @@ class OpenID_AssociationTest extends PHPUnit_Framework_TestCase
         $message = new OpenID_Message;
         $message->set('openid.foo', 'bar');
         $message->set('openid.bar', 'foo');
+        $message->set('openid.op_endpoint', 'http://example.com');
         $message->set('openid.assoc_handle', $this->object->assocHandle);
 
         $this->object->signMessage($message);
         $this->assertTrue($message->get('openid.sig') !== null);
         $this->assertTrue($message->get('openid.signed') !== null);
+        $this->assertTrue($this->object->checkMessageSignature($message));
+    }
+
+    /**
+     * testURLsDoNotMatch 
+     * 
+     * @expectedException OpenID_Association_Exception
+     * @return void
+     */
+    public function testURLsDoNotMatch()
+    {
+        $message = new OpenID_Message;
+        $message->set('openid.foo', 'bar');
+        $message->set('openid.bar', 'foo');
+        $message->set('openid.assoc_handle', $this->object->assocHandle);
+
+        $this->object->signMessage($message);
         $this->assertTrue($this->object->checkMessageSignature($message));
     }
 
@@ -220,6 +238,7 @@ class OpenID_AssociationTest extends PHPUnit_Framework_TestCase
     {
         $message = new OpenID_Message;
         $message->set('openid.assoc_handle', $this->object->assocHandle);
+        $message->set('openid.op_endpoint', 'http://example.com');
 
         $this->assertFalse($this->object->checkMessageSignature($message));
     }

@@ -32,6 +32,7 @@ require_once 'OpenID/Assertion/ResultTest.php';
 require_once 'OpenID/RelyingPartyTest.php';
 require_once 'OpenID/DiscoverTest.php';
 require_once 'OpenID/Discover/HTMLTest.php';
+require_once 'OpenID/Discover/YadisTest.php';
 require_once 'OpenID/Store/CacheLiteTest.php';
 
 /**
@@ -73,6 +74,7 @@ class OpenID_AllTests
         $suite->addTestSuite('OpenID_RelyingPartyTest');
         $suite->addTestSuite('OpenID_DiscoverTest');
         $suite->addTestSuite('OpenID_Discover_HTMLTest');
+        $suite->addTestSuite('OpenID_Discover_YadisTest');
         $suite->addTestSuite('OpenID_Store_CacheLiteTest');
         return $suite;
     }

@@ -47,19 +47,6 @@ implements OpenID_Discover_Interface
     protected $yadis = null;
 
     /**
-     * Constructor.  Instantiates Services_Yadis, sets the openid namespace, and 
-     * sets the HTTP_Request options.
-     * 
-     * @param string $identifier The user supplied and normalized identifier.
-     * 
-     * @return void
-     */
-    public function __construct($identifier)
-    {
-        $this->yadis = $this->getServicesYadis($identifier);
-    }
-
-    /**
      * Performs YADIS discovery
      * 
      * @throws OpenID_Discover_Exception on error
@@ -68,12 +55,12 @@ implements OpenID_Discover_Interface
     public function discover()
     {
         try {
-            $discoveredServices = $this->yadis->discover();
+            $discoveredServices = $this->getServicesYadis()->discover();
             if (!$discoveredServices->valid()) {
                 return false;
             }
 
-            $service = new OpenID_ServiceEndpoints($this->yadis->getYadisId());
+            $service = new OpenID_ServiceEndpoints($this->getServicesYadis()->getYadisId());
 
             foreach ($discoveredServices as $discoveredService) {
                 $types = $discoveredService->getTypes();
@@ -89,7 +76,7 @@ implements OpenID_Discover_Interface
 
                     // Modify version if appropriate
                     if ($localID && $version == OpenID::SERVICE_2_0_SERVER) {
-                        $version = OpenID::SERVICE_2_0_SIGINON;
+                        $version = OpenID::SERVICE_2_0_SIGNON;
                     }
 
                     $opEndpoint = new OpenID_ServiceEndpoint();
@@ -132,17 +119,17 @@ implements OpenID_Discover_Interface
     /**
      * Gets the Services_Yadis instance.  Abstracted for testing.
      * 
-     * @param string $identifier The user supplied identifier
-     * 
      * @return Services_Yadis
      */
-    protected function getServicesYadis($identifier)
+    public function getServicesYadis()
     {
-        $yadis = new Services_Yadis($identifier);
-        $yadis->setHttpRequestOptions($this->requestOptions);
-        $yadis->addNamespace('openid', 'http://openid.net/xmlns/1.0');
+        if ($this->yadis === null) {
+            $this->yadis = new Services_Yadis($this->identifier);
+            $this->yadis->setHttpRequestOptions($this->requestOptions);
+            $this->yadis->addNamespace('openid', 'http://openid.net/xmlns/1.0');
+        }
 
-        return $yadis;
+        return $this->yadis;
     }
 }
 

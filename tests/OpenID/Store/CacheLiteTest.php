@@ -83,6 +83,8 @@ class OpenID_Store_CacheLiteTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($this->cache->getAssociation($uri));
         $this->cache->setAssociation($assoc);
         $this->assertType('OpenID_Association', $this->cache->getAssociation($uri));
+        $this->assertType('OpenID_Association',
+                          $this->cache->getAssociation($uri, $args['assocHandle']));
         $this->cache->deleteAssociation($uri);
         $this->assertFalse($this->cache->getAssociation($uri));
     }

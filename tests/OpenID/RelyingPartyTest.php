@@ -56,7 +56,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $this->rp = $this->getMock('OpenID_RelyingParty',
                                    array('getAssociationRequestObject',
                                          'getAssertionObject'),
-                                   array($this->id, $this->returnTo, $this->realm));
+                                   array($this->returnTo, $this->realm, $this->id));
 
         $this->store = $this->getMock('OpenID_Store_Mock',
                                       array('getDiscover',
@@ -155,6 +155,18 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * testPrepareFail 
+     * 
+     * @expectedException OpenID_Exception
+     * @return void
+     */
+    public function testPrepareFail()
+    {
+        $rp = new OpenID_RelyingParty($this->returnTo, $this->realm);
+        $rp->prepare();
+    }
+
+    /**
      * testGetDiscoverFail 
      * 
      * @expectedException OpenID_Exception
@@ -239,9 +251,9 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
      */
     public function testGetAssociationRequestObject()
     {
-        $rp = new OpenID_RelyingParty_Mock($this->id,
-                                           $this->returnTo,
-                                           $this->realm);
+        $rp = new OpenID_RelyingParty_Mock($this->returnTo,
+                                           $this->realm,
+                                           $this->id);
 
         $a = $rp->returnGetAssociationRequestObject($this->opEndpointURL,
                                                     OpenID::SERVICE_2_0_SERVER);
@@ -360,6 +372,68 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $this->assertType('OpenID_Assertion_Result',
                           $this->rp->verify($this->messageToNetURL2($message),
                           $message));
+    }
+
+    /**
+     * testVerifyUnsolicited 
+     * 
+     * @return void
+     */
+    public function testVerifyUnsolicited()
+    {
+        $log = new OpenID_Observer_Log;
+        OpenID::attach($log);
+        $this->rp = $this->getMock('OpenID_RelyingParty',
+                                   array('getAssociationRequestObject',
+                                         'getAssertionObject'),
+                                   array($this->returnTo, $this->realm));
+
+        $assertion = $this->getMock('OpenID_Assertion',
+                                    array('checkAuthentication'),
+                                    array(),
+                                    '',
+                                    false);
+
+        $authMessage = new OpenID_Message;
+        $authMessage->set('is_valid', 'true');
+
+        $assertion->expects($this->once())
+                  ->method('checkAuthentication')
+                  ->will($this->returnValue($authMessage));
+
+        $this->rp->expects($this->once())
+                 ->method('getAssertionObject')
+                 ->will($this->returnValue($assertion));
+
+        $this->store->expects($this->any())
+                    ->method('getDiscover')
+                    ->will($this->returnValue($this->discover));
+        $this->store->expects($this->once())
+                    ->method('getAssociation')
+                    ->will($this->returnValue($this->association));
+
+        $this->association->expects($this->once())
+                          ->method('checkMessageSignature')
+                          ->will($this->returnValue(true));
+
+        $nonceObj = new OpenID_Nonce($this->opEndpointURL);
+        $nonce    = $nonceObj->createNonce();
+
+        $message = new OpenID_Message();
+        $message->set('openid.mode', 'id_res');
+        $message->set('openid.ns', OpenID::NS_2_0);
+        $message->set('openid.return_to', $this->returnTo);
+        $message->set('openid.claimed_id', $this->id);
+        $message->set('openid.identity', $this->id);
+        $message->set('openid.op_endpoint', $this->opEndpointURL);
+        $message->set('openid.assoc_handle', '12345qwerty');
+        $message->set('openid.response_nonce', $nonce);
+
+
+        $this->assertType('OpenID_Assertion_Result',
+                          $this->rp->verify($this->messageToNetURL2($message),
+                                            $message)
+                         );
     }
 
     /**

@@ -58,7 +58,7 @@ class OpenID_Store_Mock implements OpenID_Store_Interface
      * 
      * @return void
      */
-    public function getAssociation($uri)
+    public function getAssociation($uri, $handle = null)
     {
     }
 
