@@ -184,7 +184,15 @@ class OpenID_Association
         if ($this->assocHandle != $message->get('openid.assoc_handle')) {
 
             throw new OpenID_Association_Exception(
-                'Associaiton handles do not match'
+                'Association handles do not match'
+            );
+        }
+
+        // Make sure the OP Endpoints match for this association and response
+        if ($this->uri != $message->get('openid.op_endpoint')) {
+
+            throw new OpenID_Association_Exception(
+                'Endpoint URLs do not match'
             );
         }
 

@@ -296,7 +296,10 @@ class OpenID_RelyingParty extends OpenID
             if ($message->get('openid.invalidate_handle') === null) {
                 // Don't fall back to check_authentication
                 $result->setAssertionMethod(OpenID::MODE_ASSOCIATE);
-                $assoc = $this->getStore()->getAssociation($opEndpointURL);
+                $assoc = $this->getStore()
+                              ->getAssociation($opEndpointURL,
+                                               $message->get('openid.assoc_handle'));
+                OpenID::setLastEvent(__METHOD__, print_r($assoc, true));
 
                 if ($assoc instanceof OpenID_Association &&
                     $assoc->checkMessageSignature($message)) {

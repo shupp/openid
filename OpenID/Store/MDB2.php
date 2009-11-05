@@ -204,14 +204,22 @@ class OpenID_Store_MDB2 implements OpenID_Store_Interface
     /**
      * Gets an association from the SQL server
      * 
-     * @param string $uri The OP Endpoint URL
+     * @param string $uri    The OP Endpoint URL
+     * @param string $handle The association handle if available
      * 
      * @return OpenID_Association on success, false on failure
      */
-    public function getAssociation($uri)
+    public function getAssociation($uri, $handle = null)
     {
-        $sql = "SELECT * FROM {$this->tableNames['association']}
-                    WHERE uri = ?";
+        if ($handle === null) {
+            $sql    = "SELECT * FROM {$this->tableNames['association']}
+                           WHERE uri = ?";
+            $params = array($uri);
+        } else {
+            $sql    = "SELECT * FROM {$this->tableNames['association']}
+                           WHERE uri = ? AND handle = ?";
+            $params = array($uri, $handle);
+        }
 
         $result = $this->prepareExecute($sql, array($uri));
         if (!$result->numRows()) {

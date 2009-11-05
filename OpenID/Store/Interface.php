@@ -56,11 +56,12 @@ interface OpenID_Store_Interface
     /**
      * Gets an OpenID_Assocation instance from storage
      * 
-     * @param string $uri The OP endpoint URI to get an association for
+     * @param string $uri    The OP endpoint URI to get an association for
+     * @param string $handle The association handle if available
      * 
      * @return OpenID_Association
      */
-    public function getAssociation($uri);
+    public function getAssociation($uri, $handle = null);
 
     /**
      * Stores an OpenID_Association instance.  Details (such as endpoint url and 

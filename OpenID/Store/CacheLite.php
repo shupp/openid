@@ -79,15 +79,21 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
     /**
      * Gets an OpenID_Assocation instance from storage
      * 
-     * @param string $uri The OP endpoint URI to get an association for
+     * @param string $uri    The OP endpoint URI to get an association for
+     * @param string $handle The handle if available
      * 
      * @return OpenID_Association
      */
-    public function getAssociation($uri)
+    public function getAssociation($uri, $handle = null)
     {
         $this->setOptions(self::TYPE_ASSOCIATION);
+        if ($handle !== null) {
+            $key = $uri . $handle;
+        } else {
+            $key = $uri;
+        }
 
-        return unserialize($this->cache->get(md5($uri)));
+        return unserialize($this->cache->get(md5($key)));
     }
 
     /**
@@ -102,9 +108,11 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
     {
         $this->setOptions(self::TYPE_ASSOCIATION, $association->expiresIn);
 
-        $key = md5($association->uri);
-
-        return $this->cache->save(serialize($association), $key);
+        // Store URI based key
+        $this->cache->save(serialize($association), md5($association->uri));
+        // Store URI + Handle based key
+        $this->cache->save(serialize($association),
+                           md5($association->uri . $association->assocHandle));
     }
 
     /**
