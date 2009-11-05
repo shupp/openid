@@ -71,7 +71,7 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
     public function testDiscoverSuccess()
     {
         $file     = file_get_contents(dirname(__FILE__) . '/xrds.xml');
-        $xrds     = new SimpleXMLElement($xrds);
+        $xrds     = new SimpleXMLElement($file);
         $ns       = new Services_Yadis_Xrds_Namespace;
         $services = new Services_Yadis_Xrds_Service($xrds, $ns);
 
@@ -92,7 +92,7 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
     public function testDiscoverSuccess2()
     {
         $file     = file_get_contents(dirname(__FILE__) . '/xrds2.xml');
-        $xrds     = new SimpleXMLElement($xrds);
+        $xrds     = new SimpleXMLElement($file);
         $ns       = new Services_Yadis_Xrds_Namespace;
         $services = new Services_Yadis_Xrds_Service($xrds, $ns);
 
