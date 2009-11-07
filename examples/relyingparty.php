@@ -28,11 +28,6 @@ if (isset($_POST['identifier'])) {
     $identifier = $_SESSION['identifier'];
 } else {
     $identifier = null;
-    // $contents  = "<div class='relyingparty_results'>\n";
-    // $contents .= '<pre>No identifier available</pre>';
-    // $contents .= "</div class='relyingparty_results'>";
-    // include_once 'common/wrapper.php';
-    // exit;
 }
 
 try {
@@ -163,21 +158,19 @@ if (isset($_POST['start'])) {
     try {
         $result  = $o->verify(new Net_URL2($returnTo . '?' . $queryString),
                                            $message);
+
+        if ($result->success()) {
+            $status  = "<tr><td>Status:</td><td><font color='green'>SUCCESS!";
+            $status .= " ({$result->getAssertionMethod()})</font></td></tr>";
+        } else {
+            $status  = "<tr><td>Status:</td><td><font color='red'>FAIL!";
+            $status .= " ({$result->getAssertionMethod()})</font></td></tr>";
+        }
     } catch (OpenID_Exception $e) {
-        $contents  = "<div class='relyingparty_results'>\n";
-        $contents .= "<pre>" . $e->getMessage() . "</pre>\n";
-        $contents .= "</div class='relyingparty_results'>";
-        include_once 'common/wrapper.php';
-        exit;
+        $status  = "<tr><td>Status:</td><td><font color='red'>EXCEPTION!";
+        $status .= " ({$e->getMessage()} : {$e->getCode()})</font></td></tr>";
     }
 
-    if ($result->success()) {
-        $status  = "<tr><td>Status:</td><td><font color='green'>SUCCESS!";
-        $status .= " ({$result->getAssertionMethod()})</font></td></tr>";
-    } else {
-        $status  = "<tr><td>Status:</td><td><font color='red'>FAIL!";
-        $status .= " ({$result->getAssertionMethod()})</font></td></tr>";
-    }
 
     $contents = "<div class='relyingparty_results'>
     <p>
