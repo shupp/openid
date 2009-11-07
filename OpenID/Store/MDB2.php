@@ -140,15 +140,13 @@ class OpenID_Store_MDB2 implements OpenID_Store_Interface
     {
         $prepared = $this->db->prepare($sql);
         if (PEAR::isError($prepared)) {
-            throw new OpenID_Store_Exception('Error preparing statement', $prepared);
+            throw new OpenID_Store_Exception($prepared);
         }
 
         $result = $prepared->execute($args);
         $prepared->free();
         if (PEAR::isError($result)) {
-            throw new OpenID_Store_Exception(
-                'Error executing prepared statement', $result
-            );
+            throw new OpenID_Store_Exception($result);
         }
         return $result;
     }
@@ -217,11 +215,11 @@ class OpenID_Store_MDB2 implements OpenID_Store_Interface
             $params = array($uri);
         } else {
             $sql    = "SELECT * FROM {$this->tableNames['association']}
-                           WHERE uri = ? AND handle = ?";
+                           WHERE uri = ? AND assocHandle = ?";
             $params = array($uri, $handle);
         }
 
-        $result = $this->prepareExecute($sql, array($uri));
+        $result = $this->prepareExecute($sql, $params);
         if (!$result->numRows()) {
             return false;
         }
