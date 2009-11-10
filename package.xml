@@ -19,11 +19,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-10-29</date>
- <time>00:10:02</time>
+ <date>2009-11-09</date>
+ <time>16:57:55</time>
  <version>
-  <release>0.0.3</release>
-  <api>0.0.3</api>
+  <release>0.0.4</release>
+  <api>0.0.4</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,9 +31,9 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Enabled XRI support
-* Fixed a bug with 1.1 nonces not being urldecoded
-* Prioritize OpenID 2.0 when both are available
+* Fixed HTML discovery bug
+* Fixed some SQL storage bugs
+* Fixed association poisoning bug
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -149,6 +149,9 @@
       <file name="MockNoInterface.php" role="test" />
       <file name="MockYadis.php" role="test" />
       <file name="MockYadisTest.php" role="test" />
+      <file name="xrds.xml" role="test" />
+      <file name="xrds2.xml" role="test" />
+      <file name="YadisTest.php" role="test" />
      </dir> <!-- /tests/OpenID/Discover -->
      <dir name="Extension">
       <file name="AXTest.php" role="test" />
@@ -310,6 +313,23 @@ Initial release
 * Enabled XRI support
 * Fixed a bug with 1.1 nonces not being urldecoded
 * Prioritize OpenID 2.0 when both are available
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.4</release>
+    <api>0.0.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-11-09</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Fixed HTML discovery bug
+* Fixed some SQL storage bugs
+* Fixed association poisoning bug
    </notes>
   </release>
  </changelog>

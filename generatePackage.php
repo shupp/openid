@@ -26,16 +26,16 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.0.3');
-$packagexml->setReleaseVersion('0.0.3');
+$packagexml->setAPIVersion('0.0.4');
+$packagexml->setReleaseVersion('0.0.4');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Enabled XRI support
-* Fixed a bug with 1.1 nonces not being urldecoded
-* Prioritize OpenID 2.0 when both are available');
+$packagexml->setNotes('* Fixed HTML discovery bug
+* Fixed some SQL storage bugs
+* Fixed association poisoning bug');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 
