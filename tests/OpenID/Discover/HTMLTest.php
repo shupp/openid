@@ -44,12 +44,17 @@ class OpenID_Discover_HTMLTest extends PHPUnit_Framework_TestCase
                  </html>';
 
         $object = $this->getMock('OpenID_Discover_HTML',
-                                 array('sendRequest'),
+                                 array('sendRequest', 'getExpiresHeader'),
                                  array('http://example.com'));
 
         $object->expects($this->once())
                ->method('sendRequest')
                ->will($this->returnValue($html));
+
+        $date = new DateTime(date('c', (time() + (3600 * 8))));
+        $object->expects($this->once())
+               ->method('getExpiresHeader')
+               ->will($this->returnValue($date->format(DATE_RFC1123)));
 
         $serviceEndpoints = $object->discover();
         $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
@@ -63,12 +68,16 @@ class OpenID_Discover_HTMLTest extends PHPUnit_Framework_TestCase
                  </html>';
 
         $object = $this->getMock('OpenID_Discover_HTML',
-                                 array('sendRequest'),
+                                 array('sendRequest', 'getExpiresHeader'),
                                  array('http://example.com'));
 
         $object->expects($this->once())
                ->method('sendRequest')
                ->will($this->returnValue($html));
+        $date = new DateTime(date('c', (time() + (3600 * 8))));
+        $object->expects($this->once())
+               ->method('getExpiresHeader')
+               ->will($this->returnValue($date->format(DATE_RFC1123)));
 
         $serviceEndpoints = $object->discover();
         $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
@@ -81,12 +90,17 @@ class OpenID_Discover_HTMLTest extends PHPUnit_Framework_TestCase
                  </html>';
 
         $object = $this->getMock('OpenID_Discover_HTML',
-                                 array('sendRequest'),
+                                 array('sendRequest', 'getExpiresHeader'),
                                  array('http://example.com'));
 
         $object->expects($this->once())
                ->method('sendRequest')
                ->will($this->returnValue($html));
+
+        $date = new DateTime(date('c', (time() + (3600 * 8))));
+        $object->expects($this->once())
+               ->method('getExpiresHeader')
+               ->will($this->returnValue($date->format(DATE_RFC1123)));
 
         $serviceEndpoints = $object->discover();
         $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
@@ -106,12 +120,17 @@ class OpenID_Discover_HTMLTest extends PHPUnit_Framework_TestCase
                  </html>';
 
         $object = $this->getMock('OpenID_Discover_HTML',
-                                 array('sendRequest'),
+                                 array('sendRequest', 'getExpiresHeader'),
                                  array('http://example.com'));
 
         $object->expects($this->once())
                ->method('sendRequest')
                ->will($this->returnValue($html));
+
+        $date = new DateTime(date('c', (time() + (3600 * 8))));
+        $object->expects($this->any())
+               ->method('getExpiresHeader')
+               ->will($this->returnValue($date->format(DATE_RFC1123)));
 
         $serviceEndpoints = $object->discover();
         $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);

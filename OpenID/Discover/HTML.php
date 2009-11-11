@@ -98,8 +98,22 @@ implements OpenID_Discover_Interface
         }
 
         $services = $this->buildServiceEndpoint($results);
-        $services->setExpiresHeader($this->request->getResponseHeader('Expires'));
+        $services->setExpiresHeader($this->getExpiresHeader($this->request));
         return $services;
+    }
+
+    /**
+     * Gets the Expires header from the response object
+     * 
+     * @param mixed $request HTTP_Request instance for now
+     * 
+     * @return string
+     */
+    protected function getExpiresHeader($request)
+    {
+        // @codeCoverageIgnoreStart
+        return $request->getResponseHeader('Expires');
+        // @codeCoverageIgnoreEnd
     }
 
     /**

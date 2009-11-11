@@ -35,7 +35,9 @@ $packagexml->setAPIStability('alpha');
 
 $packagexml->setNotes('* Fixed HTML discovery bug
 * Fixed some SQL storage bugs
-* Fixed association poisoning bug');
+* Fixed association poisoning bug
+* Added Expires header support to discovery caching
+* Date package now required');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 
@@ -61,6 +63,7 @@ $packagexml->addPackageDepWithChannel('required', 'Validate', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Cache_Lite', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Crypt_DiffieHellman', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Services_Yadis', 'pear.php.net', '0.3.1');
+$packagexml->addPackageDepWithChannel('required', 'Date', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('optional', 'Log', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Net_URL2', 'pear.php.net', '0.2.0');
 $packagexml->addPackageDepWithChannel('optional', 'MDB2', 'pear.php.net');

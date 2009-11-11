@@ -233,12 +233,13 @@ class OpenID_Discover
         }
 
         $expireTime = null;
-        if ($discover->getExpiresHeader()) {
+        if ($discover->services->getExpiresHeader()) {
             $tz  = new Date_TimeZone(date_default_timezone_get());
             $now = new Date();
             $now->setTZ($tz);
 
-            $expireDate = new Date(strtotime($discover->getExpiresHeader()));
+            $expireDate = new Date(strtotime($discover->services
+                                                      ->getExpiresHeader()));
             $span       = new Date_Span($now, $expireDate);
             $expire     = (int)$span->toSeconds();
         }
