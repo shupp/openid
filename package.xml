@@ -20,7 +20,7 @@
   <active>yes</active>
  </lead>
  <date>2009-11-10</date>
- <time>17:32:12</time>
+ <time>18:42:27</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -36,6 +36,7 @@
 * Fixed association poisoning bug
 * Added Expires header support to discovery caching
 * Date package now required
+* Fixed handling of openid.claimed_id in delegation situations
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -339,6 +340,7 @@ Initial release
 * Fixed association poisoning bug
 * Added Expires header support to discovery caching
 * Date package now required
+* Fixed handling of openid.claimed_id in delegation situations
    </notes>
   </release>
  </changelog>

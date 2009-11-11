@@ -191,7 +191,7 @@ class OpenID_Auth_Request
             $localID = $this->serviceEndpoint->getLocalID();
             if (!empty($localID)) {
                 if ($version == OpenID::NS_2_0) {
-                    $this->message->set('openid.claimed_id', $localID);
+                    $this->message->set('openid.claimed_id', $this->identifier);
                 }
                 $this->message->set('openid.identity', $localID);
             } else {

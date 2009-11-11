@@ -37,7 +37,8 @@ $packagexml->setNotes('* Fixed HTML discovery bug
 * Fixed some SQL storage bugs
 * Fixed association poisoning bug
 * Added Expires header support to discovery caching
-* Date package now required');
+* Date package now required
+* Fixed handling of openid.claimed_id in delegation situations');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 
