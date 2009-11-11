@@ -33,6 +33,14 @@ require_once 'OpenID/ServiceEndpoint.php';
 class OpenID_ServiceEndpoints implements IteratorAggregate, ArrayAccess, Countable
 {
     /**
+     * Copy of the Expires header from the HTTP request.  Used for customizing cache
+     * times
+     * 
+     * @var string
+     */
+    private $_expiresHeader = null;
+
+    /**
      * The user-supplied identifier
      *
      * @var string
@@ -174,6 +182,32 @@ class OpenID_ServiceEndpoints implements IteratorAggregate, ArrayAccess, Countab
     public function count()
     {
         return count($this->_services);
+    }
+
+    /**
+     * Gets the Expires header value
+     * 
+     * @see $_expiresHeader
+     * @see setExpiresHeader()
+     * @return string
+     */
+    public function getExpiresHeader()
+    {
+        return $this->_expiresHeader;
+    }
+
+    /**
+     * Sets the Expires header value
+     * 
+     * @param string $value The Expires header value
+     * 
+     * @see getExpiresHeader()
+     * @return OpenID_ServiceEndpoints
+     */
+    public function setExpiresHeader($value)
+    {
+        $this->_expiresHeader = $value;
+        return $this;
     }
 }
 

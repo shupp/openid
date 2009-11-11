@@ -98,7 +98,7 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
 
     /**
      * Stores an OpenID_Association instance.  Details (such as endpoint url and 
-     * exiration) are retrieved from the object itself.
+     * expiration) are retrieved from the object itself.
      * 
      * @param OpenID_Association $association Instance of OpenID_Association
      * 

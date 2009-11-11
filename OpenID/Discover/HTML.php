@@ -46,6 +46,13 @@ implements OpenID_Discover_Interface
     protected $identifier = null;
 
     /**
+     * Local storage of the HTTP_Request object
+     * 
+     * @var HTTP_Request
+     */
+    protected $request = null;
+
+    /**
      * Constructor.  Sets the 
      * 
      * @param mixed $identifier The user supplied identifier
@@ -90,7 +97,9 @@ implements OpenID_Discover_Interface
             }
         }
 
-        return $this->buildServiceEndpoint($results);
+        $services = $this->buildServiceEndpoint($results);
+        $services->setExpiresHeader($this->request->getResponseHeader('Expires'));
+        return $services;
     }
 
     /**
@@ -140,11 +149,11 @@ implements OpenID_Discover_Interface
      */
     protected function sendRequest()
     {
-        $request = new HTTP_Request($this->identifier, $this->requestOptions);
-        $request->sendRequest();
-        $response = $request->getResponseBody();
+        $this->request = new HTTP_Request($this->identifier, $this->requestOptions);
+        $this->request->sendRequest();
+        $response = $this->request->getResponseBody();
 
-        if ($request->getResponseCode() !== 200) {
+        if ($this->request->getResponseCode() !== 200) {
             throw new OpenID_Discover_Exception(
                 'Unable to connect to OpenID Provider.'
             );
