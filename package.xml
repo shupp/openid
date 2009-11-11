@@ -19,8 +19,8 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-11-09</date>
- <time>16:57:55</time>
+ <date>2009-11-10</date>
+ <time>17:32:12</time>
  <version>
   <release>0.0.4</release>
   <api>0.0.4</api>
@@ -34,6 +34,8 @@
 * Fixed HTML discovery bug
 * Fixed some SQL storage bugs
 * Fixed association poisoning bug
+* Added Expires header support to discovery caching
+* Date package now required
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -223,6 +225,11 @@
    <package>
     <name>Services_Yadis</name>
     <channel>pear.php.net</channel>
+    <min>0.3.1</min>
+   </package>
+   <package>
+    <name>Date</name>
+    <channel>pear.php.net</channel>
    </package>
    <package>
     <name>Net_URL2</name>
@@ -324,12 +331,14 @@ Initial release
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2009-11-09</date>
+   <date>2009-11-10</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Fixed HTML discovery bug
 * Fixed some SQL storage bugs
 * Fixed association poisoning bug
+* Added Expires header support to discovery caching
+* Date package now required
    </notes>
   </release>
  </changelog>
