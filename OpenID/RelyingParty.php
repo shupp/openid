@@ -213,7 +213,7 @@ class OpenID_RelyingParty extends OpenID
     public function prepare()
     {
         if ($this->normalizedID === null) {
-            throw new OpenID_Exception('No identifier provided set');
+            throw new OpenID_Exception('No identifier provided');
         }
 
         // Discover
