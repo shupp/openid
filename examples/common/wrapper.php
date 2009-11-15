@@ -26,9 +26,11 @@ if (isset($contents)) {
     <h3>
     <a href="./discovery.php">Discovery Example</a> 
         &nbsp | &nbsp 
-    <a href="./relyingparty.php">Relying Party Example</a>
+    <a href="./relyingparty.php">RP Example</a>
         &nbsp | &nbsp 
-    <a href="./selector/demo.html">Relying Party Selector Example</a>
+    <a href="./selector/demo.html">RP Selector Example</a>
+        &nbsp | &nbsp 
+    <a href="./message_inspector.php">Message Inspector</a>
     </h3>
     </body>
 </html>
