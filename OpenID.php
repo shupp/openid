@@ -16,7 +16,7 @@
  * Required files
  */
 require_once 'OpenID/Exception.php';
-require_once 'HTTP/Request.php';
+require_once 'HTTP/Request2.php';
 require_once 'Validate.php';
 require_once 'OpenID/Message.php';
 require_once 'OpenID/Store.php';
@@ -224,26 +224,39 @@ class OpenID
      * 
      * @param string         $url     URL to send the request to
      * @param OpenID_Message $message Contains message contents
-     * @param array          $options Options to pass to HTTP_Request
+     * @param array          $options Options to pass to HTTP_Request2
      * 
-     * @throws OpenID_Exception if sendRequest() fails
-     * @return HTTP_Request
+     * @see getHTTPRequest2Instance()
+     * @throws OpenID_Exception if send() fails
+     * @return HTTP_Request2_Response
      */
     public function directRequest($url,
                                   OpenID_Message $message, 
                                   array $options = array())
     {
-        // Force POST, per the spec
-        $options['method'] = 'POST';
-
-        $request = new HTTP_Request($url, $options);
+        $request = $this->getHTTPRequest2Instance();
+        $request->setConfig($options);
+        $request->setURL($url);
+        // Require POST, per the spec
+        $request->setMethod(HTTP_Request2::METHOD_POST);
         $request->setBody($message->getHTTPFormat());
-        $result = $request->sendRequest();
-        if (PEAR::isError($result)) {
-            throw new OpenID_Exception($result);
+        try {
+            return $request->send();
+        } catch (HTTP_Request2_Exception $e) {
+            throw new OpenID_Exception($e->getMessage(), $e->getCode());
         }
+    }
+
+    /**
+     * Instantiates HTTP_Request2.  Abstracted for testing.
+     * 
+     * @see directRequest()
+     * @return HTTP_Request2_Response
+     */
+    protected function getHTTPRequest2Instance()
+    {
         // @codeCoverageIgnoreStart
-        return $request;
+        return new HTTP_Request2();
         // @codeCoverageIgnoreEnd
     }
 

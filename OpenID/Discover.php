@@ -91,14 +91,17 @@ class OpenID_Discover
     protected $identifier = null;
 
     /**
-     * HTTP_Request options
+     * HTTP_Request2 options
      * 
      * @var array
      */
     protected $requestOptions = array(
-        'allowRedirects' => true,
-        'timeout'        => 3,
-        'readTimeout'    => array(3, 0)
+        'adapter'          => 'curl',
+        'follow_redirects' => true,
+        'timeout'          => 3,
+        'connect_timeout'  => 3,
+        'ssl_verify_peer'  => true,
+        'ssl_verify_host'  => true,
     );
 
     /**
@@ -137,9 +140,9 @@ class OpenID_Discover
     }
 
     /**
-     * Sets the HTTP_Request options to use
+     * Sets the HTTP_Request2 options to use
      * 
-     * @param array $options Array of HTTP_Request options
+     * @param array $options Array of HTTP_Request2 options
      * 
      * @return OpenID_Discover for fluent interface
      */

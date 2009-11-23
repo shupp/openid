@@ -21,6 +21,8 @@ require_once 'OpenID/ServiceEndpoint.php';
 require_once 'OpenID/ServiceEndpoints.php';
 require_once 'OpenID/Nonce.php';
 require_once 'OpenID/Association.php';
+require_once 'HTTP/Request2/Adapter/Mock.php';
+require_once 'HTTP/Request2.php';
 
 /**
  * OpenID_AssertionTest 
@@ -87,7 +89,7 @@ class OpenID_AssertionTest extends PHPUnit_Framework_TestCase
         OpenID::setStore($this->store);
 
         $this->assertion = $this->getMock('OpenID_Assertion',
-                                          array('directRequest'),
+                                          array('getHTTPRequest2Instance'),
                                           array($this->message,
                                                 new Net_URL2($this->requestedURL),
                                                 $this->clockSkew));
@@ -495,14 +497,17 @@ class OpenID_AssertionTest extends PHPUnit_Framework_TestCase
                     ->will($this->returnValue(false));
         $this->createObjects();
 
-        $httpRequest = $this->getMock('HTTP_Request',
-                                      array('getResponseBody'),
-                                      array($this->opEndpointURL));
-        $httpRequest->expects($this->once())
-                    ->method('getResponseBody')
-                    ->will($this->returnValue("foo:bar\n"));
+        $adapter  = new HTTP_Request2_Adapter_Mock;
+        $content  = "HTTP/1.1 200\n";
+        $content .= "Content-Type: text/html; charset=iso-8859-1\n\n\n";
+        $content .= "foo:bar\n";
+        $adapter->addResponse($content);
+
+        $httpRequest = new HTTP_Request2;
+        $httpRequest->setAdapter($adapter);
+        
         $this->assertion->expects($this->once())
-                        ->method('directRequest')
+                        ->method('getHTTPRequest2Instance')
                         ->will($this->returnValue($httpRequest));
 
         $result = $this->assertion->checkAuthentication();

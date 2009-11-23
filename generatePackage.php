@@ -26,19 +26,14 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.0.4');
-$packagexml->setReleaseVersion('0.0.4');
+$packagexml->setAPIVersion('0.0.5');
+$packagexml->setReleaseVersion('0.0.5');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Fixed HTML discovery bug
-* Fixed some SQL storage bugs
-* Fixed association poisoning bug
-* Added Expires header support to discovery caching
-* Date package now required
-* Fixed handling of openid.claimed_id in delegation situations');
+$packagexml->setNotes('* Migrated to HTTP_Request2');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 
@@ -59,11 +54,11 @@ $packagexml->setLicense('New BSD License',
 $packagexml->setPhpDep('5.1.2');
 $packagexml->setPearinstallerDep('1.4.0b1');
 $packagexml->addPackageDepWithChannel('required', 'PEAR', 'pear.php.net', '1.4.0');
-$packagexml->addPackageDepWithChannel('required', 'HTTP_Request', 'pear.php.net');
+$packagexml->addPackageDepWithChannel('required', 'HTTP_Request2', 'pear.php.net', '0.5.1');
 $packagexml->addPackageDepWithChannel('required', 'Validate', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Cache_Lite', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Crypt_DiffieHellman', 'pear.php.net');
-$packagexml->addPackageDepWithChannel('required', 'Services_Yadis', 'pear.php.net', '0.3.1');
+$packagexml->addPackageDepWithChannel('required', 'Services_Yadis', 'pear.php.net', '0.4.0');
 $packagexml->addPackageDepWithChannel('required', 'Date', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('optional', 'Log', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Net_URL2', 'pear.php.net', '0.2.0');

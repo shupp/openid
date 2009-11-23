@@ -118,8 +118,7 @@ class OpenID_Assertion extends OpenID
         $opURL    = $this->message->get('openid.op_endpoint');
         $response = $this->directRequest($opURL, $this->message, $options);
 
-        return new OpenID_Message($response->getResponseBody(),
-                                              OpenID_Message::FORMAT_KV);
+        return new OpenID_Message($response->getBody(), OpenID_Message::FORMAT_KV);
     }
 
     /**

@@ -105,14 +105,14 @@ implements OpenID_Discover_Interface
     /**
      * Gets the Expires header from the response object
      * 
-     * @param mixed $request HTTP_Request instance for now
+     * @param HTTP_Request2_Response $request HTTP_Request2_Response instance
      * 
      * @return string
      */
-    protected function getExpiresHeader($request)
+    protected function getExpiresHeader(HTTP_Request2_Response $response)
     {
         // @codeCoverageIgnoreStart
-        return $request->getResponseHeader('Expires');
+        return $response->getHeader('Expires');
         // @codeCoverageIgnoreEnd
     }
 
@@ -157,24 +157,26 @@ implements OpenID_Discover_Interface
     }
 
     /**
-     * Sends the request via HTTP_Request
+     * Sends the request via HTTP_Request2
      * 
-     * @return string The HTTP response
+     * @return string The HTTP response body
      */
     protected function sendRequest()
     {
-        $this->request = new HTTP_Request($this->identifier, $this->requestOptions);
-        $this->request->sendRequest();
-        $response = $this->request->getResponseBody();
+        $this->request = new HTTP_Request2($this->identifier,
+                                           HTTP_Request2::METHOD_GET,
+                                           $this->requestOptions);
+        $response = $this->request->send();
+        $body     = $this->request->getBody();
 
-        if ($this->request->getResponseCode() !== 200) {
+        if ($response->getStatus() !== 200) {
             throw new OpenID_Discover_Exception(
                 'Unable to connect to OpenID Provider.'
             );
         }
 
         // @codeCoverageIgnoreStart
-        return $response;
+        return $body;
         // @codeCoverageIgnoreEnd
     }
 }

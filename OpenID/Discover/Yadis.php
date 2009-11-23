@@ -104,8 +104,8 @@ implements OpenID_Discover_Interface
 
             // Add in expires information
             $service->setExpiresHeader($this->getServicesYadis()
-                                            ->getHttpRequest()
-                                            ->getResponseHeader('Expires'));
+                                            ->getHTTPResponse()
+                                            ->getHeader('Expires'));
 
             return $service;
 
