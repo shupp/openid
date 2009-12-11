@@ -102,17 +102,22 @@ class OpenIDTest extends PHPUnit_Framework_TestCase
     /**
      * testDirectRequest 
      * 
-     * @expectedException OpenID_Exception
      * @return void
      */
     public function testDirectRequest()
     {
-        $options = array('timeout' => 1, 'readTimeout' => 1);
-        $openid  = new OpenID;
+        $this->setExpectedException('OpenID_Exception', 'foobar');
+        $request = $this->getMock('HTTP_Request2', array('send'));
+        $request->expects($this->once())
+                ->method('send')
+                ->will($this->throwException(new HTTP_Request2_Exception('foobar')));
+        $openid  = $this->getMock('OpenID', array('getHTTPRequest2Instance'));
+        $openid->expects($this->once())
+               ->method('getHTTPRequest2Instance')
+               ->will($this->returnValue($request));
         $message = new OpenID_Message;
         $message->set('foo', 'bar');
-        // Hoping this port if free to force a failure.  Need HTTP_Request2 mocking
-        $openid->directRequest('http://localhost:2112', $message, $options);
+        $openid->directRequest('http://example.com', $message);
     }
 
     /**

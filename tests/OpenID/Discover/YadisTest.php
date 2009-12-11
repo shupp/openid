@@ -29,8 +29,9 @@ require_once 'OpenID/Discover/Yadis.php';
  */
 class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
 {
-    protected $sy     = null;
-    protected $object = null;
+    protected $sy      = null;
+    protected $object  = null;
+    protected $reponse = null;
 
     /**
      * setUp 
@@ -39,8 +40,13 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
+        $this->response = $this->getMock('HTTP_Request2_Response',
+                                        array(),
+                                        array(),
+                                        '',
+                                        false);
         $this->sy = $this->getMock('Services_Yadis',
-                                   array('discover', 'getYadisId'));
+                                   array('discover', 'getYadisId', 'getHTTPResponse'));
 
         $this->object = $this->getMock('OpenID_Discover_Yadis',
                                       array('getServicesYadis'),
@@ -50,6 +56,9 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
         $this->object->expects($this->any())
                      ->method('getServicesYadis')
                      ->will($this->returnValue($this->sy));
+        $this->sy->expects($this->any())
+                 ->method('getHTTPResponse')
+                 ->will($this->returnValue($this->response));
     }
 
     /**
@@ -59,8 +68,9 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
      */
     public function tearDown()
     {
-        $this->sy     = null;
-        $this->object = null;
+        $this->sy       = null;
+        $this->object   = null;
+        $this->response = null;
     }
 
     /**
