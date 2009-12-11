@@ -46,11 +46,18 @@ implements OpenID_Discover_Interface
     protected $identifier = null;
 
     /**
-     * Local storage of the HTTP_Request object
+     * Local storage of the HTTP_Request2 object
      * 
-     * @var HTTP_Request
+     * @var HTTP_Request2
      */
     protected $request = null;
+
+    /**
+     * Local storage of the HTTP_Request2_Response object
+     * 
+     * @var HTTP_Request2_Response
+     */
+    protected $response = null;
 
     /**
      * Constructor.  Sets the 
@@ -98,21 +105,19 @@ implements OpenID_Discover_Interface
         }
 
         $services = $this->buildServiceEndpoint($results);
-        $services->setExpiresHeader($this->getExpiresHeader($this->request));
+        $services->setExpiresHeader($this->getExpiresHeader());
         return $services;
     }
 
     /**
      * Gets the Expires header from the response object
      * 
-     * @param HTTP_Request2_Response $request HTTP_Request2_Response instance
-     * 
      * @return string
      */
-    protected function getExpiresHeader(HTTP_Request2_Response $response)
+    protected function getExpiresHeader()
     {
         // @codeCoverageIgnoreStart
-        return $response->getHeader('Expires');
+        return $this->response->getHeader('Expires');
         // @codeCoverageIgnoreEnd
     }
 
@@ -166,10 +171,10 @@ implements OpenID_Discover_Interface
         $this->request = new HTTP_Request2($this->identifier,
                                            HTTP_Request2::METHOD_GET,
                                            $this->requestOptions);
-        $response = $this->request->send();
-        $body     = $this->request->getBody();
+        $this->response = $this->request->send();
+        $body           = $this->response->getBody();
 
-        if ($response->getStatus() !== 200) {
+        if ($this->response->getStatus() !== 200) {
             throw new OpenID_Discover_Exception(
                 'Unable to connect to OpenID Provider.'
             );
