@@ -15,7 +15,8 @@
 
 require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/Association/Request.php';
-require_once 'HTTP/Request.php';
+require_once 'HTTP/Request2.php';
+require_once 'HTTP/Request2/Adapter/Mock.php';
 require_once 'OpenID/Message.php';
 require_once 'Crypt/DiffieHellman.php';
 
@@ -36,6 +37,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
     protected $handle       = '1234567890';
     protected $sessionType  = null;
     protected $httpRequest  = null;
+    protected $httpMock     = null;
     protected $assocRequest = null;
     protected $rpDH         = null;
     protected $opDH         = null;
@@ -62,14 +64,19 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
         $this->opDH = new Crypt_DiffieHellman(563, 5, 13);
         $this->opDH->generateKeys();
 
-        $this->httpRequest  = $this->getMock('HTTP_Request',
-                                             array('sendRequest', 'getResponseBody'),
-                                             array($this->URI));
+        $this->httpRequest = new HTTP_Request2();
+        $this->httpMock    = new HTTP_Request2_Adapter_Mock();
+        $this->httpRequest->setAdapter($this->httpMock);
+
         $this->assocRequest = $this->getMock('OpenID_Association_Request',
-                                             array('directRequest'),
+                                             array('getHTTPRequest2Instance'),
                                              array($this->URI,
                                                    OpenID::SERVICE_2_0_SERVER,
                                                    $this->rpDH));
+
+        $this->assocRequest->expects($this->any())
+                           ->method('getHTTPRequest2Instance')
+                           ->will($this->returnValue($this->httpRequest));
 
         $this->message->set('dh_server_public',
                             base64_encode($this
@@ -110,12 +117,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
                                       $this->macKey,
                                       $assocType);
         $this->message->set('enc_mac_key', base64_encode($xorSecret));
-        $this->httpRequest->expects($this->any())
-                          ->method('getResponseBody')
-                          ->will($this->returnValue($this->message->getKVFormat()));
-        $this->assocRequest->expects($this->any())
-                           ->method('directRequest')
-                           ->will($this->returnValue($this->httpRequest));
+        $this->setResponse();
 
         $this->assocRequest->associate();
     }
@@ -128,9 +130,13 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
     public function testDefaultDH()
     {
         $this->assocRequest = $this->getMock('OpenID_Association_Request',
-                                             array('directRequest'),
+                                             array('getHTTPRequest2Instance'),
                                              array($this->URI,
                                                    OpenID::SERVICE_2_0_SERVER));
+        $this->assocRequest->expects($this->any())
+                           ->method('getHTTPRequest2Instance')
+                           ->will($this->returnValue($this->httpRequest));
+
         $this->testAssociate();
     }
 
@@ -166,12 +172,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
     public function testGetResponse()
     {
         $this->message->set('enc_mac_key', 'foo');
-        $this->httpRequest->expects($this->any())
-                          ->method('getResponseBody')
-                          ->will($this->returnValue($this->message->getKVFormat()));
-        $this->assocRequest->expects($this->any())
-                           ->method('directRequest')
-                           ->will($this->returnValue($this->httpRequest));
+        $this->setResponse();
 
         $this->assocRequest->associate();
         $this->assertSame($this->message->getArrayFormat(),
@@ -227,12 +228,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
                                 ->opDH
                                 ->getPublicKey(Crypt_DiffieHellman::BTWOC)));
 
-        $this->httpRequest->expects($this->any())
-                          ->method('getResponseBody')
-                          ->will($this->returnValue($this->message->getKVFormat()));
-        $this->assocRequest->expects($this->any())
-                           ->method('directRequest')
-                           ->will($this->returnValue($this->httpRequest));
+        $this->setResponse();
 
         $this->assocRequest->associate();
     }
@@ -248,12 +244,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
         $this->assocRequest
              ->setSessionType(OpenID::SESSION_TYPE_NO_ENCRYPTION);
 
-        $this->httpRequest->expects($this->any())
-                          ->method('getResponseBody')
-                          ->will($this->returnValue($this->message->getKVFormat()));
-        $this->assocRequest->expects($this->any())
-                           ->method('directRequest')
-                           ->will($this->returnValue($this->httpRequest));
+        $this->setResponse();
 
         $this->assocRequest->associate();
     }
@@ -267,12 +258,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
     public function testBuildAssociationFailNoPublicKey()
     {
         $this->message->delete('dh_server_public');
-        $this->httpRequest->expects($this->any())
-                          ->method('getResponseBody')
-                          ->will($this->returnValue($this->message->getKVFormat()));
-        $this->assocRequest->expects($this->any())
-                           ->method('directRequest')
-                           ->will($this->returnValue($this->httpRequest));
+        $this->setResponse();
 
         $this->assocRequest->associate();
     }
@@ -288,13 +274,7 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
         $this->assocRequest
              ->setSessionType(OpenID::SESSION_TYPE_NO_ENCRYPTION);
 
-        $this->httpRequest->expects($this->any())
-                          ->method('getResponseBody')
-                          ->will($this->returnValue($this->message->getKVFormat()));
-        $this->assocRequest->expects($this->any())
-                           ->method('directRequest')
-                           ->will($this->returnValue($this->httpRequest));
-
+        $this->setResponse();
         $this->assocRequest->associate();
     }
 
@@ -353,14 +333,15 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
                                 ->opDH
                                 ->getPublicKey(Crypt_DiffieHellman::BTWOC)));
 
-        $this->httpRequest->expects($this->any())
-                          ->method('getResponseBody')
-                          ->will($this->returnValue($this->message->getKVFormat()));
-        $this->assocRequest->expects($this->any())
-                           ->method('directRequest')
-                           ->will($this->returnValue($this->httpRequest));
-
+        $this->setResponse();
         $this->assocRequest->associate();
     }
+
+    protected function setResponse()
+    {
+        $response = "HTTP/1.1 200 OK\nContent-Type: text/html\n\n" . $this->message->getKVFormat();
+        $this->httpMock->addResponse($response);
+    }
+
 }
 ?>

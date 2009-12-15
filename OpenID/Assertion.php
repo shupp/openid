@@ -195,8 +195,8 @@ class OpenID_Assertion extends OpenID
         // Remove the fragment, per the spec
         $url->setFragment(false);
 
-        $discover = OpenID_Discover::getDiscover($url->getURL(), self::getStore());
-        if ($discover === false) {
+        $discover = $this->getDiscover($url->getURL());
+        if (!$discover instanceof OpenID_Discover) {
             throw new OpenID_Assertion_Exception(
                 'Unable to discover claimed_id'
             );
@@ -258,7 +258,7 @@ class OpenID_Assertion extends OpenID
             $identity = $this->message->get('openid.identity');
         }
         $nonce     = $qs[OpenID_Nonce::RETURN_TO_NONCE];
-        $discover  = OpenID_Discover::getDiscover($identity, self::getStore());
+        $discover  = $this->getDiscover($identity);
         $endPoint  = $discover->services[0];
         $opURL     = array_shift($endPoint->getURIs());
         $fromStore = self::getStore()->getNonce(urldecode($nonce), $opURL);
@@ -276,6 +276,18 @@ class OpenID_Assertion extends OpenID
         }
 
         self::getStore()->deleteNonce($nonce, $opURL);
+    }
+
+    /**
+     * Gets an instance of OpenID_Discover.  Abstracted for testing.
+     * 
+     * @param string $identifier OpenID Identifier
+     * 
+     * @return OpenID_Discover|false 
+     */
+    protected function getDiscover($identifier)
+    {
+        return OpenID_Discover::getDiscover($identifier, self::getStore());
     }
 }
 ?>

@@ -243,6 +243,7 @@ class OpenID
         try {
             return $request->send();
         } catch (HTTP_Request2_Exception $e) {
+            echo $e->getMessage();exit;
             throw new OpenID_Exception($e->getMessage(), $e->getCode());
         }
     }
@@ -256,7 +257,9 @@ class OpenID
     protected function getHTTPRequest2Instance()
     {
         // @codeCoverageIgnoreStart
-        return new HTTP_Request2();
+        $request = new HTTP_Request2();
+        $request->setAdapter('curl');
+        return $request;
         // @codeCoverageIgnoreEnd
     }
 

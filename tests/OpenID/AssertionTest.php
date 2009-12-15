@@ -370,7 +370,14 @@ class OpenID_AssertionTest extends PHPUnit_Framework_TestCase
      */
     public function testValidateDiscoverFail()
     {
-        $this->createObjects();
+        OpenID::setStore($this->store);
+
+        $this->assertion = $this->getMock('OpenID_Assertion',
+                                          array('getHTTPRequest2Instance',
+                                                'getDiscover'),
+                                          array($this->message,
+                                                new Net_URL2($this->requestedURL),
+                                                $this->clockSkew));
     }
 
     /**

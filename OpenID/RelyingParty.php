@@ -339,8 +339,10 @@ class OpenID_RelyingParty extends OpenID
     {
         $discover = OpenID_Discover::getDiscover($this->normalizedID,
                                                  $this->getStore());
-        if ($discover === false) {
+        if (!$discover instanceof OpenID_Discover) {
+            // @codeCoverageIgnoreStart
             throw new OpenID_Exception('Unable to discover OP Endpoint URL');
+            // @codeCoverageIgnoreEnd
         }
 
         return $discover;

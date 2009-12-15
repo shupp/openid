@@ -99,9 +99,7 @@ class OpenID_Discover
         'adapter'          => 'curl',
         'follow_redirects' => true,
         'timeout'          => 3,
-        'connect_timeout'  => 3,
-        'ssl_verify_peer'  => true,
-        'ssl_verify_host'  => true,
+        'connect_timeout'  => 3
     );
 
     /**
@@ -232,7 +230,9 @@ class OpenID_Discover
         $discover = new OpenID_Discover($id);
         $result   = $discover->discover();
         if ($result === false) {
+            // @codeCoverageIgnoreStart
             return false;
+            // @codeCoverageIgnoreEnd
         }
 
         $expireTime = null;

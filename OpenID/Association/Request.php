@@ -206,7 +206,7 @@ class OpenID_Association_Request extends OpenID
         }
 
         $response = $this->directRequest($this->opEndpointURL, $this->message);
-        $message  = new OpenID_Message($response->getResponseBody(),
+        $message  = new OpenID_Message($response->getBody(),
                                        OpenID_Message::FORMAT_KV);
 
         OpenID::setLastEvent(__METHOD__, print_r($message->getArrayFormat(), true));

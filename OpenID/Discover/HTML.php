@@ -161,6 +161,7 @@ implements OpenID_Discover_Interface
         return new OpenID_ServiceEndpoints($this->identifier, $opEndpoint);
     }
 
+    // @codeCoverageIgnoreStart
     /**
      * Sends the request via HTTP_Request2
      * 
@@ -168,11 +169,8 @@ implements OpenID_Discover_Interface
      */
     protected function sendRequest()
     {
-        $this->request = new HTTP_Request2($this->identifier,
-                                           HTTP_Request2::METHOD_GET,
-                                           $this->requestOptions);
+        $this->getHTTPRequest2();
         $this->response = $this->request->send();
-        $body           = $this->response->getBody();
 
         if ($this->response->getStatus() !== 200) {
             throw new OpenID_Discover_Exception(
@@ -180,10 +178,21 @@ implements OpenID_Discover_Interface
             );
         }
 
-        // @codeCoverageIgnoreStart
-        return $body;
-        // @codeCoverageIgnoreEnd
+        return $this->response->getBody();
     }
+
+    /**
+     * Instantiates HTTP_Request2.  Abstracted for testing.
+     * 
+     * @return void
+     */
+    protected function getHTTPRequest2()
+    {
+        $this->request = new HTTP_Request2($this->identifier,
+                                           HTTP_Request2::METHOD_GET,
+                                           $this->requestOptions);
+    }
+    // @codeCoverageIgnoreEnd
 }
 
 ?>

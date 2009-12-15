@@ -17,6 +17,7 @@ require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/RelyingParty.php';
 require_once 'OpenID/RelyingParty/Mock.php';
 require_once 'OpenID/Store/Mock.php';
+require_once 'OpenID/Observer/Log.php';
 require_once 'OpenID/Discover.php';
 require_once 'OpenID/Association.php';
 require_once 'OpenID/Association/Request.php';
@@ -164,21 +165,6 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
     {
         $rp = new OpenID_RelyingParty($this->returnTo, $this->realm);
         $rp->prepare();
-    }
-
-    /**
-     * testGetDiscoverFail 
-     * 
-     * @expectedException OpenID_Exception
-     * @return void
-     */
-    public function testGetDiscoverFail()
-    {
-        $this->store->expects($this->once())
-                    ->method('getDiscover')
-                    ->will($this->returnValue(false));
-
-        $auth = $this->rp->prepare();
     }
 
     /**
