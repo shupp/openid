@@ -19,11 +19,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-12-15</date>
- <time>18:49:55</time>
+ <date>2009-12-16</date>
+ <time>13:55:32</time>
  <version>
-  <release>0.0.5</release>
-  <api>0.0.5</api>
+  <release>0.0.6</release>
+  <api>0.0.6</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,8 +31,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Migrated to HTTP_Request2
-* Added extension support detection to discovery
+* Allowed access to discovered information from OpenID_Assertion_Result and OpenID_Auth_Request
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -358,6 +357,21 @@ Initial release
    <notes>
 * Migrated to HTTP_Request2
 * Added extension support detection to discovery
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.6</release>
+    <api>0.0.6</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2009-12-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Allowed access to discovered information from OpenID_Assertion_Result and OpenID_Auth_Request
    </notes>
   </release>
  </changelog>

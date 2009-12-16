@@ -93,6 +93,14 @@ class OpenID_Auth_Request
      */
     protected $nonce = null;
 
+    /**
+     * The original OpenID_Discover object.  Useful for detecting extension support
+     * 
+     * @see getDiscover()
+     * @var OpenID_Discover|null
+     */
+    protected $discover = null;
+
 
     /**
      * Sets the basic information used in the message.
@@ -112,6 +120,7 @@ class OpenID_Auth_Request
         $this->identifier      = $discover->identifier;
         $this->serviceEndpoint = $discover->services[0];
         $this->message         = new OpenID_Message();
+        $this->discover        = $discover;
 
         // Only set NS for 2.0
         $versionFromMap = OpenID::$versionMap[$this->serviceEndpoint->getVersion()];
@@ -258,6 +267,17 @@ class OpenID_Auth_Request
         $logMessage .= 'OP URIs: ' . print_r($this->serviceEndpoint->getURIs(),
                                              true);
         OpenID::setLastEvent(__METHOD__, $logMessage);
+    }
+
+    /**
+     * Returns the discovered information about the identifer
+     * 
+     * @see $discover
+     * @return OpenID_Discover|null
+     */
+    public function getDiscover()
+    {
+        return $this->discover;
     }
 }
 ?>

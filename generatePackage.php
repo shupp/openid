@@ -26,15 +26,14 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.0.5');
-$packagexml->setReleaseVersion('0.0.5');
+$packagexml->setAPIVersion('0.0.6');
+$packagexml->setReleaseVersion('0.0.6');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Migrated to HTTP_Request2
-* Added extension support detection to discovery');
+$packagexml->setNotes('* Allowed access to discovered information from OpenID_Assertion_Result and OpenID_Auth_Request');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 

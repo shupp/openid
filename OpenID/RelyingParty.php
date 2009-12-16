@@ -291,6 +291,8 @@ class OpenID_RelyingParty extends OpenID
         $opEndpointURL   = array_shift($serviceEndpoint->getURIs());
         $assertion       = $this->getAssertionObject($message, $requestedURL);
 
+        $result->setDiscover($discover);
+
         // Check via associations
         if ($this->useAssociations) {
             if ($message->get('openid.invalidate_handle') === null) {

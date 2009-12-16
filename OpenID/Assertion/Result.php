@@ -60,6 +60,15 @@ class OpenID_Assertion_Result
     protected $assertion = false;
 
     /**
+     * Discovered information as an instance of OpenID_Discover
+     * 
+     * @see getDiscover()
+     * @see setDiscover()
+     * @var OpenID_Discover|null
+     */
+    protected $discover = null;
+
+    /**
      * Sets the check_authentication response in the form of an OpenID_Message 
      * instance
      * 
@@ -161,6 +170,32 @@ class OpenID_Assertion_Result
     public function getUserSetupURL()
     {
         return $this->userSetupURL;
+    }
+
+    /**
+     * Sets the discovered information about the identifier
+     * 
+     * @param OpenID_Discover $discover An instance of OpenID_Discover
+     * 
+     * @see $discover
+     * @see getDiscover()
+     * @return void
+     */
+    public function setDiscover(OpenID_Discover $discover)
+    {
+        $this->discover = $discover;
+    }
+
+    /**
+     * Returns the discovered information about the identifer
+     * 
+     * @see $discover
+     * @see setDiscover()
+     * @return OpenID_Discover|null
+     */
+    public function getDiscover()
+    {
+        return $this->discover;
     }
 }
 ?>

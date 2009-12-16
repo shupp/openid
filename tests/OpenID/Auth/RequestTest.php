@@ -233,5 +233,15 @@ class OpenID_Auth_RequestTest extends PHPUnit_Framework_TestCase
 
         $url = $this->authRequest->getAuthorizeURL();
     }
+
+    /**
+     * testGetDiscover 
+     * 
+     * @return void
+     */
+    public function testGetDiscover()
+    {
+        $this->assertSame($this->discover, $this->authRequest->getDiscover());
+    }
 }
 ?>

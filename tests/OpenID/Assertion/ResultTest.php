@@ -16,6 +16,7 @@
 require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/Assertion/Result.php';
 require_once 'OpenID/Message.php';
+require_once 'OpenID/Discover.php';
 require_once 'OpenID.php';
 
 /**
@@ -116,6 +117,19 @@ class OpenID_Assertion_ResultTest extends PHPUnit_Framework_TestCase
         $url = 'http://example.com';
         $this->result->setUserSetupURL($url);
         $this->assertSame($url, $this->result->getUserSetupURL());
+    }
+
+    /**
+     * testSetGetDiscover 
+     * 
+     * @return void
+     */
+    public function testSetGetDiscover()
+    {
+        $this->assertNull($this->result->getDiscover());
+        $discover = new OpenID_Discover('http://example.com');
+        $this->result->setDiscover($discover);
+        $this->assertSame($discover, $this->result->getDiscover());
     }
 }
 ?>
