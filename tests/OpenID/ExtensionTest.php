@@ -191,5 +191,15 @@ class OpenID_ExtensionTest extends PHPUnit_Framework_TestCase
         $response = $extension->fromMessageResponse($message);
         $this->assertSame(2, count($response));
     }
+
+    /**
+     * testGetNameSpace 
+     * 
+     * @return void
+     */
+    public function testGetNameSpace()
+    {
+        $this->assertSame($this->object->getNamespace(), 'http://example.com/mock');
+    }
 }
 ?>

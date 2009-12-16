@@ -210,6 +210,37 @@ class OpenID_Discover
     }
 
     /**
+     * Determines if dicovered information supports a given OpenID extension
+     * 
+     * @param string $extension The name of the extension to check, (SREG10, AX, etc)
+     * 
+     * @return bool
+     */
+    public function extensionSupported($extension)
+    {
+        $class = 'OpenID_Extension_' . $extension;
+        $file  = str_replace('_', '/', $class) . '.php';
+
+        include_once $file;
+
+        if (!class_exists($class, false)) {
+            throw new OpenID_Discover_Exception(
+                'Unknown extension: ' . $class
+            );
+        }
+
+        $instance = new $class(OpenID_Extension::REQUEST);
+
+        foreach ($this->services as $service) {
+            if (in_array($instance->getNamespace(), $service->getTypes())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Static helper method for retrieving discovered information from cache if it
      * exists, otherwise executing discovery and storing results if they are 
      * positive.

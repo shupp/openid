@@ -81,6 +81,7 @@ abstract class OpenID_Extension
     /**
      * Namespace URI
      * 
+     * @see getNamespace()
      * @var string
      */
     protected $namespace = null;
@@ -247,6 +248,17 @@ abstract class OpenID_Extension
             }
         }
         return $values;
+    }
+
+    /**
+     * Gets the namespace of this extension
+     * 
+     * @see $namespace
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
     }
 }
 ?>

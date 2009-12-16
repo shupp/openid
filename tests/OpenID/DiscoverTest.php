@@ -18,6 +18,7 @@
  */
 require_once 'OpenID/Discover.php';
 require_once 'OpenID/Discover/Mock.php';
+require_once 'OpenID/Discover/MockSubClass.php';
 require_once 'OpenID/Store/Mock.php';
 require_once 'PHPUnit/Framework.php';
 
@@ -134,6 +135,60 @@ class OpenID_DiscoverTest extends PHPUnit_Framework_TestCase
         $discover = OpenID_Discover::getDiscover('http://yahoo.com', $store);
 
         OpenID_Discover::$discoveryOrder = $oldTypes;
+    }
+
+    /**
+     * testExtensionSupportedSuccess 
+     * 
+     * @return void
+     */
+    public function testExtensionSupportedSuccess()
+    {
+        $endpoints = new OpenID_ServiceEndpoints('http://example.com');
+        $service   = new OpenID_ServiceEndpoint();
+        $service->setURIs(array('http://example.com'));
+        $service->setTypes(array('http://example.com/mock'));
+        $endpoints->addService($service);
+
+        $discover = new OpenID_Discover_MockSubClass('http://example.com');
+        $discover->setServices($endpoints);
+        $this->assertTrue($discover->extensionSupported('Mock'));
+    }
+
+    /**
+     * testExtensionSupportedFailure 
+     * 
+     * @return void
+     */
+    public function testExtensionSupportedFailure()
+    {
+        $endpoints = new OpenID_ServiceEndpoints('http://example.com');
+        $service   = new OpenID_ServiceEndpoint();
+        $service->setURIs(array('http://example.com'));
+        $endpoints->addService($service);
+
+        $discover = new OpenID_Discover_MockSubClass('http://example.com');
+        $discover->setServices($endpoints);
+        $this->assertFalse($discover->extensionSupported('Mock'));
+    }
+
+    /**
+     * testExtensionSupportedFailure 
+     * 
+     * @return void
+     */
+    public function testExtensionSupportedException()
+    {
+        $this->setExpectedException('OpenID_Discover_Exception',
+                                    'Unknown extension: OpenID_Extension_MockNoClass');
+        $endpoints = new OpenID_ServiceEndpoints('http://example.com');
+        $service   = new OpenID_ServiceEndpoint();
+        $service->setURIs(array('http://example.com'));
+        $endpoints->addService($service);
+
+        $discover = new OpenID_Discover_MockSubClass('http://example.com');
+        $discover->setServices($endpoints);
+        $this->assertFalse($discover->extensionSupported('MockNoClass'));
     }
 }
 ?>
