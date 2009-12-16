@@ -180,7 +180,7 @@ class OpenID_DiscoverTest extends PHPUnit_Framework_TestCase
     public function testExtensionSupportedException()
     {
         $this->setExpectedException('OpenID_Discover_Exception',
-                                    'Unknown extension: OpenID_Extension_MockNoClass');
+            'Unknown extension: OpenID_Extension_MockNoClass');
         $endpoints = new OpenID_ServiceEndpoints('http://example.com');
         $service   = new OpenID_ServiceEndpoint();
         $service->setURIs(array('http://example.com'));

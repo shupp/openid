@@ -45,8 +45,11 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
                                         array(),
                                         '',
                                         false);
+
         $this->sy = $this->getMock('Services_Yadis',
-                                   array('discover', 'getYadisId', 'getHTTPResponse'));
+                                   array('discover',
+                                         'getYadisId',
+                                         'getHTTPResponse'));
 
         $this->object = $this->getMock('OpenID_Discover_Yadis',
                                       array('getServicesYadis'),

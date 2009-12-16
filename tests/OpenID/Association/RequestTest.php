@@ -337,9 +337,15 @@ class OpenID_Association_RequestTest extends PHPUnit_Framework_TestCase
         $this->assocRequest->associate();
     }
 
+    /**
+     * setResponse 
+     * 
+     * @return void
+     */
     protected function setResponse()
     {
-        $response = "HTTP/1.1 200 OK\nContent-Type: text/html\n\n" . $this->message->getKVFormat();
+        $response = "HTTP/1.1 200 OK\nContent-Type: text/html\n\n"
+                    . $this->message->getKVFormat();
         $this->httpMock->addResponse($response);
     }
 

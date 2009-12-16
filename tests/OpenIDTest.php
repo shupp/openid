@@ -111,7 +111,7 @@ class OpenIDTest extends PHPUnit_Framework_TestCase
         $request->expects($this->once())
                 ->method('send')
                 ->will($this->throwException(new HTTP_Request2_Exception('foobar')));
-        $openid  = $this->getMock('OpenID', array('getHTTPRequest2Instance'));
+        $openid = $this->getMock('OpenID', array('getHTTPRequest2Instance'));
         $openid->expects($this->once())
                ->method('getHTTPRequest2Instance')
                ->will($this->returnValue($request));

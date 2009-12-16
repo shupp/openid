@@ -156,8 +156,8 @@ if (isset($_POST['start'])) {
     $mode    = $message->get('openid.mode');
 
     try {
-        $result  = $o->verify(new Net_URL2($returnTo . '?' . $queryString),
-                                           $message);
+        $result = $o->verify(new Net_URL2($returnTo . '?' . $queryString),
+                                          $message);
 
         if ($result->success()) {
             $status  = "<tr><td>Status:</td><td><font color='green'>SUCCESS!";

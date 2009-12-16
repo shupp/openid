@@ -16,7 +16,14 @@
 
 require_once 'common/config.php';
 
-function URItoArray($string)
+/**
+ * uritoArray 
+ * 
+ * @param string $string The URI to parse
+ * 
+ * @return array
+ */
+function uritoArray($string)
 {
     $exploded = explode('?', $string);
     if (count($exploded) > 1) {
@@ -36,14 +43,14 @@ if (isset($argv)) {
         exit;
     }
 
-    print_r(URIToArray($argv[1]));
+    print_r(uriToArray($argv[1]));
     exit;
 }
 
 // WEB
 $uri = '';
 if (isset($_POST['uri'])) {
-    $uri      = URIToArray($_POST['uri']);
+    $uri = uriToArray($_POST['uri']);
 }
 $contents = file_get_contents('common/message_form.php');
 
@@ -61,7 +68,7 @@ if (!empty($uri)) {
     $contents .= "</table>\n</div>\n";
 }
 
-include_once 'common/wrapper.php';
+require_once 'common/wrapper.php';
 exit;
 
 ?>
