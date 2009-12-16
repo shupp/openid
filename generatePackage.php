@@ -33,7 +33,8 @@ $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Migrated to HTTP_Request2');
+$packagexml->setNotes('* Migrated to HTTP_Request2
+* Added extension support detection to discovery');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 

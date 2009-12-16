@@ -19,8 +19,8 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2009-11-22</date>
- <time>18:19:01</time>
+ <date>2009-12-15</date>
+ <time>18:49:55</time>
  <version>
   <release>0.0.5</release>
   <api>0.0.5</api>
@@ -32,6 +32,7 @@
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
 * Migrated to HTTP_Request2
+* Added extension support detection to discovery
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -147,6 +148,7 @@
       <file name="MockFail.php" role="test" />
       <file name="MockNoClass.php" role="test" />
       <file name="MockNoInterface.php" role="test" />
+      <file name="MockSubClass.php" role="test" />
       <file name="MockYadis.php" role="test" />
       <file name="MockYadisTest.php" role="test" />
       <file name="xrds.xml" role="test" />
@@ -157,6 +159,7 @@
       <file name="AXTest.php" role="test" />
       <file name="Mock.php" role="test" />
       <file name="MockInvalidAlias.php" role="test" />
+      <file name="MockNoClass.php" role="test" />
       <file name="MockNoResponseKeys.php" role="test" />
       <file name="SREGTest.php" role="test" />
       <file name="UITest.php" role="test" />
@@ -350,10 +353,11 @@ Initial release
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2009-11-22</date>
+   <date>2009-12-15</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Migrated to HTTP_Request2
+* Added extension support detection to discovery
    </notes>
   </release>
  </changelog>
