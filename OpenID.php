@@ -243,7 +243,6 @@ class OpenID
         try {
             return $request->send();
         } catch (HTTP_Request2_Exception $e) {
-            echo $e->getMessage();exit;
             throw new OpenID_Exception($e->getMessage(), $e->getCode());
         }
     }
