@@ -187,9 +187,9 @@ class OpenID_ExtensionTest extends PHPUnit_Framework_TestCase
         $message = new OpenID_Message;
         // Make sure we iterate over the message at least once
         $message->set('openid.ns.mock', 'http://example.com/mock');
-        $message->set('openid.ns.mock.foo', 'bar');
+        $message->set('openid.mock.foo', 'bar');
         $response = $extension->fromMessageResponse($message);
-        $this->assertSame(2, count($response));
+        $this->assertSame(1, count($response));
     }
 
     /**

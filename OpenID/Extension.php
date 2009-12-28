@@ -217,7 +217,7 @@ abstract class OpenID_Extension
         $alias  = null;
 
         foreach ($message->getArrayFormat() as $ns => $value) {
-            if (!preg_match('/^openid[.]ns[.]([^.]*)$/', $ns, $matches)) {
+            if (!preg_match('/^openid[.]ns[.]([^.]+)$/', $ns, $matches)) {
                 continue;
             }
             $nsFromMessage = $message->get('openid.ns.' . $matches[1]);
