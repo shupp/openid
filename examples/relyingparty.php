@@ -97,6 +97,14 @@ if (isset($_POST['start'])) {
         $ui->set('language', 'en-US');
         $authRequest->addExtension($ui);
     }
+
+    // OAuth
+    if (!empty($_POST['oauth'])) {
+        $oauth = new OpenID_Extension_OAUTH(OpenID_Extension::REQUEST);
+        $oauth->set('consumer', 'googlecodesamples.com');
+        $oauth->set('scope', 'http://docs.google.com/feeds/ http://spreadsheets.google.com/feeds/ http://www-opensocial.googleusercontent.com/api/people/');
+        $authRequest->addExtension($oauth);
+    }
     
     $url = $authRequest->getAuthorizeURL();
     
