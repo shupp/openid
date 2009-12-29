@@ -26,7 +26,7 @@ require_once 'OpenID/Extension/SREG10.php';
 require_once 'OpenID/Extension/SREG11.php';
 require_once 'OpenID/Extension/AX.php';
 require_once 'OpenID/Extension/UI.php';
-require_once 'OpenID/Extension/OAUTH.php';
+require_once 'OpenID/Extension/OAuth.php';
 require_once 'OpenID/Message.php';
 require_once 'OpenID/Observer/Log.php';
 require_once 'Net/URL2.php';

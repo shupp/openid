@@ -67,7 +67,7 @@ function getServiceContent($identifier, $skipcache)
 
     $content['OpenID_Discover'] = $d->services;
 
-    $extensions = array('OAUTH', 'AX', 'SREG11', 'UI');
+    $extensions = array('OAuth', 'AX', 'SREG11', 'UI');
     $supported  = array();
 
     foreach ($extensions as $extension) {

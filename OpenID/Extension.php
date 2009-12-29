@@ -122,12 +122,16 @@ abstract class OpenID_Extension
      * @throws OpenID_Extension_Exception on invalid type argument
      * @return void
      */
-    public function __construct($type)
+    public function __construct($type, OpenID_Message $message = null)
     {
         if ($type != self::REQUEST && $type != self::RESPONSE) {
             throw new OpenID_Extension_Exception('Invalid message type: ' . $type);
         }
         $this->type = $type;
+
+        if ($message !== null) {
+            $this->values = $this->fromMessageResponse($message);
+        }
     }
 
     /**
@@ -242,8 +246,8 @@ abstract class OpenID_Extension
         } else {
             // Just grab all message components
             foreach ($message->getArrayFormat() as $key => $value) {
-                if (preg_match('/^openid[.]' . $alias . '[.]/', $key)) {
-                    $values[$key] = $value;
+                if (preg_match('/^openid[.]' . $alias . '[.]([^.]*)$/', $key, $matches)) {
+                    $values[$matches[1]] = $value;
                 }
             }
         }
