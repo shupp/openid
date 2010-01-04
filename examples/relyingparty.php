@@ -97,6 +97,22 @@ if (isset($_POST['start'])) {
         $ui->set('language', 'en-US');
         $authRequest->addExtension($ui);
     }
+
+    // OAuth
+    if (!empty($_POST['oauth'])) {
+        $oauth = new OpenID_Extension_OAuth(OpenID_Extension::REQUEST);
+        $oauth->set('consumer', $_POST['oauth_consumer_key']);
+        $_SESSION['OAuth_consumer_key']    = $_POST['oauth_consumer_key'];
+        $_SESSION['OAuth_consumer_secret'] = $_POST['oauth_consumer_secret'];
+
+        $oauth->set('scope', $_POST['oauth_scope']);
+        $_SESSION['OAuth_scope'] = $_POST['oauth_scope'];
+
+        $_SESSION['OAuth_access_token_url']    = $_POST['oauth_access_token_url'];
+        $_SESSION['OAuth_access_token_method'] = $_POST['oauth_access_token_method'];
+
+        $authRequest->addExtension($oauth);
+    }
     
     $url = $authRequest->getAuthorizeURL();
     
@@ -123,6 +139,18 @@ if (isset($_POST['start'])) {
 
         $contents .= "<tr><td align=left>" . urldecode($key) . '</td><td>';
         $contents .= urldecode($value) . "</td></tr>\n";
+    }
+
+    if (!empty($_POST['oauth'])) {
+        $contents .= "<tr><td colspan=\"2\"><br /><b>OAuth data</b></td></tr>\n";
+        foreach ($_SESSION as $key => $value) {
+            if (substr($key, 0, 5) != 'OAuth') {
+                continue;
+            }
+
+            $contents .= "<tr><td align=left>" . urldecode($key) . '</td><td>';
+            $contents .= urldecode($value) . "</td></tr>\n";
+        }
     }
 
     $contents .= "<tr><td colspan=\"2\"><p><br /><b><font color=\"red\">Proceed?";
@@ -171,6 +199,23 @@ if (isset($_POST['start'])) {
         $status .= " ({$e->getMessage()} : {$e->getCode()})</font></td></tr>";
     }
 
+    // OAuth hyprid fetching access token
+    if (
+        isset($_SESSION['OAuth_consumer_key'],
+              $_SESSION['OAuth_consumer_secret'],
+              $_SESSION['OAuth_access_token_url'],
+              $_SESSION['OAuth_access_token_method'])
+    ) {
+        try {
+            $oauth = new OpenID_Extension_OAuth(OpenID_Extension::RESPONSE, $message);
+            $oauthData = $oauth->getAccessToken($_SESSION['OAuth_consumer_key'],
+                                                $_SESSION['OAuth_consumer_secret'],
+                                                $_SESSION['OAuth_access_token_url'],
+                                                array(),
+                                                $_SESSION['OAuth_access_token_method']);
+        } catch (Exception $e) {
+        }
+    }
 
     $contents = "<div class='relyingparty_results'>
     <p>
@@ -185,6 +230,15 @@ if (isset($_POST['start'])) {
     foreach ($message->getArrayFormat() as $key => $value) {
         $contents .= "<tr><td align=left>$key</td><td>$value</td></tr>\n";
     }
+
+
+    if (count($oauthData)) {
+        $contents .= "<tr colspan=2><td><p><br><b>OAuth Access token/secret</b></td></tr>";
+        foreach ($oauthData as $key => $value) {
+            $contents .= "<tr><td align=left>$key</td><td>$value</td></tr>\n";
+        }
+    }
+
     $contents .= "</table>";
     $contents .= "</div>";
 
