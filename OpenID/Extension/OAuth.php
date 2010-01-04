@@ -10,7 +10,7 @@
  * @author    Jeff Hodsdon <jeffhodsdon@gmail.com> 
  * @copyright 2009 Jeff Hodsdon
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  */
 
 require_once 'OpenID/Extension.php';
@@ -25,7 +25,7 @@ require_once 'HTTP/OAuth/Consumer.php';
  * @author    Jeff Hodsdon <jeffhodsdon@gmail.com> 
  * @copyright 2009 Jeff Hodsdon
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  * @link      http://step2.googlecode.com/svn/spec/openid_oauth_extension/latest/openid_oauth_extension.html
  */
 class OpenID_Extension_OAuth extends OpenID_Extension
