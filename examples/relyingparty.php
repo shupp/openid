@@ -200,19 +200,27 @@ if (isset($_POST['start'])) {
     }
 
     // OAuth hyprid fetching access token
-    if (
-        isset($_SESSION['OAuth_consumer_key'],
+    if (isset($_SESSION['OAuth_consumer_key'],
               $_SESSION['OAuth_consumer_secret'],
               $_SESSION['OAuth_access_token_url'],
-              $_SESSION['OAuth_access_token_method'])
-    ) {
+              $_SESSION['OAuth_access_token_method'])) {
+
         try {
-            $oauth = new OpenID_Extension_OAuth(OpenID_Extension::RESPONSE, $message);
-            $oauthData = $oauth->getAccessToken($_SESSION['OAuth_consumer_key'],
-                                                $_SESSION['OAuth_consumer_secret'],
-                                                $_SESSION['OAuth_access_token_url'],
+            $oauth = new OpenID_Extension_OAuth(OpenID_Extension::RESPONSE,
+                                                $message);
+
+            // Fix line lengths.
+            $consumerKey    = $_SESSION['OAuth_consumer_key'];
+            $consumerSecret = $_SESSION['OAuth_consumer_key'];
+            $tokenURL       = $_SESSION['OAuth_access_token_url'];
+            $tokenMethod    = $_SESSION['OAuth_access_token_method'];
+
+            $oauthData = $oauth->getAccessToken($consumerKey,
+                                                $consumerSecret,
+                                                $tokenURL,
                                                 array(),
-                                                $_SESSION['OAuth_access_token_method']);
+                                                $tokenMethod);
+
         } catch (Exception $e) {
         }
     }
@@ -232,8 +240,11 @@ if (isset($_POST['start'])) {
     }
 
 
-    if (count($oauthData)) {
-        $contents .= "<tr colspan=2><td><p><br><b>OAuth Access token/secret</b></td></tr>";
+    if (isset($oauthData) && count($oauthData)) {
+        $contents .= "<tr colspan=2>";
+        $contents .= "    <td><p><br><b>OAuth Access token/secret</b></td>";
+        $contents .= "</tr>";
+
         foreach ($oauthData as $key => $value) {
             $contents .= "<tr><td align=left>$key</td><td>$value</td></tr>\n";
         }
