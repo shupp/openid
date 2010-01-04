@@ -76,6 +76,23 @@ class OpenID_ExtensionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * testConstructorWithMessage 
+     * 
+     * @return void
+     */
+    public function testConstructorWithMessage()
+    {
+        $key     = 'four';
+        $value   = '4';
+        $message = new OpenID_Message();
+        $message->set('openid.ns.mock', 'http://example.com/mock');
+        $message->set("openid.mock.$key", $value);
+        $this->object = new OpenID_Extension_Mock(OpenID_Extension::REQUEST,
+                                                  $message);
+        $this->assertSame($value, $this->object->get($key));
+    }
+
+    /**
      * testSetAndGet 
      * 
      * @return void
