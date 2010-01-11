@@ -26,14 +26,14 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.0.6');
-$packagexml->setReleaseVersion('0.0.6');
+$packagexml->setAPIVersion('0.0.7');
+$packagexml->setReleaseVersion('0.0.7');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Allowed access to discovered information from OpenID_Assertion_Result and OpenID_Auth_Request');
+$packagexml->setNotes('* Initial pass at OAuth extension support by Jeff.  Some extension fixes along the way');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 
@@ -63,6 +63,7 @@ $packagexml->addPackageDepWithChannel('required', 'Date', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('optional', 'Log', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Net_URL2', 'pear.php.net', '0.2.0');
 $packagexml->addPackageDepWithChannel('optional', 'MDB2', 'pear.php.net');
+$packagexml->addPackageDepWithChannel('optional', 'HTTP_OAuth', 'pear.php.net', '0.1.6');
 $packagexml->addExtensionDep('required', 'date'); 
 $packagexml->addExtensionDep('required', 'dom'); 
 $packagexml->addExtensionDep('required', 'hash'); 
