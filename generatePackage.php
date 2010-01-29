@@ -26,14 +26,14 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.0.7');
-$packagexml->setReleaseVersion('0.0.7');
+$packagexml->setAPIVersion('0.0.8');
+$packagexml->setReleaseVersion('0.0.8');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Initial pass at OAuth extension support by Jeff.  Some extension fixes along the way');
+$packagexml->setNotes('* Fix for OpenID_Extension::getFromMessageResponse() to allow for \'.\' in keys');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 

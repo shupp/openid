@@ -19,11 +19,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2010-01-11</date>
- <time>08:55:56</time>
+ <date>2010-01-29</date>
+ <time>10:51:55</time>
  <version>
-  <release>0.0.7</release>
-  <api>0.0.7</api>
+  <release>0.0.8</release>
+  <api>0.0.8</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,10 +31,50 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Initial pass at OAuth extension support by Jeff.  Some extension fixes along the way
+* Fix for OpenID_Extension::getFromMessageResponse() to allow for &apos;.&apos; in keys
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="examples">
+    <dir name="common">
+     <file name="config.php" role="doc" />
+     <file name="discover_form.php" role="doc" />
+     <file name="message_form.php" role="doc" />
+     <file name="rp_form.php" role="doc" />
+     <file name="wrapper.php" role="doc" />
+    </dir> <!-- /examples/common -->
+    <dir name="selector">
+     <dir name="css">
+      <file name="openid.css" role="doc" />
+     </dir> <!-- /examples/selector/css -->
+     <dir name="images">
+      <file name="aol.gif" role="doc" />
+      <file name="blogger.ico" role="doc" />
+      <file name="claimid.ico" role="doc" />
+      <file name="facebook.gif" role="doc" />
+      <file name="flickr.ico" role="doc" />
+      <file name="google.gif" role="doc" />
+      <file name="livejournal.ico" role="doc" />
+      <file name="myopenid.ico" role="doc" />
+      <file name="openid-inputicon.gif" role="doc" />
+      <file name="openid.gif" role="doc" />
+      <file name="technorati.ico" role="doc" />
+      <file name="verisign.ico" role="doc" />
+      <file name="wordpress.ico" role="doc" />
+      <file name="yahoo.gif" role="doc" />
+     </dir> <!-- /examples/selector/images -->
+     <dir name="js">
+      <file name="jquery-1.2.6.min.js" role="doc" />
+      <file name="openid-jquery.js" role="doc" />
+     </dir> <!-- /examples/selector/js -->
+     <file name="demo.html" role="doc" />
+    </dir> <!-- /examples/selector -->
+    <file name="discovery.php" role="doc" />
+    <file name="example.css" role="doc" />
+    <file name="index.php" role="doc" />
+    <file name="message_inspector.php" role="doc" />
+    <file name="relyingparty.php" role="doc" />
+   </dir> <!-- /examples -->
    <dir name="OpenID">
     <dir name="Assertion">
      <dir name="Exception">
@@ -353,6 +393,21 @@ Initial release
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Initial pass at OAuth extension support by Jeff.  Some extension fixes along the way
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.0.8</release>
+    <api>0.0.8</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-01-29</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Fix for OpenID_Extension::getFromMessageResponse() to allow for &apos;.&apos; in keys
    </notes>
   </release>
  </changelog>
