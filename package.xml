@@ -20,10 +20,10 @@
   <active>yes</active>
  </lead>
  <date>2010-01-29</date>
- <time>10:51:55</time>
+ <time>16:10:48</time>
  <version>
-  <release>0.0.8</release>
-  <api>0.0.8</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,7 +31,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Fix for OpenID_Extension::getFromMessageResponse() to allow for &apos;.&apos; in keys
+* Initial PEAR release
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -272,7 +272,7 @@
    <package>
     <name>HTTP_OAuth</name>
     <channel>pear.php.net</channel>
-    <min>0.1.6</min>
+    <min>0.1.7</min>
    </package>
   </optional>
  </dependencies>
@@ -408,6 +408,21 @@ Initial release
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Fix for OpenID_Extension::getFromMessageResponse() to allow for &apos;.&apos; in keys
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-01-29</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Initial PEAR release
    </notes>
   </release>
  </changelog>

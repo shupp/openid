@@ -26,14 +26,14 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.0.8');
-$packagexml->setReleaseVersion('0.0.8');
+$packagexml->setAPIVersion('0.1.0');
+$packagexml->setReleaseVersion('0.1.0');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Fix for OpenID_Extension::getFromMessageResponse() to allow for \'.\' in keys');
+$packagexml->setNotes('* Initial PEAR release');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 
@@ -63,7 +63,7 @@ $packagexml->addPackageDepWithChannel('required', 'Date', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('optional', 'Log', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Net_URL2', 'pear.php.net', '0.2.0');
 $packagexml->addPackageDepWithChannel('optional', 'MDB2', 'pear.php.net');
-$packagexml->addPackageDepWithChannel('optional', 'HTTP_OAuth', 'pear.php.net', '0.1.6');
+$packagexml->addPackageDepWithChannel('optional', 'HTTP_OAuth', 'pear.php.net', '0.1.7');
 $packagexml->addExtensionDep('required', 'date'); 
 $packagexml->addExtensionDep('required', 'dom'); 
 $packagexml->addExtensionDep('required', 'hash'); 
