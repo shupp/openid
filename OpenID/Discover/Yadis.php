@@ -11,7 +11,7 @@
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  */
 
 /**
@@ -32,7 +32,7 @@ require_once 'OpenID/ServiceEndpoints.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  * @see       Services_Yadis
  */
 class OpenID_Discover_Yadis

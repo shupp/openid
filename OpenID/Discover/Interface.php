@@ -9,7 +9,7 @@
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  */
 
 /**
@@ -20,7 +20,7 @@
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  */
 interface OpenID_Discover_Interface
 {

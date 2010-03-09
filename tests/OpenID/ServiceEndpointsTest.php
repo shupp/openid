@@ -10,7 +10,7 @@
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  */
 
 require_once 'PHPUnit/Framework.php';
@@ -26,7 +26,7 @@ require_once 'OpenID/ServiceEndpoints.php';
  * @author    Rich Schumacher <rich.schu@gmail.com>
  * @copyright 2009 Rich Schumacher
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  */
 class OpenID_ServiceEndpointsTest extends PHPUnit_Framework_TestCase
 {

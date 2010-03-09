@@ -9,7 +9,7 @@
  * @author    Bill Shupp <hostmaster@shupp.org> 
  * @copyright 2009 Bill Shupp
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  */
 
 /**
@@ -27,7 +27,7 @@ require_once 'OpenID.php';
  * @author    Bill Shupp <hostmaster@shupp.org> 
  * @copyright 2009 Bill Shupp
  * @license   http://www.opensource.org/licenses/bsd-license.php FreeBSD
- * @link      http://pearopenid.googlecode.com
+ * @link      http://github.com/shupp/openid
  */
 class OpenID_Nonce
 {
