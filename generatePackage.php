@@ -27,13 +27,13 @@ $packagexml->setDescription(
 
 $packagexml->setChannel('pear.php.net');
 $packagexml->setAPIVersion('0.1.0');
-$packagexml->setReleaseVersion('0.1.1');
+$packagexml->setReleaseVersion('0.1.2');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* Fixed association deletion bug');
+$packagexml->setNotes('* Updated math library dependencies in package.xml');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
 
@@ -64,6 +64,8 @@ $packagexml->addPackageDepWithChannel('optional', 'Log', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Net_URL2', 'pear.php.net', '0.2.0');
 $packagexml->addPackageDepWithChannel('optional', 'MDB2', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('optional', 'HTTP_OAuth', 'pear.php.net', '0.1.7');
+$packagexml->addExtensionDep('required', 'bcmath'); 
+$packagexml->addExtensionDep('optional', 'gmp'); 
 $packagexml->addExtensionDep('required', 'date'); 
 $packagexml->addExtensionDep('required', 'dom'); 
 $packagexml->addExtensionDep('required', 'hash'); 
