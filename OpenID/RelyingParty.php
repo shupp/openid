@@ -313,11 +313,11 @@ class OpenID_RelyingParty extends OpenID
                 if (!isset($unsolicitedID)) {
                     return $result;
                 }
+            } else {
+                // Invalidate handle requested. Delete it and fall back to 
+                // check_authenticate
+                $this->getStore()->deleteAssociation($opEndpointURL);
             }
-
-            // Invalidate handle requested. Delete it and fall back to 
-            // check_authenticate
-            $this->getStore()->deleteAssociation($opEndpointURL);
         }
 
         // Check via check_authenticate
