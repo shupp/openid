@@ -19,10 +19,10 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2010-03-09</date>
- <time>09:26:09</time>
+ <date>2010-03-08</date>
+ <time>23:12:04</time>
  <version>
-  <release>0.1.2</release>
+  <release>0.1.1</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -31,7 +31,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Updated math library dependencies in package.xml
+* Fixed association deletion bug
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -192,7 +192,6 @@
     <file name="OpenIDTest.php" role="test" />
    </dir> <!-- /tests -->
    <file name="OpenID.php" role="php" />
-   <file name="README" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -240,9 +239,6 @@
     <min>0.2.0</min>
    </package>
    <extension>
-    <name>bcmath</name>
-   </extension>
-   <extension>
     <name>date</name>
    </extension>
    <extension>
@@ -278,9 +274,6 @@
     <channel>pear.php.net</channel>
     <min>0.1.7</min>
    </package>
-   <extension>
-    <name>gmp</name>
-   </extension>
   </optional>
  </dependencies>
  <phprelease />
@@ -445,21 +438,6 @@ Initial release
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Fixed association deletion bug
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>0.1.2</release>
-    <api>0.1.0</api>
-   </version>
-   <stability>
-    <release>alpha</release>
-    <api>alpha</api>
-   </stability>
-   <date>2010-03-09</date>
-   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
-   <notes>
-* Updated math library dependencies in package.xml
    </notes>
   </release>
  </changelog>
