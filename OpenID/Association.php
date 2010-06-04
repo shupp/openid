@@ -18,7 +18,6 @@
 require_once 'OpenID/Association/Exception.php';
 require_once 'OpenID.php';
 require_once 'OpenID/Message.php';
-require_once 'Validate.php';
 
 /**
  * OpenID_Association 
@@ -128,7 +127,7 @@ class OpenID_Association
         }
 
         // Validate URI
-        if (!Validate::uri($params['uri'])) {
+        if (!filter_var($params['uri'], FILTER_VALIDATE_URL)) {
             throw new OpenID_Association_Exception(
                 "Invalid uri: " . $params['uri']
             );

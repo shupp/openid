@@ -214,10 +214,6 @@
     <min>0.5.1</min>
    </package>
    <package>
-    <name>Validate</name>
-    <channel>pear.php.net</channel>
-   </package>
-   <package>
     <name>Cache_Lite</name>
     <channel>pear.php.net</channel>
    </package>

@@ -21,7 +21,6 @@ require_once 'OpenID/Assertion/Exception.php';
 require_once 'OpenID/Assertion/Exception/NoClaimedID.php';
 require_once 'OpenID/Message.php';
 require_once 'OpenID/Nonce.php';
-require_once 'Validate.php';
 require_once 'Net/URL2.php';
 
 /**
@@ -134,7 +133,7 @@ class OpenID_Assertion extends OpenID
                              'openid.return_to: ' . var_export($returnTo, true));
 
         // Validate openid.return_to
-        if (!Validate::uri($returnTo)) {
+        if (!filter_var($returnTo, FILTER_VALIDATE_URL)) {
             throw new OpenID_Assertion_Exception(
                 'openid.return_to parameter is invalid or missing'
             );

@@ -17,7 +17,6 @@
  */
 require_once 'OpenID/Exception.php';
 require_once 'HTTP/Request2.php';
-require_once 'Validate.php';
 require_once 'OpenID/Message.php';
 require_once 'OpenID/Store.php';
 
@@ -295,7 +294,7 @@ class OpenID
         if (!preg_match('@^http[s]?://@i', $identifier)) {
             $identifier = 'http://' . $identifier;
         }
-        if (Validate::uri($identifier)) {
+        if (filter_var($identifier, FILTER_VALIDATE_URL)) {
             return $identifier;
         }
         throw new OpenID_Exception('Invalid URI Identifier');

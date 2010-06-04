@@ -15,7 +15,6 @@
 /**
  * Required files
  */
-require_once 'Validate.php';
 require_once 'OpenID/Discover.php';
 
 /**
@@ -77,7 +76,7 @@ class OpenID_ServiceEndpoint
     public function setURIs(array $uris)
     {
         foreach ($uris as $key => $uri) {
-            if (!Validate::uri($uri)) {
+            if (!filter_var($uri, FILTER_VALIDATE_URL)) {
                 unset($uris[$key]);
             }
         }
