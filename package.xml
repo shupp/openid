@@ -203,7 +203,6 @@
    <pearinstaller>
     <min>1.4.0</min>
    </pearinstaller>
-   </package>
    <package>
     <name>HTTP_Request2</name>
     <channel>pear.php.net</channel>
