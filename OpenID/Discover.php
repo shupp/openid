@@ -17,7 +17,6 @@
  */
 require_once 'OpenID.php';
 require_once 'Services/Yadis.php';
-require_once 'Validate.php';
 require_once 'OpenID/ServiceEndpoint.php';
 require_once 'OpenID/ServiceEndpoints.php';
 require_once 'OpenID/Discover/Exception.php';
