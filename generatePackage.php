@@ -33,7 +33,8 @@ $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
-$packagexml->setNotes('* fix E_STRICT error: Strict standards: Only variables should be passed by reference in OpenID/RelyingParty.php on line 226 (cweiske)
+$packagexml->setNotes('* Fixed #17481.  OpenID_Message wasn\'t checking input of http formatted messages before assigning key/values
+* fix E_STRICT error: Strict standards: Only variables should be passed by reference in OpenID/RelyingParty.php on line 226 (cweiske)
 * get rid of date dependency. there was also a but that prevented the expiration time from working (using of $expire instead of $expireTime) (cweiske)
 * get rid of PEAR dependency, we only need the PEAR installer dep (cweiske)
 * get rid of PEAR Validate dependency and use filter_var() instead (cweiske)

@@ -20,7 +20,7 @@
   <active>yes</active>
  </lead>
  <date>2010-06-25</date>
- <time>22:55:58</time>
+ <time>23:10:04</time>
  <version>
   <release>0.2.0</release>
   <api>0.2.0</api>
@@ -31,6 +31,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
+* Fixed #17481.  OpenID_Message wasn&apos;t checking input of http formatted messages before assigning key/values
 * fix E_STRICT error: Strict standards: Only variables should be passed by reference in OpenID/RelyingParty.php on line 226 (cweiske)
 * get rid of date dependency. there was also a but that prevented the expiration time from working (using of $expire instead of $expireTime) (cweiske)
 * get rid of PEAR dependency, we only need the PEAR installer dep (cweiske)
@@ -449,6 +450,7 @@ Initial release
    <date>2010-06-25</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
+* Fixed #17481.  OpenID_Message wasn&apos;t checking input of http formatted messages before assigning key/values
 * fix E_STRICT error: Strict standards: Only variables should be passed by reference in OpenID/RelyingParty.php on line 226 (cweiske)
 * get rid of date dependency. there was also a but that prevented the expiration time from working (using of $expire instead of $expireTime) (cweiske)
 * get rid of PEAR dependency, we only need the PEAR installer dep (cweiske)
