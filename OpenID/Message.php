@@ -215,8 +215,11 @@ class OpenID_Message
         if ($format == self::FORMAT_HTTP) {
             $array = explode('&', $message);
             foreach ($array as $pair) {
-                list($key, $value) = explode('=', $pair, 2);
-                $this->set(urldecode($key), urldecode($value));
+                $parts = explode('=', $pair, 2);
+                if (count($parts) < 2) {
+                    continue;
+                }
+                $this->set(urldecode($parts[0]), urldecode($parts[1]));
             }
         }
     }
