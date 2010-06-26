@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
     http://pear.php.net/dtd/tasks-1.0.xsd
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
@@ -19,11 +19,11 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2010-03-08</date>
- <time>23:12:04</time>
+ <date>2010-06-25</date>
+ <time>22:55:58</time>
  <version>
-  <release>0.1.1</release>
-  <api>0.1.0</api>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -31,7 +31,11 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Fixed association deletion bug
+* fix E_STRICT error: Strict standards: Only variables should be passed by reference in OpenID/RelyingParty.php on line 226 (cweiske)
+* get rid of date dependency. there was also a but that prevented the expiration time from working (using of $expire instead of $expireTime) (cweiske)
+* get rid of PEAR dependency, we only need the PEAR installer dep (cweiske)
+* get rid of PEAR Validate dependency and use filter_var() instead (cweiske)
+* Fixed all @link annotations, added README (shupp)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -192,6 +196,7 @@
     <file name="OpenIDTest.php" role="test" />
    </dir> <!-- /tests -->
    <file name="OpenID.php" role="php" />
+   <file name="README" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -200,8 +205,13 @@
     <min>5.1.2</min>
    </php>
    <pearinstaller>
-    <min>1.4.0</min>
+    <min>1.4.0b1</min>
    </pearinstaller>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+    <min>1.4.0</min>
+   </package>
    <package>
     <name>HTTP_Request2</name>
     <channel>pear.php.net</channel>
@@ -425,6 +435,25 @@ Initial release
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Fixed association deletion bug
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-06-25</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* fix E_STRICT error: Strict standards: Only variables should be passed by reference in OpenID/RelyingParty.php on line 226 (cweiske)
+* get rid of date dependency. there was also a but that prevented the expiration time from working (using of $expire instead of $expireTime) (cweiske)
+* get rid of PEAR dependency, we only need the PEAR installer dep (cweiske)
+* get rid of PEAR Validate dependency and use filter_var() instead (cweiske)
+* Fixed all @link annotations, added README (shupp)
    </notes>
   </release>
  </changelog>
