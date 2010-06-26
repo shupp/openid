@@ -17,7 +17,6 @@
  * Required files
  */
 require_once 'OpenID/Extension.php';
-require_once 'Validate.php';
 
 /**
  * Support for the AX extension
@@ -76,7 +75,7 @@ class OpenID_Extension_AX extends OpenID_Extension
         }
 
         if (preg_match('/^type[.]/', $key)
-            && !Validate::uri($value)) {
+            && !filter_var($value, FILTER_VALIDATE_URL)) {
 
             throw new OpenID_Extension_Exception($key . ' is not a valid URI');
         }

@@ -223,7 +223,8 @@ class OpenID_RelyingParty extends OpenID
         // Associate
         $assocHandle = null;
         if ($this->useAssociations) {
-            $opEndpointURL = array_shift($serviceEndpoint->getURIs());
+            $uris          = $serviceEndpoint->getURIs();
+            $opEndpointURL = array_shift($uris);
             $assoc         = $this->getAssociation($opEndpointURL,
                                                    $serviceEndpoint->getVersion());
 

@@ -17,11 +17,9 @@
  */
 require_once 'OpenID.php';
 require_once 'Services/Yadis.php';
-require_once 'Validate.php';
 require_once 'OpenID/ServiceEndpoint.php';
 require_once 'OpenID/ServiceEndpoints.php';
 require_once 'OpenID/Discover/Exception.php';
-require_once 'Date.php';
 
 /**
  * OpenID_Discover
@@ -268,14 +266,8 @@ class OpenID_Discover
 
         $expireTime = null;
         if ($discover->services->getExpiresHeader()) {
-            $tz  = new Date_TimeZone(date_default_timezone_get());
-            $now = new Date();
-            $now->setTZ($tz);
-
-            $expireDate = new Date(strtotime($discover->services
-                                                      ->getExpiresHeader()));
-            $span       = new Date_Span($now, $expireDate);
-            $expire     = (int)$span->toSeconds();
+            $expireTime = strtotime($discover->services->getExpiresHeader())
+                - time();
         }
 
         $store->setDiscover($discover, $expireTime);
