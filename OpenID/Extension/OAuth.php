@@ -88,7 +88,7 @@ class OpenID_Extension_OAuth extends OpenID_Extension
             throw new OpenID_Exception('No oauth request token in OpenID message');
         }
 
-        $consumer = new HTTP_OAuth_Consumer($consumerKey, $consumerSecret);
+        $consumer = $this->getConsumer($consumerKey, $consumerSecret);
         $consumer->setToken($requestToken);
 
         // Token secret is blank per spec
@@ -101,6 +101,18 @@ class OpenID_Extension_OAuth extends OpenID_Extension
             'oauth_token_secret' => $consumer->getTokenSecret());
     }
 
+    /**
+     * Returns a new HTTP_OAuth_Consumer instance.  Mocked for testing.
+     * 
+     * @param string $consumerKey    Consumer Key
+     * @param string $consumerSecret Consumer Secret
+     * 
+     * @return HTTP_OAuth_Consumer
+     */
+    protected function getConsumer($consumerKey, $consumerSecret)
+    {
+        return new HTTP_OAuth_Consumer($consumerKey, $consumerSecret);
+    }
 }
 
 ?>
