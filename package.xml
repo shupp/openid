@@ -19,10 +19,10 @@
   <email>rich.schu@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2010-06-25</date>
- <time>23:10:04</time>
+ <date>2010-07-31</date>
+ <time>17:50:45</time>
  <version>
-  <release>0.2.0</release>
+  <release>0.2.1</release>
   <api>0.2.0</api>
  </version>
  <stability>
@@ -31,12 +31,7 @@
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
-* Fixed #17481.  OpenID_Message wasn&apos;t checking input of http formatted messages before assigning key/values
-* fix E_STRICT error: Strict standards: Only variables should be passed by reference in OpenID/RelyingParty.php on line 226 (cweiske)
-* get rid of date dependency. there was also a but that prevented the expiration time from working (using of $expire instead of $expireTime) (cweiske)
-* get rid of PEAR dependency, we only need the PEAR installer dep (cweiske)
-* get rid of PEAR Validate dependency and use filter_var() instead (cweiske)
-* Fixed all @link annotations, added README (shupp)
+* Allow query string parameters in the endpoint URLs (like Google Apps)
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -456,6 +451,21 @@ Initial release
 * get rid of PEAR dependency, we only need the PEAR installer dep (cweiske)
 * get rid of PEAR Validate dependency and use filter_var() instead (cweiske)
 * Fixed all @link annotations, added README (shupp)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.1</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2010-07-31</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
+   <notes>
+* Allow query string parameters in the endpoint URLs (like Google Apps)
    </notes>
   </release>
  </changelog>
