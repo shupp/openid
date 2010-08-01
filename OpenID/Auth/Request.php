@@ -215,8 +215,12 @@ class OpenID_Auth_Request
             $this->addNonce();
         }
 
-        $urls   = $this->serviceEndpoint->getURIs();
-        $url    = $urls[0] . '?' . $this->message->getHTTPFormat();
+        $urls = $this->serviceEndpoint->getURIs();
+        if (strstr($urls[0], '?')) {
+            $url = $urls[0] . '&' . $this->message->getHTTPFormat();
+        } else {
+            $url = $urls[0] . '?' . $this->message->getHTTPFormat();
+        }
         $netURL = new Net_URL2($url);
 
         return $netURL->getURL();

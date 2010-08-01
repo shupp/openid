@@ -150,6 +150,29 @@ class OpenID_Auth_RequestTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * testGetAuthorizeURLWithQueryString 
+     * 
+     * @return void
+     */
+    public function testGetAuthorizeURLWithQueryString()
+    {
+        $originalURL = $this->opURL;
+        $newURL      = 'http://exampleop.com/foobar?foo=bar';
+        $this->opURL = $newURL;
+        $this->setUp();
+        $url     = $this->authRequest->getAuthorizeURL();
+        $split   = preg_split('/\?/', $url);
+        $message = new OpenID_Message($split[1], OpenID_Message::FORMAT_HTTP);
+        $this->assertSame($this->returnTo, $message->get('openid.return_to'));
+        $this->assertSame(OpenID::NS_2_0_ID_SELECT,
+                          $message->get('openid.identity'));
+        $this->assertSame(OpenID::NS_2_0_ID_SELECT,
+                          $message->get('openid.claimed_id'));
+        $this->assertSame('bar', $message->get('foo'));
+        $this->opURL = $originalURL;
+    }
+
+    /**
      * testGetAuthorizeURLSignon 
      * 
      * @return void
