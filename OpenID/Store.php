@@ -55,7 +55,8 @@ abstract class OpenID_Store
                 $class . ' does not implement OpenID_Store_Interface'
             );
         }
-        return new $class($options);
+
+        return $instance;
     }
 }
 ?>
