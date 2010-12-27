@@ -13,7 +13,6 @@
  * @link      http://github.com/shupp/openid
  */
 
-require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/Association.php';
 require_once 'OpenID/Message.php';
 

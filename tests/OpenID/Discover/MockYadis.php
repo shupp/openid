@@ -40,7 +40,7 @@ class OpenID_Discover_MockYadis extends OpenID_Discover_Yadis
      * 
      * @return Services_Yadis
      */
-    protected function getServicesYadis($identifier)
+    public function getServicesYadis($identifier)
     {
         return self::$servicesYadisInstance;
     }

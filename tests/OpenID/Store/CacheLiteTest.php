@@ -17,7 +17,6 @@ require_once 'OpenID/Store/CacheLite.php';
 require_once 'OpenID/Association.php';
 require_once 'OpenID/Discover.php';
 require_once 'OpenID/Nonce.php';
-require_once 'PHPUnit/Framework.php';
 
 /**
  * OpenID_Store_CacheLiteTest 
@@ -82,8 +81,8 @@ class OpenID_Store_CacheLiteTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->cache->getAssociation($uri));
         $this->cache->setAssociation($assoc);
-        $this->assertType('OpenID_Association', $this->cache->getAssociation($uri));
-        $this->assertType('OpenID_Association',
+        $this->assertInstanceOf('OpenID_Association', $this->cache->getAssociation($uri));
+        $this->assertInstanceOf('OpenID_Association',
                           $this->cache->getAssociation($uri, $args['assocHandle']));
         $this->cache->deleteAssociation($uri);
         $this->assertFalse($this->cache->getAssociation($uri));
@@ -103,7 +102,7 @@ class OpenID_Store_CacheLiteTest extends PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->cache->getDiscover($identifier));
         $this->cache->setDiscover($discover);
-        $this->assertType('OpenID_Discover', $this->cache->getDiscover($identifier));
+        $this->assertInstanceOf('OpenID_Discover', $this->cache->getDiscover($identifier));
         $this->cache->deleteDiscover($identifier);
         $this->assertFalse($this->cache->getDiscover($identifier));
     }

@@ -13,7 +13,6 @@
  * @link      http://github.com/shupp/openid
  */
 
-require_once 'PHPUnit/Framework.php';
 require_once 'OpenID.php';
 require_once 'OpenID/Store.php';
 require_once 'OpenID/Message.php';
@@ -39,9 +38,9 @@ class OpenIDTest extends PHPUnit_Framework_TestCase
      */
     public function testSetAndGetStore()
     {
-        $this->assertType('OpenID_Store_CacheLite', OpenID::getStore());
+        $this->assertInstanceOf('OpenID_Store_CacheLite', OpenID::getStore());
         OpenID::setStore(OpenID_Store::factory('Mock'));
-        $this->assertType('OpenID_Store_Mock', OpenID::getStore());
+        $this->assertInstanceOf('OpenID_Store_Mock', OpenID::getStore());
     }
 
     /**

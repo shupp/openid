@@ -12,7 +12,6 @@
  * @link      http://github.com/shupp/openid
  */
 
-require_once 'PHPUnit/Framework.php';
 require_once 'OpenIDTest.php';
 require_once 'OpenID/MessageTest.php';
 require_once 'OpenID/Auth/RequestTest.php';

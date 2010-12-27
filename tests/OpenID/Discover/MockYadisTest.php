@@ -17,7 +17,6 @@
  * Required files 
  */
 require_once 'OpenID/Discover/MockYadis.php';
-require_once 'PHPUnit/Framework.php';
 require_once 'Services/Yadis.php';
 
 /**
@@ -43,7 +42,7 @@ class OpenID_Discover_MockYadisTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->yadis = $this->getMock('Services_Yadis');
+        $this->yadis = $this->getMock('Services_Yadis', array());
 
         OpenID_Discover_MockYadis::$servicesYadisInstance = $this->yadis;
 

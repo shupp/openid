@@ -13,7 +13,6 @@
  * @link      http://github.com/shupp/openid
  */
 
-require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/RelyingParty.php';
 require_once 'OpenID/RelyingParty/Mock.php';
 require_once 'OpenID/Store/Mock.php';
@@ -152,7 +151,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
                     ->will($this->returnValue($this->association));
 
         $auth = $this->rp->prepare();
-        $this->assertType('OpenID_Auth_Request', $auth);
+        $this->assertInstanceOf('OpenID_Auth_Request', $auth);
     }
 
     /**
@@ -196,7 +195,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
 
 
         $auth = $this->rp->prepare();
-        $this->assertType('OpenID_Auth_Request', $auth);
+        $this->assertInstanceOf('OpenID_Auth_Request', $auth);
     }
 
     /**
@@ -227,7 +226,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
                  ->will($this->returnValue($assocRequest));
 
         $auth = $this->rp->prepare();
-        $this->assertType('OpenID_Auth_Request', $auth);
+        $this->assertInstanceOf('OpenID_Auth_Request', $auth);
     }
 
     /**
@@ -243,7 +242,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
 
         $a = $rp->returnGetAssociationRequestObject($this->opEndpointURL,
                                                     OpenID::SERVICE_2_0_SERVER);
-        $this->assertType('OpenID_Association_Request', $a);
+        $this->assertInstanceOf('OpenID_Association_Request', $a);
     }
 
     /**
@@ -271,7 +270,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message->set('openid.mode', OpenID::MODE_CANCEL);
 
         $result = $this->rp->verify($this->messageToNetURL2($message), $message);
-        $this->assertType('OpenID_Assertion_Result', $result);
+        $this->assertInstanceOf('OpenID_Assertion_Result', $result);
         $this->assertFalse($result->success());
         $this->assertSame(OpenID::MODE_CANCEL, $result->getAssertionMethod());
     }
@@ -289,7 +288,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message->set('openid.user_setup_url', $url);
 
         $result = $this->rp->verify($this->messageToNetURL2($message), $message);
-        $this->assertType('OpenID_Assertion_Result', $result);
+        $this->assertInstanceOf('OpenID_Assertion_Result', $result);
         $this->assertFalse($result->success());
         $this->assertSame(OpenID::MODE_ID_RES, $result->getAssertionMethod());
         $this->assertSame($url, $result->getUserSetupURL());
@@ -355,7 +354,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message->set('openid.response_nonce', $nonce);
 
 
-        $this->assertType('OpenID_Assertion_Result',
+        $this->assertInstanceOf('OpenID_Assertion_Result',
                           $this->rp->verify($this->messageToNetURL2($message),
                           $message));
     }
@@ -416,7 +415,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message->set('openid.response_nonce', $nonce);
 
 
-        $this->assertType('OpenID_Assertion_Result',
+        $this->assertInstanceOf('OpenID_Assertion_Result',
                           $this->rp->verify($this->messageToNetURL2($message),
                                             $message));
     }
@@ -463,7 +462,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
                  ->method('getAssertionObject')
                  ->will($this->returnValue($assertion));
 
-        $this->assertType('OpenID_Assertion_Result',
+        $this->assertInstanceOf('OpenID_Assertion_Result',
                           $this->rp->verify($this->messageToNetURL2($message),
                                             $message));
     }
@@ -496,7 +495,7 @@ class OpenID_RelyingPartyTest extends PHPUnit_Framework_TestCase
         $message->set('openid.response_nonce', $nonce);
 
         $rp = new OpenID_RelyingParty_Mock($this->id, $this->returnTo, $this->realm);
-        $this->assertType('OpenID_Assertion',
+        $this->assertInstanceOf('OpenID_Assertion',
                           $rp->returnGetAssertionObject($message,
                           new Net_URL2($this->returnTo)));
     }

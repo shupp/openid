@@ -55,7 +55,17 @@ implements OpenID_Discover_Interface
     public function discover()
     {
         try {
-            $discoveredServices = $this->getServicesYadis()->discover();
+            try {
+                $discoveredServices = $this->getServicesYadis()->discover();
+            } catch (Services_Yadis_Exception $e) {
+                $message = 'Yadis protocol could not locate a valid XRD document';
+
+                if ($e->getMessage() == $message) {
+                    return false;
+                }
+                throw $e;
+            }
+
             if (!$discoveredServices->valid()) {
                 return false;
             }

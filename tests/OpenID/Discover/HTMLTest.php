@@ -13,7 +13,6 @@
  * @link      http://github.com/shupp/openid
  */
 
-require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/Discover/HTML.php';
 
 /**
@@ -57,7 +56,7 @@ class OpenID_Discover_HTMLTest extends PHPUnit_Framework_TestCase
                ->will($this->returnValue($date->format(DATE_RFC1123)));
 
         $serviceEndpoints = $object->discover();
-        $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $serviceEndpoints);
 
         // Version 2.0
         $html = '<html>
@@ -80,7 +79,7 @@ class OpenID_Discover_HTMLTest extends PHPUnit_Framework_TestCase
                ->will($this->returnValue($date->format(DATE_RFC1123)));
 
         $serviceEndpoints = $object->discover();
-        $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $serviceEndpoints);
 
         // Directed Identity
         $html = '<html>
@@ -103,7 +102,7 @@ class OpenID_Discover_HTMLTest extends PHPUnit_Framework_TestCase
                ->will($this->returnValue($date->format(DATE_RFC1123)));
 
         $serviceEndpoints = $object->discover();
-        $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $serviceEndpoints);
     }
 
     /**
@@ -133,7 +132,7 @@ class OpenID_Discover_HTMLTest extends PHPUnit_Framework_TestCase
                ->will($this->returnValue($date->format(DATE_RFC1123)));
 
         $serviceEndpoints = $object->discover();
-        $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $serviceEndpoints);
     }
 }
 ?>

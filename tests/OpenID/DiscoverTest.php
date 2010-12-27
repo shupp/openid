@@ -20,7 +20,6 @@ require_once 'OpenID/Discover.php';
 require_once 'OpenID/Discover/Mock.php';
 require_once 'OpenID/Discover/MockSubClass.php';
 require_once 'OpenID/Store/Mock.php';
-require_once 'PHPUnit/Framework.php';
 
 /**
  * OpenID_DiscoverTest 
@@ -56,7 +55,7 @@ class OpenID_DiscoverTest extends PHPUnit_Framework_TestCase
     public function testSetRequestOptions()
     {
         $options = array('allowRedirects' => true);
-        $this->assertType('OpenID_Discover',
+        $this->assertInstanceOf('OpenID_Discover',
                           $this->discover->setRequestOptions($options));
     }
 

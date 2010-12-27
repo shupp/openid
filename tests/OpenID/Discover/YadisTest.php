@@ -13,7 +13,6 @@
  * @link      http://github.com/shupp/openid
  */
 
-require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/Discover/Yadis.php';
 
 /**
@@ -93,8 +92,8 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
                  ->will($this->returnValue($services));
 
         $serviceEndpoints = $this->object->discover();
-        $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
-        $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $serviceEndpoints);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $serviceEndpoints);
     }
 
     /**
@@ -114,8 +113,8 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
                  ->will($this->returnValue($services));
 
         $serviceEndpoints = $this->object->discover();
-        $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
-        $this->assertType('OpenID_ServiceEndpoints', $serviceEndpoints);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $serviceEndpoints);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $serviceEndpoints);
     }
 
     /**
@@ -150,7 +149,7 @@ class OpenID_Discover_YadisTest extends PHPUnit_Framework_TestCase
     public function testGetServicesYadis()
     {
         $sy = new OpenID_Discover_Yadis('http://example.com');
-        $this->assertType('Services_Yadis', $sy->getServicesYadis());
+        $this->assertInstanceOf('Services_Yadis', $sy->getServicesYadis());
     }
 }
 ?>

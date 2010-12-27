@@ -13,7 +13,6 @@
  * @link      http://github.com/shupp/openid
  */
 
-require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/Assertion.php';
 require_once 'OpenID/Discover.php';
 require_once 'OpenID/Store/Mock.php';

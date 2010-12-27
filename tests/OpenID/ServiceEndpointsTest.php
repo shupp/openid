@@ -13,7 +13,6 @@
  * @link      http://github.com/shupp/openid
  */
 
-require_once 'PHPUnit/Framework.php';
 require_once 'OpenID/ServiceEndpoint.php';
 require_once 'OpenID/ServiceEndpoints.php';
 
@@ -90,7 +89,7 @@ class OpenID_ServiceEndpointsTest extends PHPUnit_Framework_TestCase
      */
     public function testConstructorNoEndpoint()
     {
-        $this->assertType('OpenID_ServiceEndpoints', $this->object);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $this->object);
         $this->assertEquals($this->identifier, $this->object->getIdentifier());
     }
 
@@ -104,7 +103,7 @@ class OpenID_ServiceEndpointsTest extends PHPUnit_Framework_TestCase
         $services = new OpenID_ServiceEndpoints($this->identifier,
                                                 $this->badService);
 
-        $this->assertType('OpenID_ServiceEndpoints', $this->object);
+        $this->assertInstanceOf('OpenID_ServiceEndpoints', $this->object);
         $this->assertEquals($this->identifier, $this->object->getIdentifier());
     }
 
@@ -128,7 +127,7 @@ class OpenID_ServiceEndpointsTest extends PHPUnit_Framework_TestCase
     public function testAddServiceSuccess()
     {
         $this->object->addService($this->goodService);
-        $this->assertType('OpenID_ServiceEndpoint', $this->object[0]);
+        $this->assertInstanceOf('OpenID_ServiceEndpoint', $this->object[0]);
         $this->assertEquals($this->goodService, $this->object[0]);
     }
 
@@ -142,13 +141,13 @@ class OpenID_ServiceEndpointsTest extends PHPUnit_Framework_TestCase
         $this->object->addService($this->goodService);
         $iterator = $this->object->getIterator();
 
-        $this->assertType('ArrayIterator', $iterator);
-        $this->assertType('bool', $iterator->valid());
+        $this->assertInstanceOf('ArrayIterator', $iterator);
+        $this->assertInternalType('bool', $iterator->valid());
         $this->assertTrue($iterator->valid());
-        $this->assertType('OpenID_ServiceEndpoint', $iterator->current());
+        $this->assertInstanceOf('OpenID_ServiceEndpoint', $iterator->current());
         $this->assertEquals($this->goodService, $iterator->current());
         $iterator->next();
-        $this->assertType('bool', $iterator->valid());
+        $this->assertInternalType('bool', $iterator->valid());
         $this->assertFalse($iterator->valid());
     }
 
@@ -165,7 +164,7 @@ class OpenID_ServiceEndpointsTest extends PHPUnit_Framework_TestCase
 
         $this->object[$index] = $this->goodService;
 
-        $this->assertType('OpenID_ServiceEndpoint', $this->object[$index]);
+        $this->assertInstanceOf('OpenID_ServiceEndpoint', $this->object[$index]);
         $this->assertEquals($this->goodService, $this->object[$index]);
     
         unset($this->object[$index]);
@@ -187,7 +186,7 @@ class OpenID_ServiceEndpointsTest extends PHPUnit_Framework_TestCase
 
         $count = count($this->object);
 
-        $this->assertType('int', $count);
+        $this->assertInternalType('int', $count);
         $this->assertEquals(4, $count);
     }
 }
