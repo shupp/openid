@@ -21,5 +21,5 @@ You can try the examples here: http://shupp.org/openid/examples
 
 A couple of notes about this package:
 
-    * There is 100% code coverage, and full CS compliance with PHP_CodeSniffer 1.1.0.
+    * There is 88% code coverage, and full CS compliance with PHP_CodeSniffer 1.1.0.
     * This package meets all test-id.net tests with the exception of SSL validation, as that doesn’t work well in curl for some reason (I’m investigating it).
