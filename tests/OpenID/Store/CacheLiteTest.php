@@ -39,15 +39,28 @@ class OpenID_Store_CacheLiteTest extends PHPUnit_Framework_TestCase
     protected $cache = null;
 
     /**
+     * Determines the location of the temporary cache directory
+     * 
+     * @return string
+     */
+    protected function getCacheDir()
+    {
+        return '/tmp/' . __CLASS__;
+    }
+
+    /**
      * setUp 
      * 
      * @return void
      */
     public function setUp()
     {
-        $this->cache = new OpenID_Store_CacheLite;
-    }
+        $options = array(
+            'cacheDir' => $this->getCacheDir()
+        );
 
+        $this->cache = new OpenID_Store_CacheLite($options);
+    }
     /**
      * tearDown 
      * 
@@ -56,6 +69,7 @@ class OpenID_Store_CacheLiteTest extends PHPUnit_Framework_TestCase
     public function tearDown()
     {
         $this->cache = null;
+        shell_exec('rm -rf ' . $this->getCacheDir());
     }
 
     /**

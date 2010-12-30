@@ -42,6 +42,13 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
     protected $cache = null;
 
     /**
+     * Options currently in use
+     * 
+     * @var array
+     */
+    protected $options = array();
+
+    /**
      * Default options for Cache_Lite
      * 
      * @var array
@@ -72,8 +79,8 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
      */
     public function __construct(array $options = array())
     {
-        $options     = array_merge($this->defaultOptions, $options);
-        $this->cache = new Cache_Lite($options);
+        $this->options = array_merge($this->defaultOptions, $options);
+        $this->cache   = new Cache_Lite($this->options);
     }
 
     /**
@@ -264,7 +271,7 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
      */
     protected function setOptions($key, $expire = null)
     {
-        $cacheDir  = $this->defaultOptions['cacheDir'] . '/openid/';
+        $cacheDir  = $this->options['cacheDir'] . '/openid/';
         $cacheDir .= rtrim($this->storeDirectories[$key], '/') . '/';
 
         $this->ensureDirectoryExists($cacheDir);
