@@ -289,7 +289,8 @@ class OpenID_RelyingParty extends OpenID
 
         $discover        = $this->getDiscover();
         $serviceEndpoint = $discover->services[0];
-        $opEndpointURL   = array_shift($serviceEndpoint->getURIs());
+        $URIs            = $serviceEndpoint->getURIs();
+        $opEndpointURL   = array_shift($URIs);
         $assertion       = $this->getAssertionObject($message, $requestedURL);
 
         $result->setDiscover($discover);

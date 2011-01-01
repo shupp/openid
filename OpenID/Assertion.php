@@ -201,7 +201,8 @@ class OpenID_Assertion extends OpenID
             );
         }
 
-        $opURL = array_shift($discover->services[0]->getURIs());
+        $URIs  = $discover->services[0]->getURIs();
+        $opURL = array_shift($URIs);
         if ($opURL !== $this->message->get('openid.op_endpoint')) {
             throw new OpenID_Assertion_Exception(
                 'This OP is not authorized to issue assertions for this claimed id'
@@ -259,7 +260,8 @@ class OpenID_Assertion extends OpenID
         $nonce     = $qs[OpenID_Nonce::RETURN_TO_NONCE];
         $discover  = $this->getDiscover($identity);
         $endPoint  = $discover->services[0];
-        $opURL     = array_shift($endPoint->getURIs());
+        $URIs      = $endPoint->getURIs();
+        $opURL     = array_shift($URIs);
         $fromStore = self::getStore()->getNonce(urldecode($nonce), $opURL);
 
         // Observing

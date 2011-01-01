@@ -133,7 +133,7 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
     {
         $this->setOptions(self::TYPE_ASSOCIATION);
 
-        return $this->cache->remove(md5($uri));
+        return $this->removeFromCache(md5($uri));
     }
 
     /**
@@ -185,7 +185,7 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
 
         $key = $this->getDiscoverCacheKey($identifier);
 
-        return $this->cache->remove($key);
+        return $this->removeFromCache($key);
     }
 
     /**
@@ -243,7 +243,7 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
     {
         $this->setOptions(self::TYPE_NONCE);
 
-        return $this->cache->remove($this->getNonceCacheKey($nonce, $opURL));
+        return $this->removeFromCache($this->getNonceCacheKey($nonce, $opURL));
     }
 
     /**
@@ -281,6 +281,22 @@ class OpenID_Store_CacheLite implements OpenID_Store_Interface
         if ($expire !== null) {
             $this->cache->setOption('lifeTime', $expire);
         }
+    }
+
+    /**
+     * This is a warpper for Cache_Lite::remove(), since it generates
+     * strict warnings.
+     * 
+     * @param mixed $key The key to remove from cache
+     * 
+     * @return result of Cache_Lite::remove(), without the strict warnings
+     */
+    protected function removeFromCache($key)
+    {
+        $current = error_reporting();
+        error_reporting($current & ~E_STRICT);
+        $this->cache->remove($key);
+        error_reporting($current);
     }
 
     /**

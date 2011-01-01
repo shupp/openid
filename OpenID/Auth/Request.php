@@ -248,7 +248,9 @@ class OpenID_Auth_Request
         if ($this->nonce instanceof OpenID_Nonce) {
             return $this->nonce;
         }
-        return new OpenID_Nonce(array_shift($this->serviceEndpoint->getURIs()));
+        $URIs  = $this->serviceEndpoint->getURIs();
+        $nonce = array_shift($URIs);
+        return new OpenID_Nonce($nonce);
     }
 
     /**
