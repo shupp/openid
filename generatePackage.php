@@ -26,16 +26,15 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.3.0');
-$packagexml->setReleaseVersion('0.3.0');
+$packagexml->setAPIVersion('0.3.1');
+$packagexml->setReleaseVersion('0.3.1');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
 $packagexml->setNotes('
-* Updates to work with Services_Yadis 0.5 and PHPUnit 3.5
-* Fixed bug in OpenID_Store where the driver was instantiated twice
+* Fixes E_STRICT warnings, per GitHub issue #1
 ');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
@@ -55,7 +54,7 @@ $packagexml->addPackageDepWithChannel('required', 'PEAR', 'pear.php.net', '1.4.0
 $packagexml->addPackageDepWithChannel('required', 'HTTP_Request2', 'pear.php.net', '0.5.1');
 $packagexml->addPackageDepWithChannel('required', 'Cache_Lite', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Crypt_DiffieHellman', 'pear.php.net');
-$packagexml->addPackageDepWithChannel('required', 'Services_Yadis', 'pear.php.net', '0.5.0');
+$packagexml->addPackageDepWithChannel('required', 'Services_Yadis', 'pear.php.net', '0.5.1');
 $packagexml->addPackageDepWithChannel('optional', 'Log', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Net_URL2', 'pear.php.net', '0.2.0');
 $packagexml->addPackageDepWithChannel('optional', 'MDB2', 'pear.php.net');
