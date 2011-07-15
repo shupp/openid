@@ -28,15 +28,16 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.3.1');
-$packagexml->setReleaseVersion('0.3.1');
+$packagexml->setAPIVersion('0.3.2');
+$packagexml->setReleaseVersion('0.3.2');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
 $packagexml->setNotes('
-* Fixes E_STRICT warnings, per GitHub issue #1
+* Removed dependency on PEAR and PEAR_Exception
+* Disabled E_DEPRECATED notices when generating package.xml file
 ');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
