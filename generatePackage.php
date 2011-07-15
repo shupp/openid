@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 require_once('PEAR/PackageFileManager2.php');
 
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
@@ -50,7 +52,6 @@ $packagexml->setLicense('New BSD License',
 
 $packagexml->setPhpDep('5.1.2');
 $packagexml->setPearinstallerDep('1.4.0b1');
-$packagexml->addPackageDepWithChannel('required', 'PEAR', 'pear.php.net', '1.4.0');
 $packagexml->addPackageDepWithChannel('required', 'HTTP_Request2', 'pear.php.net', '0.5.1');
 $packagexml->addPackageDepWithChannel('required', 'Cache_Lite', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Crypt_DiffieHellman', 'pear.php.net');
@@ -59,13 +60,13 @@ $packagexml->addPackageDepWithChannel('optional', 'Log', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('required', 'Net_URL2', 'pear.php.net', '0.2.0');
 $packagexml->addPackageDepWithChannel('optional', 'MDB2', 'pear.php.net');
 $packagexml->addPackageDepWithChannel('optional', 'HTTP_OAuth', 'pear.php.net', '0.1.7');
-$packagexml->addExtensionDep('required', 'date'); 
-$packagexml->addExtensionDep('required', 'dom'); 
-$packagexml->addExtensionDep('required', 'hash'); 
-$packagexml->addExtensionDep('required', 'libxml'); 
-$packagexml->addExtensionDep('required', 'mbstring'); 
-$packagexml->addExtensionDep('required', 'pcre'); 
-$packagexml->addExtensionDep('required', 'SPL'); 
+$packagexml->addExtensionDep('required', 'date');
+$packagexml->addExtensionDep('required', 'dom');
+$packagexml->addExtensionDep('required', 'hash');
+$packagexml->addExtensionDep('required', 'libxml');
+$packagexml->addExtensionDep('required', 'mbstring');
+$packagexml->addExtensionDep('required', 'pcre');
+$packagexml->addExtensionDep('required', 'SPL');
 
 
 $packagexml->generateContents();
