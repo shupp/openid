@@ -36,7 +36,7 @@ require_once 'OpenID/Nonce.php';
 class OpenID_Auth_RequestTest extends PHPUnit_Framework_TestCase
 {
     protected $authRequest = null;
-    protected $identifier  = 'http://user.example.com';
+    protected $identifier  = 'http://user.example.com/';
     protected $returnTo    = 'http://examplerp.com';
     protected $opURL       = 'http://exampleop.com';
     protected $realm       = 'http://example.com';

@@ -294,6 +294,9 @@ class OpenID
         if (!preg_match('@^http[s]?://@i', $identifier)) {
             $identifier = 'http://' . $identifier;
         }
+        if (strpos($identifier, '/', 8) === false) {
+            $identifier .= '/';
+        }
         if (filter_var($identifier, FILTER_VALIDATE_URL)) {
             return $identifier;
         }

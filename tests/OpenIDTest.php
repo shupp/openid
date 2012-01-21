@@ -63,8 +63,30 @@ class OpenIDTest extends PHPUnit_Framework_TestCase
         // $this->assertSame('=example',
         //                   OpenID::normalizeIdentifier('xri://=example'));
         // $this->assertSame('=example', OpenID::normalizeIdentifier('=example'));
-        $this->assertSame('http://example.com',
+        $this->assertSame('http://example.com/',
                           OpenID::normalizeIdentifier('example.com'));
+    }
+
+    public function testNormalizeIdentifierPathStaysIntact()
+    {
+        $this->assertEquals(
+            'http://example.org/foo',
+            OpenID::normalizeIdentifier('example.org/foo')
+        );
+        $this->assertEquals(
+            'http://example.org/bar/',
+            OpenID::normalizeIdentifier('example.org/bar/')
+        );
+
+        //edge cases
+        $this->assertEquals(
+            'https://e/',
+            OpenID::normalizeIdentifier('https://e/')
+        );
+        $this->assertEquals(
+            'https://e/',
+            OpenID::normalizeIdentifier('https://e')
+        );
     }
 
     /**
