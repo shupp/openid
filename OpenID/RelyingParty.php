@@ -148,12 +148,13 @@ class OpenID_RelyingParty extends OpenID
      * Sets the identifier, returnTo, and realm to be used for messages.  The 
      * identifier is normalized before being set.
      * 
-     * @param mixed $returnTo   The openid.return_to paramater value
-     * @param mixed $realm      The openid.realm paramater value
+     * @param mixed $returnTo   The openid.return_to parameter value
+     * @param mixed $realm      The openid.realm parameter value
      * @param mixed $identifier The user supplied identifier, defaults to null
      * 
      * @see OpenID::normalizeIdentifier
-     * @return void
+     *
+     * @throws OpenID_Exception When the identifier is invalid
      */
     public function __construct($returnTo, $realm, $identifier = null)
     {
