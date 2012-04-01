@@ -37,6 +37,7 @@ $packagexml->setAPIStability('alpha');
 
 $packagexml->setNotes('
 * Fix bug #19234: Normalization of identifiers/openID not implemented correctly
+* Some doc block fixes
 ');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
