@@ -28,16 +28,15 @@ $packagexml->setDescription(
 );
 
 $packagexml->setChannel('pear.php.net');
-$packagexml->setAPIVersion('0.3.2');
-$packagexml->setReleaseVersion('0.3.2');
+$packagexml->setAPIVersion('0.3.3');
+$packagexml->setReleaseVersion('0.3.3');
 
 $packagexml->setReleaseStability('alpha');
 
 $packagexml->setAPIStability('alpha');
 
 $packagexml->setNotes('
-* Removed dependency on PEAR and PEAR_Exception
-* Disabled E_DEPRECATED notices when generating package.xml file
+* Fix bug #19234: Normalization of identifiers/openID not implemented correctly
 ');
 $packagexml->setPackageType('php');
 $packagexml->addRelease();
