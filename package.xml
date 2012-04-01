@@ -14,7 +14,7 @@
   <active>yes</active>
  </lead>
  <date>2012-04-01</date>
- <time>13:10:36</time>
+ <time>13:12:06</time>
  <version>
   <release>0.3.3</release>
   <api>0.3.3</api>
@@ -186,7 +186,6 @@
     </dir> <!-- /tests/OpenID -->
     <file name="OpenIDTest.php" role="test" />
    </dir> <!-- /tests -->
-   <file name="OpenID-0.3.3.tgz" role="data" />
    <file name="OpenID.php" role="php" />
    <file name="README" role="data" />
   </dir> <!-- / -->
