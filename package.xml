@@ -14,7 +14,7 @@
   <active>yes</active>
  </lead>
  <date>2012-04-01</date>
- <time>13:03:05</time>
+ <time>13:10:36</time>
  <version>
   <release>0.3.3</release>
   <api>0.3.3</api>
@@ -26,6 +26,7 @@
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
  <notes>
 * Fix bug #19234: Normalization of identifiers/openID not implemented correctly
+* Some doc block fixes
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -185,6 +186,7 @@
     </dir> <!-- /tests/OpenID -->
     <file name="OpenIDTest.php" role="test" />
    </dir> <!-- /tests -->
+   <file name="OpenID-0.3.3.tgz" role="data" />
    <file name="OpenID.php" role="php" />
    <file name="README" role="data" />
   </dir> <!-- / -->
@@ -518,6 +520,7 @@ Initial release
    <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD License</license>
    <notes>
 * Fix bug #19234: Normalization of identifiers/openID not implemented correctly
+* Some doc block fixes
    </notes>
   </release>
  </changelog>
